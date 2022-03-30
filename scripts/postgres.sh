@@ -43,7 +43,7 @@ psql_check () {
         psql_start
         return
     fi
-    error1 "${PSQL_CONTAINER_NAME} FAILED."
+    echo -e "[PSQL] ${PSQL_CONTAINER_NAME} IS UP."
 }
 
 psql_start () {

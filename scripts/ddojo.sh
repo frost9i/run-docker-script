@@ -17,11 +17,11 @@ DD_CONTAINER_RABBITMQ='rabbitmq'
 DD_RABBITMQ_USER="${DD_SERVICE_NAME}"
 DD_RABBITMQ_PASS="${DD_SERVICE_NAME}"
 
-DD_LIST="${DD_CONTAINER_UWSGI} \
-    ${DD_CONTAINER_NGINX} \
-    ${DD_CONTAINER_BEAT} \
-    ${DD_CONTAINER_WORKER} \
-    ${DD_CONTAINER_RABBITMQ}"
+DD_LIST=("${DD_CONTAINER_UWSGI}"
+    "${DD_CONTAINER_NGINX}"
+    "${DD_CONTAINER_BEAT}"
+    "${DD_CONTAINER_WORKER}"
+    "${DD_CONTAINER_RABBITMQ}")
 
 dd_uwsgi_start () {
     docker_container_start ${DD_CONTAINER_UWSGI}
@@ -44,47 +44,44 @@ dd_start () {
     dd_nginx_start
     dd_beat_start
     dd_worker_start
+    dd_rabbitmq_start
 }
 
 dd_stop () {
     echo -e "[STOP] ${DD_SERVICE_NAME}"
-    if docker stop ${DD_LIST}
-    then
-        echo -e '[STOP] SUCCESS.'
-        return
-    fi
-    error1
-}
-
-dd_check () {
-    if ! docker ps -a --format "{{ .Names}}" | grep -i ${DD_CONTAINER_UWSGI}
-    then
-        return 0
-    fi
-    error1 "${DD_CONTAINER_UWSGI} MISSING."
+    for CONTAINER in "${DD_LIST[@]}"
+    do
+        docker stop "${CONTAINER}"
+    done
+    echo -e '[STOP] SUCCESS.'
+    return
 }
 
 dd_status () {
-    
+    for CONTAINER in ${DD_LIST[@]}
+    do
+        docker_is_running ${CONTAINER}
+    done
 }
 
 dd_delete () {
-    if dd_check
+    if docker_container_check "${DD_CONTAINER_UWSGI}"
     then
         if script_ask "DELETE ALL ${DD_SERVICE_NAME} CONTAINERS?"
         then
-            if docker rm -f ${DD_LIST}
-            then
-                echo -e "[DELETE] SUCCESS."
-                return
-            fi
+            for CONTAINER in "${DD_LIST[@]}"
+            do
+                docker rm -f "${CONTAINER}"
+            done
+            echo -e "[DELETE] SUCCESS."
+            return
         fi
     fi
     error1
 }
 
 dd_psql_init () {
-    if psql_db_create ${DD_PSQL_DATABASE} ${PSQL_ROOT_USER}
+    if psql_db_create "${DD_PSQL_DATABASE}" "${PSQL_ROOT_USER}"
     then
         echo -e "[PSQL] SUCCESS."
         return
@@ -128,7 +125,7 @@ dd_init () {
     fi
 }
 
-rabbitmq_start () {
+dd_rabbitmq_start () {
     docker_container_start ${DD_CONTAINER_RABBITMQ}
 }
 

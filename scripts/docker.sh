@@ -28,12 +28,26 @@ docker_home_check () {
 }
 
 docker_stop () {
-    echo -e '[STOP]'
-    if ! docker ps -q | xargs docker stop
+    echo -e '[STOP] FULL STOP'
+    if ! docker ps -q | xargs docker stop 2>/dev/null
     then
         echo -e '[ERROR] No containers were up.'
+        return
     fi
     echo -e '[STOP] DONE.'
+}
+
+docker_is_running () {
+    if docker_container_check "${1}"
+    then
+        if docker ps --format "{{ .Names}}" | grep -i "${1}" >> /dev/null
+        then
+            echo -e "[CHECK] "${1}" RUNNING."
+            return
+        fi
+        echo -e "[CHECK] "${1}" STOPPED."
+        return
+    fi
 }
 
 docker_container_check () {

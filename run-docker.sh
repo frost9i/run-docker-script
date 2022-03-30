@@ -12,16 +12,16 @@ source ./scripts/postgres.sh
 source ./scripts/ddojo.sh
 
 error1 () {
-    if [ -z ${1} ]
+    if [ -z "${1}" ]
     then
-        echo -e '[!] Something wrong.'
+        echo -e "[!] Something wrong."
     else
-        echo -e "[ERROR] $1"
+        echo -e "[ERROR] ${1}"
     fi
 }
 
 error2 () {
-    echo -e '[?] TBD'
+    echo -e "[?] TBD"
 }
 
 fail1 () {
@@ -102,6 +102,37 @@ submenu_dd () {
     done
 }
 
+# DependencyTrack launch and setup submenu
+submenu_dt () {
+    local PS3='>> DependencyTrack Controls: '
+    local options=('START DependencyTrack' 'STOP DependencyTrack' 'INITIALIZE DependencyTrack' 'STATUS' 'DELETE DependencyTrack' 'Return')
+    local opt
+    select opt in "${options[@]}"
+    do
+        case $opt in
+            'START DependencyTrack')
+                dt_start
+                ;;
+            'STOP DependencyTrack')
+                dt_stop
+                ;;
+            'INITIALIZE DependencyTrack')
+                dt_init
+                ;;
+            'STATUS')
+                dt_status
+                ;;
+            'DELETE DependencyTrack')
+                dt_delete
+                ;;
+            'Return')
+                return
+                ;;
+            *) echo "invalid option $REPLY";;
+        esac
+    done
+}
+
 # START HERE ->
 date
 docker_check
@@ -125,7 +156,7 @@ do
             ;;
         'DependencyTrack')
             echo -e '\n>> DependencyTrack Controls'
-            submenu_psql
+            submenu_dt
             ;;
         'Docker FULL STOP')
             docker_stop
