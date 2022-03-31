@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# DOCKER_MY_HOME="C:/Users/your_name"
-# must be set as environmental variable
-
 DD_SERVICE_NAME='defectdojo'
 DD_PSQL_DATABASE="${DD_SERVICE_NAME}"
 
@@ -96,7 +93,11 @@ dd_init () {
 
     dd_psql_init
 
-    if docker_container_create ${DD_CONTAINER_UWSGI} dd_uwsgi
+    if script_ask 'Enable external dojo-app folder?'
+        DD_APP_DIR="-v ${DOCKER_MY_HOME}/ddojo-app:/app"
+    fi
+
+    if docker_container_create ${DD_CONTAINER_UWSGI} dd_uwsgi "${DD_APP_DIR}"
     then
         if docker exec -it "${DD_CONTAINER_UWSGI}" ./../entrypoint-initializer.sh
         then
@@ -141,9 +142,9 @@ dd_rabbitmq () {
     rabbitmq:latest
 }
 
-# -v ${DOCKER_MY_HOME}/docker/ddojo-app:/app \
+# -v ${DOCKER_MY_HOME}/ddojo-app:/app \
 dd_uwsgi () {
-    docker run -d \
+    docker run -d ${1} \
     --name ${DD_CONTAINER_UWSGI} \
     --network ${DOCKER_NETWORK_NAME} \
     --entrypoint='//entrypoint-uwsgi.sh' \

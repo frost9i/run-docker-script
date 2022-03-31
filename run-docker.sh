@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# DOCKER_MY_HOME="C:/Users/your_name"
+# DOCKER_MY_HOME="C:/Users/your_name/docker"
 # must be set as environmental variable
 
 # VARIABLES
@@ -45,7 +45,8 @@ skip1 () {
 }
 
 script_ask () {
-    read -p "$1 [y/n]: " -n 1 -r
+    echo ''
+    read -p "[PRESS] ${1} [y/n]: " -n 1 -r
     echo ''
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
