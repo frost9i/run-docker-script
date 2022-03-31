@@ -141,11 +141,11 @@ dd_rabbitmq () {
     rabbitmq:latest
 }
 
+# -v ${DOCKER_MY_HOME}/docker/ddojo-app:/app \
 dd_uwsgi () {
     docker run -d \
     --name ${DD_CONTAINER_UWSGI} \
     --network ${DOCKER_NETWORK_NAME} \
-    -v ${DOCKER_MY_HOME}/docker/ddojo-app:/app \
     --entrypoint='//entrypoint-uwsgi.sh' \
     -e DD_ALLOWED_HOSTS='*' \
     -e DD_CELERY_BROKER_HOST=${DD_CONTAINER_RABBITMQ} \
