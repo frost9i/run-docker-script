@@ -48,7 +48,7 @@ dd_start () {
 }
 
 dd_stop () {
-    echo -e "[STOP] ${DD_SERVICE_NAME}"
+    echo -e "[STOP] DEFECTDOJO"
     for CONTAINER in "${DD_LIST[@]}"
     do
         docker stop "${CONTAINER}"
@@ -60,7 +60,7 @@ dd_stop () {
 dd_status () {
     for CONTAINER in ${DD_LIST[@]}
     do
-        docker_is_running ${CONTAINER}
+        docker_container_status ${CONTAINER}
     done
 }
 
@@ -96,30 +96,30 @@ dd_init () {
 
     dd_psql_init
 
-    if dd_uwsgi
+    if docker_container_create ${DD_CONTAINER_UWSGI} dd_uwsgi
     then
-        if docker exec -it ${DD_CONTAINER_UWSGI} ./../entrypoint-initializer.sh
+        if docker exec -it "${DD_CONTAINER_UWSGI}" ./../entrypoint-initializer.sh
         then
-            echo "[INIT] ${DD_CONTAINER_UWSGI} SUCCESS."
+            echo -e "[INIT] ${DD_CONTAINER_UWSGI} SUCCESS."
         fi
     fi
 
-    if dd_nginx
+    if docker_container_create ${DD_CONTAINER_NGINX} dd_nginx
     then
         echo "[INIT] ${DD_CONTAINER_NGINX} SUCCESS."
     fi
 
-    if dd_beat
+    if docker_container_create ${DD_CONTAINER_BEAT} dd_beat
     then
         echo "[INIT] ${DD_CONTAINER_BEAT} SUCCESS."
     fi
 
-    if dd_worker
+    if docker_container_create ${DD_CONTAINER_WORKER} dd_worker
     then
         echo "[INIT] ${DD_CONTAINER_WORKER} SUCCESS."
     fi
 
-    if dd_rabbitmq
+    if docker_container_create ${DD_CONTAINER_RABBITMQ} dd_rabbitmq
     then
         echo "[INIT] ${DD_CONTAINER_RABBITMQ} SUCCESS."
     fi
@@ -129,17 +129,16 @@ dd_rabbitmq_start () {
     docker_container_start ${DD_CONTAINER_RABBITMQ}
 }
 
+# Enable RabbitMQ web management plugin
+# docker exec -it ${DD_CONTAINER_RABBITMQ} rabbitmq-plugins enable rabbitmq_management
+# -p 5672:5672 -p 15672:15672
 dd_rabbitmq () {
     docker run -d \
-    # -p 5672:5672 -p 15672:15672 \
     --name ${DD_CONTAINER_RABBITMQ} \
     --network ${DOCKER_NETWORK_NAME} \
     -e RABBITMQ_DEFAULT_USER=${DD_RABBITMQ_USER} \
     -e RABBITMQ_DEFAULT_PASS=${DD_RABBITMQ_PASS} \
     rabbitmq:latest
-
-    # Enable RabbitMQ web management plugin
-    # docker exec -it ${DD_CONTAINER_RABBITMQ} rabbitmq-plugins enable rabbitmq_management
 }
 
 dd_uwsgi () {

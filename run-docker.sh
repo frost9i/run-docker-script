@@ -4,7 +4,7 @@
 # must be set as environmental variable
 
 # VARIABLES
-DOCKER_NETWORK_NAME='ffx'
+DOCKER_NETWORK_NAME='docker-net'
 
 source ./scripts/docker.sh
 source ./scripts/network.sh
@@ -15,6 +15,7 @@ error1 () {
     if [ -z "${1}" ]
     then
         echo -e "[!] Something wrong."
+        exit 1
     else
         echo -e "[ERROR] ${1}"
     fi
@@ -28,8 +29,18 @@ fail1 () {
     if [ -z ${1} ]
     then
         echo -e "[FAIL]"
+        return 1
+    fi
+    echo -e "[FAIL] ${1}"
+    return 1
+}
+
+skip1 () {
+    if [ -z "${1}" ]
+    then
+        echo -e "[SKIPPED]"
     else
-        echo -e "[FAIL] ${1}"
+        echo -e "[SKIP] ${1}"
     fi
 }
 

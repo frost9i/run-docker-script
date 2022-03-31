@@ -3,7 +3,7 @@
 # source ./scripts/network.sh
 
 PSQL_CONTAINER_NAME='postgres'
-PSQL_CONTAINER_PORT='5432'
+PSQL_CONTAINER_PORT='54321'
 PSQL_ROOT_USER='pgown'
 PSQL_ROOT_PASS='pass'
 
@@ -50,6 +50,7 @@ psql_start () {
     echo -e "[START] ${PSQL_CONTAINER_NAME}"
     if docker start ${PSQL_CONTAINER_NAME} > /dev/null
     then
+        sleep 5
         echo -e '[START] SUCCESS.'
         return
     fi
@@ -67,14 +68,9 @@ psql_stop () {
 }
 
 psql_create () {
-    if docker run -d \
-    -p ${PSQL_CONTAINER_PORT}:5432 \
-    --name ${PSQL_CONTAINER_NAME} \
-    --network ${DOCKER_NETWORK_NAME} \
-    -e POSTGRES_USER=${PSQL_ROOT_USER} \
-    -e POSTGRES_PASSWORD=${PSQL_ROOT_PASS} \
-    postgres:11-buster > /dev/null
+    if psql_server > /dev/null
     then
+        sleep 5
         echo -e "[CREATE] ${PSQL_CONTAINER_NAME} created."
         return
     fi
@@ -117,3 +113,12 @@ psql_cli () {
     echo -n '[CHECK] ' && psql --version
 }
 
+psql_server () {
+    docker run -d \
+    -p ${PSQL_CONTAINER_PORT}:5432 \
+    --name ${PSQL_CONTAINER_NAME} \
+    --network ${DOCKER_NETWORK_NAME} \
+    -e POSTGRES_USER=${PSQL_ROOT_USER} \
+    -e POSTGRES_PASSWORD=${PSQL_ROOT_PASS} \
+    postgres:11-buster
+}

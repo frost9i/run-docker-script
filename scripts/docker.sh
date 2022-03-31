@@ -1,14 +1,13 @@
 #!/bin/bash
 
 docker_check () {
-    if ! docker -v
+    if ! docker ps 2>&1 > /dev/null
     then
         echo -e '[ERROR] Docker daemon is not running'
-        echo -e '\nStart it manually and restart the script.'
+        echo -e '[USER] Start Docker manually and restart the script.'
         exit 1
-    else
-        echo -e '[CHECK] System check PASSED.'
     fi
+    echo -e '[CHECK] System check PASSED.'
 }
 
 docker_home_check () {
@@ -35,17 +34,18 @@ docker_stop () {
         return
     fi
     echo -e '[STOP] DONE.'
+    return
 }
 
-docker_is_running () {
+docker_container_status () {
     if docker_container_check "${1}"
     then
         if docker ps --format "{{ .Names}}" | grep -i "${1}" >> /dev/null
         then
-            echo -e "[CHECK] "${1}" RUNNING."
+            echo -e "[STATUS] "${1}" RUNNING."
             return
         fi
-        echo -e "[CHECK] "${1}" STOPPED."
+        echo -e "[STATUS] "${1}" STOPPED."
         return
     fi
 }
@@ -59,6 +59,19 @@ docker_container_check () {
     return 1
 }
 
+docker_container_create () {
+    if ! docker_container_check "${1}"
+    then
+        echo -e "[CREATE] ${1}"
+        if "${2}"
+        then
+            echo "[CREATE] SUCCESS."
+        fi
+    else
+        skip1 "${1}"
+    fi
+}
+
 docker_container_start () {
     if docker_container_check ${1}
     then
@@ -66,7 +79,7 @@ docker_container_start () {
         if docker start ${1} > /dev/null
         then
             echo -e "[START] SUCCESS."
-            return
+            return 0
         fi
     fi
     fail1 ${1}
