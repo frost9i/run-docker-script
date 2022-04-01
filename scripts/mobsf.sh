@@ -3,6 +3,38 @@
 MOBSF_CONTAINER_NAME='mobsf'
 MOBSF_PSQL_DATABASE="${MOBSF_CONTAINER_NAME}"
 
+# MOBSF SUB-MENU
+submenu_mobsf () {
+    local PS3='>>> MOBSF CONTROLS: '
+    local options=('START' 'STOP' 'INITIALIZE' 'STATUS' 'DELETE' 'QUIT')
+    local opt
+    select opt in "${options[@]}"
+    do
+        case $opt in
+            'START')
+                docker_container_start "${MOBSF_CONTAINER_NAME}"
+                ;;
+            'STOP')
+                docker_container_stop "${MOBSF_CONTAINER_NAME}"
+                ;;
+            'INITIALIZE')
+                mobsf_init
+                ;;
+            'STATUS')
+                docker_container_status "${MOBSF_CONTAINER_NAME}"
+                ;;
+            'DELETE')
+                docker_container_delete "${MOBSF_CONTAINER_NAME}"
+                ;;
+            'QUIT')
+                PS3='\n>> SECURITY Tools: '
+                return
+                ;;
+            *) echo "invalid option $REPLY";;
+        esac
+    done
+}
+
 mobsf () {
     docker run -d \
     -p 8000:8000 \

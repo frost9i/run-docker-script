@@ -15,103 +15,6 @@ source ./scripts/pentest.sh
 source ./scripts/jenkins.sh
 source ./scripts/echo.sh
 
-# PostgreSQL launch and setup submenu
-submenu_psql () {
-    local PS3='>>> POSTGRES Controls: '
-    local options=('START Postgres' 'STOP Postgres' 'DELETE Postgres' 'STATUS' 'QUIT')
-    local opt
-    select opt in "${options[@]}"
-    do
-        case $opt in
-            'START Postgres')
-                psql_check
-                ;;
-            'STOP Postgres')
-                psql_stop
-                ;;
-            'DELETE Postgres')
-                psql_delete
-                ;;
-            'STATUS')
-                psql_status
-                ;;
-            'QUIT')
-                return
-                ;;
-            *) echo "invalid option $REPLY";;
-        esac
-    done
-}
-
-# DefectDojo launch and setup submenu
-submenu_dd () {
-    local PS3='>> DefectDojo Controls: '
-    local options=('START DefectDojo' 'STOP DefectDojo' 'INITIALIZE DefectDojo' 'STATUS' 'DELETE DefectDojo' 'QUIT')
-    local opt
-    select opt in "${options[@]}"
-    do
-        case $opt in
-            'START DefectDojo')
-                dd_start
-                ;;
-            'STOP DefectDojo')
-                dd_stop
-                ;;
-            'INITIALIZE DefectDojo')
-                dd_init
-                ;;
-            'STATUS')
-                dd_status
-                ;;
-            'DELETE DefectDojo')
-                dd_delete
-                ;;
-            'QUIT')
-                return
-                ;;
-            *) echo "invalid option $REPLY";;
-        esac
-    done
-}
-
-# DependencyTrack launch and setup submenu
-submenu_dt () {
-    local PS3='>> DependencyTrack Controls: '
-    local options=('START DependencyTrack' 'STOP DependencyTrack' 'INITIALIZE DependencyTrack' 'STATUS' 'DELETE DependencyTrack' 'QUIT')
-    local opt
-    select opt in "${options[@]}"
-    do
-        case $opt in
-            'START DependencyTrack')
-                dt_start
-                ;;
-            'STOP DependencyTrack')
-                dt_stop
-                ;;
-            'INITIALIZE DependencyTrack')
-                dt_init
-                ;;
-            'STATUS')
-                dt_status
-                ;;
-            'DELETE DependencyTrack')
-                dt_delete
-                ;;
-            'QUIT')
-                return
-                ;;
-            *) echo "invalid option $REPLY";;
-        esac
-    done
-}
-
-# START HERE ->
-date
-docker_check
-docker_home_check
-psql_cli
-echo ''
-
 # DEVELOPER SUB-MENU
 submenu_developer () {
     PS3='>> [UNDER CONSTRUCTION] DEVELOPER Tools: '
@@ -128,6 +31,7 @@ submenu_developer () {
                 submenu_tbd
                 ;;
             'QUIT')
+                PS3='\n> MAIN MENU: '
                 return
                 ;;
             *) echo "invalid option $REPLY";;
@@ -138,19 +42,24 @@ submenu_developer () {
 # DEVOPS SUB-MENU
 submenu_devops () {
     PS3='>> DEVOPS Tools: '
-    options=('JENKINS' 'POSTGRES' 'QUIT')
+    options=('JENKINS' 'POSTGRES' 'DEBIAN' 'QUIT')
     select opt in "${options[@]}"
     do
         case $opt in
             'JENKINS')
                 echo -e '\n>>> JENKINS'
-                submenu_jenkins
+                submenu_tbd
                 ;;
             'POSTGRES')
                 echo -e '\n>>> POSTGRES'
                 submenu_psql
                 ;;
+            'DEBIAN')
+                echo -e '\n>>> DEBIAN'
+                submenu_tbd
+                ;;
             'QUIT')
+                PS3='\n> MAIN MENU: '
                 return
                 ;;
             *) echo "invalid option $REPLY";;
@@ -182,6 +91,7 @@ submenu_security () {
                 submenu_pt
                 ;;
             'QUIT')
+                PS3='\n> MAIN MENU: '
                 return
                 ;;
             *) echo "invalid option $REPLY";;
@@ -189,8 +99,15 @@ submenu_security () {
     done
 }
 
+# START HERE ->
+date
+docker_check
+docker_home_check
+psql_cli
+echo ''
+
 # MAIN MENU
-PS3='> MAIN MENU Docker script: '
+PS3='> MAIN MENU: '
 options=('SECURITY' 'DEVOPS' 'DEVELOPER' 'DOCKER FULL STOP' 'QUIT')
 select opt in "${options[@]}"
 do
@@ -212,7 +129,7 @@ do
             exit
             ;;
         'QUIT')
-            echo -e '[QUIT] Bye-bye.'
+            echo -e '\n[QUIT] Bye-bye.'
             exit
             ;;
         *) echo "invalid option $REPLY";;

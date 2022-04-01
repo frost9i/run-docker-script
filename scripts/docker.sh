@@ -73,6 +73,20 @@ docker_container_create () {
     fi
 }
 
+docker_container_delete () {
+    if docker_container_check "${1}"
+    then
+        echo -e "[DELETE] ${1}"
+        if docker rm -f "${1}"
+        then
+            echo "[DELETE] DONE."
+            return
+        fi
+        fail1
+    fi
+    fail1
+}
+
 docker_container_start () {
     if docker_container_check ${1}
     then
@@ -80,6 +94,19 @@ docker_container_start () {
         if docker start ${1} > /dev/null
         then
             echo -e "[START] SUCCESS."
+            return 0
+        fi
+    fi
+    fail1 ${1}
+}
+
+docker_container_stop () {
+    if docker_container_check ${1}
+    then
+        echo -e "[STOP] ${1}"
+        if docker stop ${1} > /dev/null
+        then
+            echo -e "[STOP] DONE."
             return 0
         fi
     fi

@@ -1,11 +1,38 @@
 #!/bin/bash
 
-# source ./scripts/network.sh
-
 PSQL_CONTAINER_NAME='postgres'
 PSQL_CONTAINER_PORT='54321'
 PSQL_ROOT_USER='pgown'
 PSQL_ROOT_PASS='pass'
+
+# POSTGRES SUB-MENU
+submenu_psql () {
+    local PS3='>>> POSTGRES Controls: '
+    local options=('START Postgres' 'STOP Postgres' 'DELETE Postgres' 'STATUS' 'QUIT')
+    local opt
+    select opt in "${options[@]}"
+    do
+        case $opt in
+            'START Postgres')
+                psql_check
+                ;;
+            'STOP Postgres')
+                psql_stop
+                ;;
+            'DELETE Postgres')
+                psql_delete
+                ;;
+            'STATUS')
+                psql_status
+                ;;
+            'QUIT')
+                PS3='\n>> DEVOPS Tools: '
+                return
+                ;;
+            *) echo "invalid option $REPLY";;
+        esac
+    done
+}
 
 psql_connect () {
     PGHOST=localhost \

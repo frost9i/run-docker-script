@@ -20,6 +20,38 @@ DD_LIST=("${DD_CONTAINER_UWSGI}"
     "${DD_CONTAINER_WORKER}"
     "${DD_CONTAINER_RABBITMQ}")
 
+# DEFECT-DOJO SUB-MENU
+submenu_dd () {
+    local PS3='>> DEFECT-DOJO Controls: '
+    local options=('START' 'STOP' 'INITIALIZE' 'STATUS' 'DELETE' 'QUIT')
+    local opt
+    select opt in "${options[@]}"
+    do
+        case $opt in
+            'START')
+                dd_start
+                ;;
+            'STOP')
+                dd_stop
+                ;;
+            'INITIALIZE')
+                dd_init
+                ;;
+            'STATUS')
+                dd_status
+                ;;
+            'DELETE')
+                dd_delete
+                ;;
+            'QUIT')
+                PS3='\n>> SECURITY Tools: '
+                return
+                ;;
+            *) echo "invalid option $REPLY";;
+        esac
+    done
+}
+
 dd_uwsgi_start () {
     docker_container_start ${DD_CONTAINER_UWSGI}
 }
