@@ -43,11 +43,12 @@ docker_container_status () {
         if docker ps --format "{{ .Names}}" | grep -i "${1}" >> /dev/null
         then
             echo -e "[STATUS] "${1}" RUNNING."
-            return
+            return 0
         fi
         echo -e "[STATUS] "${1}" STOPPED."
-        return
+        return 1
     fi
+    error1 "[STATUS]"
 }
 
 docker_container_check () {
@@ -83,4 +84,16 @@ docker_container_start () {
         fi
     fi
     fail1 ${1}
+}
+
+docker_container_restart () {
+    if docker_container_status
+    then
+        if docker restart "${1}" > /dev/null
+        then
+            echo -e "[RESTART] SUCCESS."
+            return
+        fi
+        error1
+    fi
 }

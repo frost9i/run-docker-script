@@ -10,55 +10,15 @@ source ./scripts/docker.sh
 source ./scripts/network.sh
 source ./scripts/postgres.sh
 source ./scripts/ddojo.sh
-
-error1 () {
-    if [ -z "${1}" ]
-    then
-        echo -e "[!] Something wrong."
-        exit 1
-    else
-        echo -e "[ERROR] ${1}"
-    fi
-}
-
-error2 () {
-    echo -e "[?] TBD"
-}
-
-fail1 () {
-    if [ -z ${1} ]
-    then
-        echo -e "[FAIL]"
-        return 1
-    fi
-    echo -e "[FAIL] ${1}"
-    return 1
-}
-
-skip1 () {
-    if [ -z "${1}" ]
-    then
-        echo -e "[SKIPPED]"
-    else
-        echo -e "[SKIP] ${1}"
-    fi
-}
-
-script_ask () {
-    echo ''
-    read -p "[PRESS] ${1} [y/n]: " -n 1 -r
-    echo ''
-    if [[ $REPLY =~ ^[Yy]$ ]]
-    then
-        return 0
-    fi
-    return 1
-}
+source ./scripts/mobsf.sh
+source ./scripts/pentest.sh
+source ./scripts/jenkins.sh
+source ./scripts/echo.sh
 
 # PostgreSQL launch and setup submenu
 submenu_psql () {
-    local PS3='>> PostgreSQL Controls: '
-    local options=('START Postgres' 'STOP Postgres' 'DELETE Postgres' 'STATUS' 'Return')
+    local PS3='>>> POSTGRES Controls: '
+    local options=('START Postgres' 'STOP Postgres' 'DELETE Postgres' 'STATUS' 'QUIT')
     local opt
     select opt in "${options[@]}"
     do
@@ -75,7 +35,7 @@ submenu_psql () {
             'STATUS')
                 psql_status
                 ;;
-            'Return')
+            'QUIT')
                 return
                 ;;
             *) echo "invalid option $REPLY";;
@@ -86,7 +46,7 @@ submenu_psql () {
 # DefectDojo launch and setup submenu
 submenu_dd () {
     local PS3='>> DefectDojo Controls: '
-    local options=('START DefectDojo' 'STOP DefectDojo' 'INITIALIZE DefectDojo' 'STATUS' 'DELETE DefectDojo' 'Return')
+    local options=('START DefectDojo' 'STOP DefectDojo' 'INITIALIZE DefectDojo' 'STATUS' 'DELETE DefectDojo' 'QUIT')
     local opt
     select opt in "${options[@]}"
     do
@@ -106,7 +66,7 @@ submenu_dd () {
             'DELETE DefectDojo')
                 dd_delete
                 ;;
-            'Return')
+            'QUIT')
                 return
                 ;;
             *) echo "invalid option $REPLY";;
@@ -117,7 +77,7 @@ submenu_dd () {
 # DependencyTrack launch and setup submenu
 submenu_dt () {
     local PS3='>> DependencyTrack Controls: '
-    local options=('START DependencyTrack' 'STOP DependencyTrack' 'INITIALIZE DependencyTrack' 'STATUS' 'DELETE DependencyTrack' 'Return')
+    local options=('START DependencyTrack' 'STOP DependencyTrack' 'INITIALIZE DependencyTrack' 'STATUS' 'DELETE DependencyTrack' 'QUIT')
     local opt
     select opt in "${options[@]}"
     do
@@ -137,7 +97,7 @@ submenu_dt () {
             'DELETE DependencyTrack')
                 dt_delete
                 ;;
-            'Return')
+            'QUIT')
                 return
                 ;;
             *) echo "invalid option $REPLY";;
@@ -152,29 +112,106 @@ docker_home_check
 psql_cli
 echo ''
 
-# main menu
-PS3='> Docker automation script MENU: '
-options=('DefectDojo' 'PostgreSQL' 'DependencyTrack' 'Docker FULL STOP' 'QUIT Script')
+# DEVELOPER SUB-MENU
+submenu_developer () {
+    PS3='>> [UNDER CONSTRUCTION] DEVELOPER Tools: '
+    options=('JRE' 'NPM' 'QUIT')
+    select opt in "${options[@]}"
+    do
+        case $opt in
+            'JRE')
+                echo -e '\n>>> JRE'
+                submenu_tbd
+                ;;
+            'NPM')
+                echo -e '\n>>> NPM'
+                submenu_tbd
+                ;;
+            'QUIT')
+                return
+                ;;
+            *) echo "invalid option $REPLY";;
+        esac
+    done
+}
+
+# DEVOPS SUB-MENU
+submenu_devops () {
+    PS3='>> DEVOPS Tools: '
+    options=('JENKINS' 'POSTGRES' 'QUIT')
+    select opt in "${options[@]}"
+    do
+        case $opt in
+            'JENKINS')
+                echo -e '\n>>> JENKINS'
+                submenu_jenkins
+                ;;
+            'POSTGRES')
+                echo -e '\n>>> POSTGRES'
+                submenu_psql
+                ;;
+            'QUIT')
+                return
+                ;;
+            *) echo "invalid option $REPLY";;
+        esac
+    done
+}
+
+# SECURITY SUB-MENU
+submenu_security () {
+    PS3='>> SECURITY Tools: '
+    options=('DEFECT-DOJO' 'DEPENDENCY-TRACK' 'MOBSF' 'PENTEST' 'QUIT')
+    select opt in "${options[@]}"
+    do
+        case $opt in
+            'DEFECT-DOJO')
+                echo -e '\n>>> DEFECT-DOJO'
+                submenu_dd
+                ;;
+            'DEPENDENCY-TRACK')
+                echo -e '\n>>> DEPENDENCY-TRACK'
+                submenu_dt
+                ;;
+            'MOBSF')
+                echo -e '\n>>> MOBSF'
+                submenu_mobsf
+                ;;
+            'PENTEST')
+                echo -e '\n>>> PENTEST'
+                submenu_pt
+                ;;
+            'QUIT')
+                return
+                ;;
+            *) echo "invalid option $REPLY";;
+        esac
+    done
+}
+
+# MAIN MENU
+PS3='> MAIN MENU Docker script: '
+options=('SECURITY' 'DEVOPS' 'DEVELOPER' 'DOCKER FULL STOP' 'QUIT')
 select opt in "${options[@]}"
 do
     case $opt in
-        'DefectDojo')
-            echo -e '\n>> DefectDojo Controls'
-            submenu_dd
+        'SECURITY')
+            echo -e '\n>> SECURITY Tools'
+            submenu_security
             ;;
-        'PostgreSQL')
-            echo -e '\n>> Postgres Controls'
-            submenu_psql
+        'DEVOPS')
+            echo -e '\n>> DEVOPS Tools'
+            submenu_devops
             ;;
-        'DependencyTrack')
-            echo -e '\n>> DependencyTrack Controls'
-            submenu_dt
+        'DEVELOPER')
+            echo -e '\n>> DEVELOPER Tools'
+            submenu_developer
             ;;
-        'Docker FULL STOP')
+        'DOCKER FULL STOP')
             docker_stop
             exit
             ;;
-        'QUIT Script')
+        'QUIT')
             echo -e '[QUIT] Bye-bye.'
             exit
             ;;

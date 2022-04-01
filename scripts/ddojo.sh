@@ -94,6 +94,7 @@ dd_init () {
     dd_psql_init
 
     if script_ask 'Enable external dojo-app folder?'
+    then
         DD_APP_DIR="-v ${DOCKER_MY_HOME}/ddojo-app:/app"
     fi
 
