@@ -36,10 +36,6 @@ submenu_mobsf () {
     done
 }
 
-# CREATE DATABASE mobsf;
-# CREATE DATABASE ffxdefectdojo;
-# GRANT ALL PRIVILEGES ON DATABASE mobsf TO pgown;
-
 mobsf () {
     docker run -d \
     -p "${CONTAINER_EXPOSED_PORT}":"${MOBSF_CONTAINER_PORT}" \
@@ -63,7 +59,7 @@ mobsf_init () {
         if mobsf
         then
             ## enable PostgreSQL support
-            docker exec "${MOBSF_CONTAINER_NAME}" ./scripts/postgres_support.sh True
+            docker exec -u root "${MOBSF_CONTAINER_NAME}" ./scripts/postgres_support.sh True
             if docker_container_restart "${MOBSF_CONTAINER_NAME}"
             then
                 echo -e "[INIT] ${MOBSF_CONTAINER_NAME} SUCCESS."

@@ -124,7 +124,7 @@ docker_container_stop () {
 }
 
 docker_container_restart () {
-    if docker_container_status
+    if docker_container_status ${1}
     then
         if docker restart "${1}" > /dev/null
         then

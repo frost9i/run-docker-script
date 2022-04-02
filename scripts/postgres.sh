@@ -8,7 +8,7 @@ PSQL_ROOT_PASS='pass'
 # POSTGRES SUB-MENU
 submenu_psql () {
     local PS3='>>> POSTGRES Controls: '
-    local options=('START Postgres' 'STOP Postgres' 'DELETE Postgres' 'STATUS' 'QUIT')
+    local options=('START' 'STOP' 'DELETE' 'STATUS' '' 'QUIT')
     local opt
     select opt in "${options[@]}"
     do
@@ -24,6 +24,9 @@ submenu_psql () {
                 ;;
             'STATUS')
                 psql_status
+                ;;
+            '')
+                submenu_todo
                 ;;
             'QUIT')
                 PS3='>> DEVOPS Tools: '
@@ -71,7 +74,7 @@ psql_check () {
         psql_start
         return
     fi
-    echo -e "[PSQL] ${PSQL_CONTAINER_NAME} IS UP."
+    echo -e "[PSQL] ${PSQL_CONTAINER_NAME} UP and RUNNING"
 }
 
 psql_start () {

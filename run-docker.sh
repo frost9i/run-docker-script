@@ -9,6 +9,7 @@ source ./scripts/echo.sh
 source ./scripts/postgres.sh
 source ./scripts/ddojo.sh
 source ./scripts/mobsf.sh
+source ./scripts/zap.sh
 source ./scripts/pentest.sh
 source ./scripts/jenkins.sh
 
@@ -21,11 +22,11 @@ submenu_developer () {
         case $opt in
             'JRE')
                 echo -e '\n>>> JRE'
-                submenu_tbd
+                submenu_todo
                 ;;
             'NPM')
                 echo -e '\n>>> NPM'
-                submenu_tbd
+                submenu_todo
                 ;;
             'QUIT')
                 PS3='> MAIN MENU: '
@@ -39,13 +40,13 @@ submenu_developer () {
 # DEVOPS SUB-MENU
 submenu_devops () {
     PS3='>> DEVOPS Tools: '
-    options=('JENKINS' 'POSTGRES' 'DEBIAN' 'QUIT')
+    options=('JENKINS' 'POSTGRES' 'DEBIAN' '' '' 'QUIT')
     select opt in "${options[@]}"
     do
         case $opt in
             'JENKINS')
                 echo -e '\n>>> JENKINS'
-                submenu_tbd
+                submenu_todo
                 ;;
             'POSTGRES')
                 echo -e '\n>>> POSTGRES'
@@ -53,7 +54,15 @@ submenu_devops () {
                 ;;
             'DEBIAN')
                 echo -e '\n>>> DEBIAN'
-                submenu_tbd
+                submenu_todo
+                ;;
+            '')
+                echo -e '\n>>>'
+                submenu_todo
+                ;;
+            '')
+                echo -e '\n>>> '
+                submenu_todo
                 ;;
             'QUIT')
                 PS3='> MAIN MENU: '
@@ -67,7 +76,7 @@ submenu_devops () {
 # SECURITY SUB-MENU
 submenu_security () {
     PS3='>> SECURITY Tools: '
-    options=('DEFECT-DOJO' 'DEPENDENCY-TRACK' 'MOBSF' 'PENTEST' 'QUIT')
+    options=('DEFECT-DOJO' 'DEPENDENCY-TRACK' 'MOBSF' 'ZAP' 'PENTEST' 'QUIT')
     select opt in "${options[@]}"
     do
         case $opt in
@@ -82,6 +91,10 @@ submenu_security () {
             'MOBSF')
                 echo -e '\n>>> MOBSF'
                 submenu_mobsf
+                ;;
+            'ZAP')
+                echo -e '\n>>> ZAP'
+                submenu_zap
                 ;;
             'PENTEST')
                 echo -e '\n>>> PENTEST'
@@ -106,7 +119,7 @@ echo ''
 
 # MAIN MENU
 PS3="> MAIN MENU: "
-options=('SECURITY' 'DEVOPS' 'DEVELOPER' 'DOCKER FULL STOP' 'QUIT')
+options=('SECURITY' 'DEVOPS' 'DEVELOPER' 'DOCKER FULL STOP' '' 'QUIT')
 select opt in "${options[@]}"
 do
     case $opt in
@@ -125,6 +138,10 @@ do
         'DOCKER FULL STOP')
             docker_stop
             exit
+            ;;
+        '')
+            echo -e '\n>>> '
+            submenu_todo
             ;;
         'QUIT')
             echo -e '\n[QUIT] Bye-bye.'
