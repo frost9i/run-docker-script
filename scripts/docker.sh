@@ -26,6 +26,16 @@ docker_home_check () {
     fi
 }
 
+docker_network () {
+    if ! docker network ls --format '{{ .Name}}' | grep -i ${DOCKER_NETWORK_NAME} > /dev/null
+    then
+        check1 "DOCKER_NETWORK_NAME=${DOCKER_NETWORK_NAME}"
+        docker network create ${DOCKER_NETWORK_NAME} > /dev/null
+        return 0
+    fi
+    info1 "DOCKER_NETWORK_NAME=${DOCKER_NETWORK_NAME}"
+}
+
 docker_stop () {
     echo -e '[STOP] FULL STOP'
     if ! docker ps -q | xargs docker stop 2>/dev/null

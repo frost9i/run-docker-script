@@ -1,19 +1,16 @@
 #!/bin/bash
 
-# DOCKER_MY_HOME="C:/Users/your_name/docker"
-# must be set as environmental variable
-
 # VARIABLES
+# DOCKER_MY_HOME="C:/Users/your_name/docker" is set as environmental variable
 DOCKER_NETWORK_NAME='docker-net'
 
 source ./scripts/docker.sh
-source ./scripts/network.sh
+source ./scripts/echo.sh
 source ./scripts/postgres.sh
 source ./scripts/ddojo.sh
 source ./scripts/mobsf.sh
 source ./scripts/pentest.sh
 source ./scripts/jenkins.sh
-source ./scripts/echo.sh
 
 # DEVELOPER SUB-MENU
 submenu_developer () {
@@ -31,7 +28,7 @@ submenu_developer () {
                 submenu_tbd
                 ;;
             'QUIT')
-                PS3='\n> MAIN MENU: '
+                PS3='> MAIN MENU: '
                 return
                 ;;
             *) echo "invalid option $REPLY";;
@@ -59,7 +56,7 @@ submenu_devops () {
                 submenu_tbd
                 ;;
             'QUIT')
-                PS3='\n> MAIN MENU: '
+                PS3='> MAIN MENU: '
                 return
                 ;;
             *) echo "invalid option $REPLY";;
@@ -91,7 +88,7 @@ submenu_security () {
                 submenu_pt
                 ;;
             'QUIT')
-                PS3='\n> MAIN MENU: '
+                PS3='> MAIN MENU: '
                 return
                 ;;
             *) echo "invalid option $REPLY";;
@@ -103,11 +100,12 @@ submenu_security () {
 date
 docker_check
 docker_home_check
+docker_network
 psql_cli
 echo ''
 
 # MAIN MENU
-PS3='> MAIN MENU: '
+PS3="> MAIN MENU: "
 options=('SECURITY' 'DEVOPS' 'DEVELOPER' 'DOCKER FULL STOP' 'QUIT')
 select opt in "${options[@]}"
 do

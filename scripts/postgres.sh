@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PSQL_CONTAINER_NAME='postgres'
-PSQL_CONTAINER_PORT='54321'
+PSQL_CONTAINER_PORT='5432'
 PSQL_ROOT_USER='pgown'
 PSQL_ROOT_PASS='pass'
 
@@ -13,20 +13,20 @@ submenu_psql () {
     select opt in "${options[@]}"
     do
         case $opt in
-            'START Postgres')
+            'START')
                 psql_check
                 ;;
-            'STOP Postgres')
+            'STOP')
                 psql_stop
                 ;;
-            'DELETE Postgres')
+            'DELETE')
                 psql_delete
                 ;;
             'STATUS')
                 psql_status
                 ;;
             'QUIT')
-                PS3='\n>> DEVOPS Tools: '
+                PS3='>> DEVOPS Tools: '
                 return
                 ;;
             *) echo "invalid option $REPLY";;
@@ -44,15 +44,16 @@ psql_connect () {
 }
 
 psql_db_create () {
-    echo -e "[CREATE] DB ${1}"
-    if psql_connect "CREATE DATABASE ${1};"
+    echo -e "[CREATE] DATABASE: ${1}"
+    if psql_connect "CREATE DATABASE ${1}"
     then
-        if psql_connect "GRANT ALL PRIVILEGES ON DATABASE ${1} TO ${2};"
+        if psql_connect "GRANT ALL PRIVILEGES ON DATABASE ${1} TO ${2}"
         then
             echo -e "[CREATE] SUCCESS."
             return
         fi
     fi
+    error1 "${FUNCNAME[0]}"
 }
 
 psql_check () {
@@ -81,7 +82,7 @@ psql_start () {
         echo -e '[START] SUCCESS.'
         return
     fi
-    error1
+    error1 "${FUNCNAME[0]}"
 }
 
 psql_stop () {
@@ -91,17 +92,17 @@ psql_stop () {
         echo -e '[NOTICE] Stopped.'
         return
     fi
-    error1
+    error1 "${FUNCNAME[0]}"
 }
 
 psql_create () {
     if psql_server > /dev/null
     then
         sleep 5
-        echo -e "[CREATE] ${PSQL_CONTAINER_NAME} created."
+        echo -e "[CREATE] SUCCESS: ${PSQL_CONTAINER_NAME}"
         return
     fi
-    error1
+    error1 "${FUNCNAME[0]}"
 }
 
 psql_delete () {
@@ -111,7 +112,7 @@ psql_delete () {
         echo '[DELETE] DONE.'
         return
     fi
-    error1
+    error1 "${FUNCNAME[0]}"
 }
 
 psql_status () {

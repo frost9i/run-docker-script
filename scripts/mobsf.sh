@@ -1,11 +1,12 @@
 #!/bin/bash
 
 MOBSF_CONTAINER_NAME='mobsf'
+MOBSF_CONTAINER_PORT='8000'
 MOBSF_PSQL_DATABASE="${MOBSF_CONTAINER_NAME}"
 
 # MOBSF SUB-MENU
 submenu_mobsf () {
-    local PS3='>>> MOBSF CONTROLS: '
+    local PS3='>>> MOBSF Controls: '
     local options=('START' 'STOP' 'INITIALIZE' 'STATUS' 'DELETE' 'QUIT')
     local opt
     select opt in "${options[@]}"
@@ -27,7 +28,7 @@ submenu_mobsf () {
                 docker_container_delete "${MOBSF_CONTAINER_NAME}"
                 ;;
             'QUIT')
-                PS3='\n>> SECURITY Tools: '
+                PS3='>> SECURITY Tools: '
                 return
                 ;;
             *) echo "invalid option $REPLY";;
@@ -35,40 +36,40 @@ submenu_mobsf () {
     done
 }
 
+# CREATE DATABASE mobsf;
+# CREATE DATABASE ffxdefectdojo;
+# GRANT ALL PRIVILEGES ON DATABASE mobsf TO pgown;
+
 mobsf () {
     docker run -d \
-    -p 8000:8000 \
+    -p "${CONTAINER_EXPOSED_PORT}":"${MOBSF_CONTAINER_PORT}" \
     --name "${MOBSF_CONTAINER_NAME}" \
     --network "${DOCKER_NETWORK_NAME}" \
     -v "${DOCKER_MY_HOME}"/mobsf:/root/.MobSF \
     -e POSTGRES="True" \
     -e POSTGRES_USER="${PSQL_ROOT_USER}" \
     -e POSTGRES_PASSWORD="${PSQL_ROOT_PASS}" \
-    -e POSTGRES_DB="${MOBSF_PSQL_DATABASE}"
+    -e POSTGRES_DB="${MOBSF_PSQL_DATABASE}" \
     -e POSTGRES_HOST="${PSQL_CONTAINER_NAME}" \
     opensecurity/mobile-security-framework-mobsf
 }
 
-mobsf_start () {
-    if docker_container_start "${MOBSF_CONTAINER_NAME}"
-    then
-        echo -e "[START] ${MOBSF_CONTAINER_NAME} SUCCESS."
-        return
-    fi
-    # ask INIT?
-    error1
-}
-
 mobsf_init () {
-    if mobsf > /dev/null
+    if ! docker_container_check "${MOBSF_CONTAINER_NAME}"
     then
-        ## enable PostgreSQL support
-        docker exec "${MOBSF_CONTAINER_NAME}" ./scripts/postgres_support.sh True
-        if docker_container_restart "${MOBSF_CONTAINER_NAME}"
+        psql_check
+        psql_db_create "${MOBSF_CONTAINER_NAME}" "${PSQL_ROOT_USER}"
+        script_ask_port "${MOBSF_CONTAINER_NAME}" "${MOBSF_CONTAINER_PORT}"
+        if mobsf
         then
-            echo -e "[INIT] ${MOBSF_CONTAINER_NAME} SUCCESS."
-            return
+            ## enable PostgreSQL support
+            docker exec "${MOBSF_CONTAINER_NAME}" ./scripts/postgres_support.sh True
+            if docker_container_restart "${MOBSF_CONTAINER_NAME}"
+            then
+                echo -e "[INIT] ${MOBSF_CONTAINER_NAME} SUCCESS."
+                return
+            fi
+            error1
         fi
-        error1
     fi
 }

@@ -44,7 +44,7 @@ submenu_dd () {
                 dd_delete
                 ;;
             'QUIT')
-                PS3='\n>> SECURITY Tools: '
+                PS3='>> SECURITY Tools: '
                 return
                 ;;
             *) echo "invalid option $REPLY";;
