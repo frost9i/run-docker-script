@@ -54,8 +54,11 @@ mobsf_init () {
     if ! docker_container_check "${MOBSF_CONTAINER_NAME}"
     then
         psql_check
+
         psql_db_create "${MOBSF_CONTAINER_NAME}" "${PSQL_ROOT_USER}"
-        script_ask_port "${MOBSF_CONTAINER_NAME}" "${MOBSF_CONTAINER_PORT}"
+
+        docker_ask_port "${MOBSF_CONTAINER_NAME}" "${MOBSF_CONTAINER_PORT}"
+
         if mobsf
         then
             ## enable PostgreSQL support

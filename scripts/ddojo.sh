@@ -3,6 +3,7 @@
 DD_SERVICE_NAME='defectdojo'
 DD_PSQL_DATABASE="${DD_SERVICE_NAME}"
 
+DD_UWSGI_PORT='8080'
 DD_CONTAINER_UWSGI="${DD_SERVICE_NAME}"
 DD_CONTAINER_NGINX="${DD_SERVICE_NAME}-nginx"
 DD_CONTAINER_BEAT="${DD_SERVICE_NAME}-beat"
@@ -23,7 +24,7 @@ DD_LIST=("${DD_CONTAINER_UWSGI}"
 # DEFECT-DOJO SUB-MENU
 submenu_dd () {
     local PS3='>> DEFECT-DOJO Controls: '
-    local options=('START' 'STOP' 'INITIALIZE' 'STATUS' 'DELETE' 'QUIT')
+    local options=('START' 'STOP' 'INIT' 'STATUS' 'DELETE' 'QUIT')
     local opt
     select opt in "${options[@]}"
     do
@@ -34,7 +35,7 @@ submenu_dd () {
             'STOP')
                 dd_stop
                 ;;
-            'INITIALIZE')
+            'INIT')
                 dd_init
                 ;;
             'STATUS')
@@ -125,10 +126,12 @@ dd_init () {
 
     dd_psql_init
 
-    if script_ask 'Enable external dojo-app folder?'
+    if script_ask 'MOUNT EXTERNAL dojo-app FOLDER?'
     then
         DD_APP_DIR="-v ${DOCKER_MY_HOME}/ddojo-app:/app"
     fi
+
+    docker_ask_port ${DD_CONTAINER_UWSGI} ${DD_UWSGI_PORT}
 
     if docker_container_create ${DD_CONTAINER_UWSGI} dd_uwsgi "${DD_APP_DIR}"
     then
@@ -178,6 +181,7 @@ dd_rabbitmq () {
 # -v ${DOCKER_MY_HOME}/ddojo-app:/app \
 dd_uwsgi () {
     docker run -d ${1} \
+    -p ${CONTAINER_EXPOSED_PORT}:${DD_UWSGI_PORT} \
     --name ${DD_CONTAINER_UWSGI} \
     --network ${DOCKER_NETWORK_NAME} \
     --entrypoint='//entrypoint-uwsgi.sh' \

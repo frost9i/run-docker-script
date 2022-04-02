@@ -36,6 +36,30 @@ docker_network () {
     info1 "DOCKER_NETWORK_NAME=${DOCKER_NETWORK_NAME}"
 }
 
+docker_ask_port () {
+    echo ''
+    info1 "DEFAULT PORT: ${2}"
+    read -p "[PRESS] EXPOSE PORT for ${1}? [1024-65535]: " -r
+    if [[ ${REPLY} =~ ^[0-9]+$ ]]
+    then
+        if [[ ${REPLY} -gt 1024 && ${REPLY} -lt 65535 ]]
+        then
+            CONTAINER_EXPOSED_PORT=${REPLY}
+            info1 "${1}:${CONTAINER_EXPOSED_PORT}"
+            return 0
+        fi
+        error1 "WRONG PORT: ${REPLY}"
+        docker_ask_port ${1} ${2}
+    elif [[ -z ${REPLY} ]]
+    then
+        CONTAINER_EXPOSED_PORT=${2}
+        info1 "${1}:${CONTAINER_EXPOSED_PORT}"
+        return 0
+    fi
+    error1 "NOT A PORT."
+    docker_ask_port ${1} ${2}
+}
+
 docker_stop () {
     echo -e '[STOP] FULL STOP'
     if ! docker ps -q | xargs docker stop 2>/dev/null
@@ -58,7 +82,7 @@ docker_container_status () {
         echo -e "[STATUS] "${1}" STOPPED."
         return 1
     fi
-    error1 "[STATUS]"
+    echo -e "[STATUS] MISSING."
 }
 
 docker_container_check () {
@@ -66,7 +90,6 @@ docker_container_check () {
     then
         return 0
     fi
-    error1 "${1} MISSING."
     return 1
 }
 
