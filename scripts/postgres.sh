@@ -50,7 +50,7 @@ psql_db_create () {
     echo -e "[CREATE] DATABASE: ${1}"
     if psql_connect "CREATE DATABASE ${1}"
     then
-        if psql_connect "GRANT ALL PRIVILEGES ON DATABASE ${1} TO ${2}"
+        if psql_connect "GRANT ALL PRIVILEGES ON DATABASE ${1} TO ${PSQL_ROOT_USER}"
         then
             echo -e "[CREATE] SUCCESS."
             return

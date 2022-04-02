@@ -55,7 +55,7 @@ mobsf_init () {
     then
         psql_check
 
-        psql_db_create "${MOBSF_CONTAINER_NAME}" "${PSQL_ROOT_USER}"
+        psql_db_create "${MOBSF_CONTAINER_NAME}"
 
         docker_ask_port "${MOBSF_CONTAINER_NAME}" "${MOBSF_CONTAINER_PORT}"
 

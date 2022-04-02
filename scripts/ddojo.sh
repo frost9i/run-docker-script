@@ -110,30 +110,21 @@ dd_delete () {
     error1
 }
 
-dd_psql_init () {
-    if psql_db_create "${DD_PSQL_DATABASE}" "${PSQL_ROOT_USER}"
-    then
-        echo -e "[PSQL] SUCCESS."
-        return
-    fi
-    error1
-}
-
 dd_init () {
     echo -e "[INIT] DEFECTDOJO"
 
     psql_check
 
-    dd_psql_init
+    psql_db_create "${DD_PSQL_DATABASE}"
 
     if script_ask 'MOUNT EXTERNAL dojo-app FOLDER?'
     then
-        DD_APP_DIR="-v ${DOCKER_MY_HOME}/ddojo-app:/app"
+        DOCKER_MOUNT_DIR="-v ${DOCKER_MY_HOME}/ddojo-app:/app"
     fi
 
     docker_ask_port ${DD_CONTAINER_UWSGI} ${DD_UWSGI_PORT}
 
-    if docker_container_create ${DD_CONTAINER_UWSGI} dd_uwsgi "${DD_APP_DIR}"
+    if docker_container_create ${DD_CONTAINER_UWSGI} dd_uwsgi "${DOCKER_MOUNT_DIR}"
     then
         if docker exec -it "${DD_CONTAINER_UWSGI}" ./../entrypoint-initializer.sh
         then
