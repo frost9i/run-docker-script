@@ -1,6 +1,6 @@
 #!/bin/bash
 
-JENKINS_CONTAINER_NAME='jenk1'
+JENKINS_CONTAINER_NAME='jenkins'
 JENKINS_PORT='7000' # 8080
 
 submenu_jenkins () {
