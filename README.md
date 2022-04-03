@@ -1,6 +1,6 @@
 # RUN DOCKER SCRIPT  
   
-**My implementation as an easy-to-use compilation of scripts in Docker containers.**  
+**Easy-to-use compilation of scripts to run tools as Docker containers.**  
   
 ---
 Includes categorized services  

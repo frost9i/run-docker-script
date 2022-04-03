@@ -4,15 +4,21 @@
 # DOCKER_MY_HOME="C:/Users/your_name/docker" is set as environmental variable
 DOCKER_NETWORK_NAME='docker-net'
 
+# SCRIPT
 source ./scripts/docker.sh
 source ./scripts/echo.sh
-source ./scripts/postgres.sh
+
+# SECURITY
 source ./scripts/ddojo.sh
 source ./scripts/dtrack.sh
 source ./scripts/mobsf.sh
 source ./scripts/zap.sh
 source ./scripts/pentest.sh
+
+# DEVOPS
 source ./scripts/jenkins.sh
+source ./scripts/postgres.sh
+source ./scripts/debian.sh
 
 # DEVELOPER SUB-MENU
 submenu_developer () {
@@ -47,7 +53,7 @@ submenu_devops () {
         case $opt in
             'JENKINS')
                 echo -e '\n>>> JENKINS'
-                submenu_todo
+                submenu_jenkins
                 ;;
             'POSTGRES')
                 echo -e '\n>>> POSTGRES'
@@ -55,7 +61,7 @@ submenu_devops () {
                 ;;
             'DEBIAN')
                 echo -e '\n>>> DEBIAN'
-                submenu_todo
+                submenu_debian
                 ;;
             '')
                 echo -e '\n>>>'

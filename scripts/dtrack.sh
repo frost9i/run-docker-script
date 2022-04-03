@@ -51,12 +51,14 @@ dt_init () {
     if script_ask 'MOUNT EXTERNAL /data FOLDER?'
     then
         DOCKER_MOUNT_DIR="-v ${DOCKER_MY_HOME}/dtrack-api:/data"
+    else
+        DOCKER_MOUNT_DIR=''
     fi
 
     docker_ask_port "${DT_CONTAINER_API}" "${DT_API_PORT}"
     DT_API_PORT="${CONTAINER_EXPOSED_PORT}"
 
-    if docker_container_create "${DT_CONTAINER_API}" dt_api "${DOCKER_MOUNT_DIR}"
+    if docker_container_create "${DT_CONTAINER_API}" dt_api
     then
         echo -e "[INIT] ${DT_CONTAINER_API} SUCCESS."
     fi
@@ -75,7 +77,7 @@ dt_init () {
 }
 
 dt_api () {
-    docker run -d ${1} \
+    docker run -d ${DOCKER_MOUNT_DIR} \
     -p "${CONTAINER_EXPOSED_PORT}":8080 \
     --name "${DT_CONTAINER_API}" \
     --network "${DOCKER_NETWORK_NAME}" \

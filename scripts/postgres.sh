@@ -8,7 +8,7 @@ PSQL_ROOT_PASS='pass'
 # POSTGRES SUB-MENU
 submenu_psql () {
     local PS3='>>> POSTGRES Controls: '
-    local options=('START' 'STOP' 'DELETE' 'STATUS' '' 'QUIT')
+    local options=('START' 'STOP' '' 'STATUS' 'DELETE' 'QUIT')
     local opt
     select opt in "${options[@]}"
     do
@@ -19,14 +19,14 @@ submenu_psql () {
             'STOP')
                 docker_container_stop ${PSQL_CONTAINER_NAME}
                 ;;
-            'DELETE')
-                docker_container_delete ${PSQL_CONTAINER_NAME}
+            '')
+                submenu_todo
                 ;;
             'STATUS')
                 docker_container_status ${PSQL_CONTAINER_NAME}
                 ;;
-            '')
-                submenu_todo
+            'DELETE')
+                docker_container_delete ${PSQL_CONTAINER_NAME}
                 ;;
             'QUIT')
                 PS3='>> DEVOPS Tools: '

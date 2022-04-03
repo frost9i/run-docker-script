@@ -38,7 +38,7 @@ docker_network () {
 
 docker_ask_port () {
     echo ''
-    info1 "DEFAULT PORT ${1}:${2}"
+    info1 "PRESET PORT ${1}:${2}"
     read -p "[PRESS] EXPOSE PORT for ${1}? [1024-65535]: " -r
     if [[ ${REPLY} =~ ^[0-9]+$ ]]
     then
@@ -94,6 +94,7 @@ docker_container_check () {
     then
         return 0
     fi
+    error1 "${1} DOES NOT EXIST."
     return 1
 }
 
@@ -101,7 +102,7 @@ docker_container_create () {
     if ! docker_container_check "${1}"
     then
         echo -e "[CREATE] ${1}"
-        if "${2}"
+        if ${2}
         then
             echo "[CREATE] SUCCESS."
         fi
@@ -113,9 +114,9 @@ docker_container_create () {
 docker_container_delete () {
     for CONTAINER in ${@}
     do
+        echo -e "[DELETE] ${CONTAINER}"
         if docker_container_check ${CONTAINER}
         then
-            echo -e "[DELETE] ${CONTAINER}"
             if docker rm -f ${CONTAINER} > /dev/null
             then
                 echo "[DELETE] DONE."

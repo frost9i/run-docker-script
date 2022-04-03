@@ -63,11 +63,13 @@ dd_init () {
     if script_ask 'MOUNT EXTERNAL dojo-app FOLDER?'
     then
         DOCKER_MOUNT_DIR="-v ${DOCKER_MY_HOME}/ddojo-app:/app"
+    else
+        DOCKER_MOUNT_DIR=''
     fi
 
     docker_ask_port "${DD_CONTAINER_UWSGI}" "${DD_UWSGI_PORT}"
 
-    if docker_container_create "${DD_CONTAINER_UWSGI}" dd_uwsgi "${DOCKER_MOUNT_DIR}"
+    if docker_container_create "${DD_CONTAINER_UWSGI}" dd_uwsgi
     then
         if docker exec -it "${DD_CONTAINER_UWSGI}" ./../entrypoint-initializer.sh
         then
@@ -110,7 +112,7 @@ dd_rabbitmq () {
 
 # -v ${DOCKER_MY_HOME}/ddojo-app:/app \
 dd_uwsgi () {
-    docker run -d ${1} \
+    docker run -d ${DOCKER_MOUNT_DIR} \
     -p ${CONTAINER_EXPOSED_PORT}:${DD_UWSGI_PORT} \
     --name ${DD_CONTAINER_UWSGI} \
     --network ${DOCKER_NETWORK_NAME} \

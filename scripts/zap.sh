@@ -13,8 +13,8 @@ submenu_zap () {
             'RUN')
                 zap
                 ;;
-            'STOP')
-                docker_container_stop "${ZAP_CONTAINER_NAME}"
+            'CONNECT')
+                docker exec -it "${ZAP_CONTAINER_NAME}" bash
                 ;;
             'INIT')
                 zap_init
