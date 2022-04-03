@@ -30,19 +30,19 @@ submenu_dd () {
     do
         case $opt in
             'START')
-                dd_start
+                docker_container_start ${DD_LIST}
                 ;;
             'STOP')
-                dd_stop
+                docker_container_stop ${DD_LIST}
                 ;;
             'INIT')
                 dd_init
                 ;;
             'STATUS')
-                dd_status
+                docker_container_status ${DD_LIST}
                 ;;
             'DELETE')
-                dd_delete
+                docker_container_delete ${DD_LIST}
                 ;;
             'QUIT')
                 PS3='>> SECURITY Tools: '
@@ -51,63 +51,6 @@ submenu_dd () {
             *) echo "invalid option $REPLY";;
         esac
     done
-}
-
-dd_uwsgi_start () {
-    docker_container_start ${DD_CONTAINER_UWSGI}
-}
-
-dd_nginx_start () {
-    docker_container_start ${DD_CONTAINER_NGINX}
-}
-
-dd_beat_start () {
-    docker_container_start ${DD_CONTAINER_BEAT}
-}
-
-dd_worker_start () {
-    docker_container_start ${DD_CONTAINER_WORKER}
-}
-
-dd_start () {
-    dd_uwsgi_start
-    dd_nginx_start
-    dd_beat_start
-    dd_worker_start
-    dd_rabbitmq_start
-}
-
-dd_stop () {
-    echo -e "[STOP] DEFECTDOJO"
-    for CONTAINER in "${DD_LIST[@]}"
-    do
-        docker stop "${CONTAINER}"
-    done
-    echo -e '[STOP] SUCCESS.'
-    return
-}
-
-dd_status () {
-    for CONTAINER in ${DD_LIST[@]}
-    do
-        docker_container_status ${CONTAINER}
-    done
-}
-
-dd_delete () {
-    if docker_container_check "${DD_CONTAINER_UWSGI}"
-    then
-        if script_ask "DELETE ALL ${DD_SERVICE_NAME} CONTAINERS?"
-        then
-            for CONTAINER in "${DD_LIST[@]}"
-            do
-                docker rm -f "${CONTAINER}"
-            done
-            echo -e "[DELETE] SUCCESS."
-            return
-        fi
-    fi
-    error1
 }
 
 dd_init () {
@@ -122,9 +65,9 @@ dd_init () {
         DOCKER_MOUNT_DIR="-v ${DOCKER_MY_HOME}/ddojo-app:/app"
     fi
 
-    docker_ask_port ${DD_CONTAINER_UWSGI} ${DD_UWSGI_PORT}
+    docker_ask_port "${DD_CONTAINER_UWSGI}" "${DD_UWSGI_PORT}"
 
-    if docker_container_create ${DD_CONTAINER_UWSGI} dd_uwsgi "${DOCKER_MOUNT_DIR}"
+    if docker_container_create "${DD_CONTAINER_UWSGI}" dd_uwsgi "${DOCKER_MOUNT_DIR}"
     then
         if docker exec -it "${DD_CONTAINER_UWSGI}" ./../entrypoint-initializer.sh
         then
@@ -132,29 +75,25 @@ dd_init () {
         fi
     fi
 
-    if docker_container_create ${DD_CONTAINER_NGINX} dd_nginx
+    if docker_container_create "${DD_CONTAINER_NGINX}" dd_nginx
     then
         echo "[INIT] ${DD_CONTAINER_NGINX} SUCCESS."
     fi
 
-    if docker_container_create ${DD_CONTAINER_BEAT} dd_beat
+    if docker_container_create "${DD_CONTAINER_BEAT}" dd_beat
     then
         echo "[INIT] ${DD_CONTAINER_BEAT} SUCCESS."
     fi
 
-    if docker_container_create ${DD_CONTAINER_WORKER} dd_worker
+    if docker_container_create "${DD_CONTAINER_WORKER}" dd_worker
     then
         echo "[INIT] ${DD_CONTAINER_WORKER} SUCCESS."
     fi
 
-    if docker_container_create ${DD_CONTAINER_RABBITMQ} dd_rabbitmq
+    if docker_container_create "${DD_CONTAINER_RABBITMQ}" dd_rabbitmq
     then
         echo "[INIT] ${DD_CONTAINER_RABBITMQ} SUCCESS."
     fi
-}
-
-dd_rabbitmq_start () {
-    docker_container_start ${DD_CONTAINER_RABBITMQ}
 }
 
 # Enable RabbitMQ web management plugin

@@ -38,7 +38,7 @@ docker_network () {
 
 docker_ask_port () {
     echo ''
-    info1 "DEFAULT PORT: ${2}"
+    info1 "DEFAULT PORT ${1}:${2}"
     read -p "[PRESS] EXPOSE PORT for ${1}? [1024-65535]: " -r
     if [[ ${REPLY} =~ ^[0-9]+$ ]]
     then
@@ -46,6 +46,7 @@ docker_ask_port () {
         then
             CONTAINER_EXPOSED_PORT=${REPLY}
             info1 "${1}:${CONTAINER_EXPOSED_PORT}"
+            echo ''
             return 0
         fi
         error1 "WRONG PORT: ${REPLY}"
@@ -72,17 +73,20 @@ docker_stop () {
 }
 
 docker_container_status () {
-    if docker_container_check "${1}"
-    then
-        if docker ps --format "{{ .Names}}" | grep -i "${1}" >> /dev/null
+    for CONTAINER in ${@}
+    do
+        if docker_container_check ${CONTAINER}
         then
-            echo -e "[STATUS] "${1}" RUNNING."
-            return 0
+            if docker ps --format "{{ .Names}}" | grep -i ${CONTAINER} >> /dev/null
+            then
+                echo -e "[STATUS] ${CONTAINER} RUNNING."
+                return 0
+            fi
+            echo -e "[STATUS] ${CONTAINER} STOPPED."
+            return 1
         fi
-        echo -e "[STATUS] "${1}" STOPPED."
-        return 1
-    fi
-    echo -e "[STATUS] MISSING."
+        echo -e "[STATUS] MISSING."
+    done
 }
 
 docker_container_check () {
@@ -107,43 +111,49 @@ docker_container_create () {
 }
 
 docker_container_delete () {
-    if docker_container_check "${1}"
-    then
-        echo -e "[DELETE] ${1}"
-        if docker rm -f "${1}"
+    for CONTAINER in ${@}
+    do
+        if docker_container_check ${CONTAINER}
         then
-            echo "[DELETE] DONE."
-            return
+            echo -e "[DELETE] ${CONTAINER}"
+            if docker rm -f ${CONTAINER} > /dev/null
+            then
+                echo "[DELETE] DONE."
+            fi
         fi
-        fail1
-    fi
-    fail1
+    done
 }
 
 docker_container_start () {
-    if docker_container_check ${1}
-    then
-        echo -e "[START] ${1}"
-        if docker start ${1} > /dev/null
+    for CONTAINER in ${@}
+    do
+        if docker_container_check ${CONTAINER}
         then
-            echo -e "[START] SUCCESS."
-            return 0
+            echo -e "[START] ${CONTAINER}"
+            if docker start ${CONTAINER} > /dev/null
+            then
+                echo -e "[START] SUCCESS."
+                return 0
+            fi
         fi
-    fi
-    fail1 ${1}
+        fail1 "START ${CONTAINER}"
+    done
 }
 
 docker_container_stop () {
-    if docker_container_check ${1}
-    then
-        echo -e "[STOP] ${1}"
-        if docker stop ${1} > /dev/null
+    for CONTAINER in ${@}
+    do
+        if docker_container_check ${CONTAINER}
         then
-            echo -e "[STOP] DONE."
-            return 0
+            echo -e "[STOP] ${CONTAINER}"
+            if docker stop ${CONTAINER} > /dev/null
+            then
+                echo -e "[STOP] DONE."
+                return 0
+            fi
         fi
-    fi
-    fail1 ${1}
+        fail1 "STOP ${CONTAINER}"
+    done
 }
 
 docker_container_restart () {

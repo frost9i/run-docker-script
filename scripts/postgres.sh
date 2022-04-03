@@ -17,13 +17,13 @@ submenu_psql () {
                 psql_check
                 ;;
             'STOP')
-                psql_stop
+                docker_container_stop ${PSQL_CONTAINER_NAME}
                 ;;
             'DELETE')
-                psql_delete
+                docker_container_delete ${PSQL_CONTAINER_NAME}
                 ;;
             'STATUS')
-                psql_status
+                docker_container_status ${PSQL_CONTAINER_NAME}
                 ;;
             '')
                 submenu_todo
@@ -88,16 +88,6 @@ psql_start () {
     error1 "${FUNCNAME[0]}"
 }
 
-psql_stop () {
-    echo -e "[NOTICE] ${PSQL_CONTAINER_NAME} stopping..."
-    if docker stop ${PSQL_CONTAINER_NAME} > /dev/null
-    then
-        echo -e '[NOTICE] Stopped.'
-        return
-    fi
-    error1 "${FUNCNAME[0]}"
-}
-
 psql_create () {
     if psql_server > /dev/null
     then
@@ -106,33 +96,6 @@ psql_create () {
         return
     fi
     error1 "${FUNCNAME[0]}"
-}
-
-psql_delete () {
-    echo "[DELETE] ${PSQL_CONTAINER_NAME}"
-    if docker rm -f ${PSQL_CONTAINER_NAME} > /dev/null
-    then
-        echo '[DELETE] DONE.'
-        return
-    fi
-    error1 "${FUNCNAME[0]}"
-}
-
-psql_status () {
-    if docker ps -a | grep -i ${PSQL_CONTAINER_NAME} > /dev/null
-    then
-        echo -e "[STATUS] ${PSQL_CONTAINER_NAME} exists."
-    else
-        echo -e "[STATUS] ${PSQL_CONTAINER_NAME} does not exist."
-    fi
-
-    if docker ps | grep -i ${PSQL_CONTAINER_NAME} > /dev/null
-    then
-        echo -e "[STATUS] ${PSQL_CONTAINER_NAME} is running."
-        psql_connect '\l+'
-    else
-        echo -e "[STATUS] ${PSQL_CONTAINER_NAME} is stopped."
-    fi
 }
 
 psql_cli () {

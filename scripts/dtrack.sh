@@ -14,28 +14,25 @@ DT_LIST=("${DT_CONTAINER_API}" "${DT_CONTAINER_FE}")
 # DEPENDENCY-TRACK SUB-MENU
 submenu_dt () {
     local PS3='>>> DEPENDENCY-TRACK Controls: '
-    local options=('START' 'STOP' 'INIT' 'STATUS' '' 'DELETE' 'QUIT')
+    local options=('START' 'STOP' 'INIT' 'STATUS' 'DELETE' 'QUIT')
     local opt
     select opt in "${options[@]}"
     do
         case $opt in
             'START')
-                dt_start
+                docker_container_start ${DT_LIST[@]}
                 ;;
             'STOP')
-                dt_stop
+                docker_container_stop ${DT_LIST[@]}
                 ;;
-            'INITIALIZE')
+            'INIT')
                 dt_init
                 ;;
             'STATUS')
-                dt_status
-                ;;
-            '')
-                submenu_todo
+                docker_container_status ${DT_LIST[@]}
                 ;;
             'DELETE')
-                dt_delete
+                docker_container_delete ${DT_LIST[@]}
                 ;;
             'QUIT')
                 PS3='>> SECURITY Tools: '
@@ -45,12 +42,6 @@ submenu_dt () {
         esac
     done
 }
-
-# database
-#-v C:/Users/Sergii_Moroz1/docker/dtrack-api:/data
-
-DT_API_PORT="${CONTAINER_EXPOSED_PORT}"
-DT_FE_PORT="${CONTAINER_EXPOSED_PORT}"
 
 dt_init () {
     psql_check
@@ -63,16 +54,28 @@ dt_init () {
     fi
 
     docker_ask_port "${DT_CONTAINER_API}" "${DT_API_PORT}"
+    DT_API_PORT="${CONTAINER_EXPOSED_PORT}"
 
     if docker_container_create "${DT_CONTAINER_API}" dt_api "${DOCKER_MOUNT_DIR}"
     then
-        #
+        echo -e "[INIT] ${DT_CONTAINER_API} SUCCESS."
     fi
 
+    docker_ask_port "${DT_CONTAINER_FE}" "${DT_FE_PORT}"
+
+    if docker_container_create "${DT_CONTAINER_FE}" dt_fe
+    then
+        echo -e "[INIT] ${DT_CONTAINER_FE} SUCCESS."
+        info1 "DEPENDENCY-TRACK URL: http://localhost:${CONTAINER_EXPOSED_PORT}"
+        info1 "DEFAULT LOGIN:admin PASSWORD:admin"
+        echo ''
+        return
+    fi
+    error1 "DEPENDENCY-TRACK INIT"
 }
 
 dt_api () {
-    docker run -d "${1}" \
+    docker run -d ${1} \
     -p "${CONTAINER_EXPOSED_PORT}":8080 \
     --name "${DT_CONTAINER_API}" \
     --network "${DOCKER_NETWORK_NAME}" \
@@ -85,7 +88,7 @@ dt_api () {
 }
 
 dt_fe () {
-    docker run -d "${1}"\
+    docker run -d ${1} \
     -p "${CONTAINER_EXPOSED_PORT}":8080 \
     --name "${DT_CONTAINER_FE}" \
     --network "${DOCKER_NETWORK_NAME}" \
@@ -93,3 +96,4 @@ dt_fe () {
     dependencytrack/frontend:latest
 }
 
+# Reference: https://docs.dependencytrack.org/getting-started/configuration/

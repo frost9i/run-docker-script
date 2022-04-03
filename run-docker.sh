@@ -8,6 +8,7 @@ source ./scripts/docker.sh
 source ./scripts/echo.sh
 source ./scripts/postgres.sh
 source ./scripts/ddojo.sh
+source ./scripts/dtrack.sh
 source ./scripts/mobsf.sh
 source ./scripts/zap.sh
 source ./scripts/pentest.sh
@@ -119,7 +120,7 @@ echo ''
 
 # MAIN MENU
 PS3="> MAIN MENU: "
-options=('SECURITY' 'DEVOPS' 'DEVELOPER' 'DOCKER FULL STOP' '' 'QUIT')
+options=('SECURITY' 'DEVOPS' 'DEVELOPER' '' 'FULL STOP' 'QUIT')
 select opt in "${options[@]}"
 do
     case $opt in
@@ -135,13 +136,13 @@ do
             echo -e '\n>> DEVELOPER Tools'
             submenu_developer
             ;;
-        'DOCKER FULL STOP')
-            docker_stop
-            exit
-            ;;
         '')
             echo -e '\n>>> '
             submenu_todo
+            ;;
+        'FULL STOP')
+            docker_stop
+            exit
             ;;
         'QUIT')
             echo -e '\n[QUIT] Bye-bye.'
