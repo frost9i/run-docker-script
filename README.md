@@ -27,8 +27,8 @@ Includes categorized services
 ```
 ---
 ### Requirements:  
-`bash` - shell  
-`psql` - for Postgres management  
+`bash` - Shell  
+`psql` - CLI Postgres management  
 ### Configuration:  
 **Environment variables**  
 DOCKER_MY_HOME=  
