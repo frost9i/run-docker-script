@@ -6,23 +6,24 @@
 Includes categorized services  
   
 ```dart
-╦[SECURITY]═╦[DEFECT-DOJO]
-║           ╠[DEPENDENCY-TRACK]
-║           ╠[MOBSF]
-║           ╠[ZAP]
-║           ╚[PENTEST]╦[JUICE-SHOP]
-║                     ╠[DVWA]
-║                     ╚[VAMPI]
+╦═[SECURITY]══╦═[DEFECT-DOJO]
+║             ╠═[DEPENDENCY-TRACK]
+║             ╠═[MOBSF]
+║             ╠═[ZAP]
+║             ║
+║             ╚═[PENTEST]═╦═[JUICE-SHOP]
+║                         ╠═[DVWA]
+║                         ╚═[VAMPI]
 ║
-╠[DEVOPS]═══╦[DEBIAN]
-║           ╠[JENKINS]
-║           ╚[POSTGRES]
+╠═[DEVOPS]════╦═[DEBIAN]
+║             ╠═[JENKINS]
+║             ╚═[POSTGRES]
 ║
-╠[DEVELOPER]╦[?JRE]
-║           ╠[?NPM]
-║           ╚[?YARN]
+╠═[DEVELOPER]═╦═[?JRE]
+║             ╠═[?NPM]
+║             ╚═[?YARN]
 ║
-╚[ETC]══════[?TBD]
+╚═[ETC]═════════[?TBD]
 ```
 ---
 ### Requirements:  
