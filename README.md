@@ -5,24 +5,24 @@
 ---
 Includes categorized services  
   
-```json
-├[SECURITY]─┬[DEFECT-DOJO](https://github.com/DefectDojo/django-DefectDojo)  
-│           ├[DEPENDENCY-TRACK](https://github.com/DependencyTrack/dependency-track)  
-│           ├[MOBSF](https://github.com/MobSF/Mobile-Security-Framework-MobSF)  
-│           ├[ZAP](https://github.com/zaproxy/zaproxy)  
-│           └[PENTEST]┬[JUICE-SHOP](https://github.com/juice-shop/juice-shop)  
-│                     ├[DVWA](https://github.com/digininja/DVWA)  
-│                     └[VAmPI](https://github.com/erev0s/VAmPI)  
-│  
-├[DEVOPS]───┬[DEBIAN](https://hub.docker.com/_/debian)  
-│           ├[JENKINS](https://hub.docker.com/_/jenkins)  
-│           └[POSTGRES](https://hub.docker.com/_/postgres)  
-│  
-├[DEVELOPER]┬[JRE](tbd)  
-│           ├[NPM](tbd)  
-│           └[YARN](tbd)  
-│  
-└[etc]──────[UNDER CONSTRUCTION]()  
+```dart
+├[SECURITY]─┬[DEFECT-DOJO](https://github.com/DefectDojo/django-DefectDojo)
+│           ├[DEPENDENCY-TRACK](https://github.com/DependencyTrack/dependency-track)
+│           ├[MOBSF](https://github.com/MobSF/Mobile-Security-Framework-MobSF)
+│           ├[ZAP](https://github.com/zaproxy/zaproxy)
+│           └[PENTEST]┬[JUICE-SHOP](https://github.com/juice-shop/juice-shop)
+│                     ├[DVWA](https://github.com/digininja/DVWA)
+│                     └[VAmPI](https://github.com/erev0s/VAmPI)
+│
+├[DEVOPS]───┬[DEBIAN](https://hub.docker.com/_/debian)
+│           ├[JENKINS](https://hub.docker.com/_/jenkins)
+│           └[POSTGRES](https://hub.docker.com/_/postgres)
+│
+├[DEVELOPER]┬[JRE](tbd)
+│           ├[NPM](tbd)
+│           └[YARN](tbd)
+│
+└[etc]──────[UNDER CONSTRUCTION]()
 ```
 ---
 ### Requirements:  
