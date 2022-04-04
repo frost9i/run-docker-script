@@ -103,7 +103,7 @@ $(textblue_bg "> ${HEADING}")
         '2') submenu_devops;;
         '3') submenu_developer;;
         '4') docker_stop; ${FUNCNAME[0]};;
-        '6') exit;;
+        '0') exit;;
         *)
             echo "invalid option $REPLY"; ${FUNCNAME[0]};;
     esac
