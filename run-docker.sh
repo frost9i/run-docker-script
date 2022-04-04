@@ -4,116 +4,109 @@
 # DOCKER_MY_HOME="C:/Users/your_name/docker" is set as environmental variable
 DOCKER_NETWORK_NAME='docker-net'
 
-# SCRIPT
-source ./scripts/docker.sh
-source ./scripts/echo.sh
+# System
+source ./system/docker.sh
+source ./system/echo.sh
+source ./system/colors.sh
 
-# SECURITY
-source ./scripts/ddojo.sh
-source ./scripts/dtrack.sh
-source ./scripts/mobsf.sh
-source ./scripts/zap.sh
-source ./scripts/pentest.sh
+# SECURITY Services
+source ./services/ddojo.sh
+source ./services/dtrack.sh
+source ./services/mobsf.sh
+source ./services/zap.sh
+source ./services/pentest.sh
 
-# DEVOPS
-source ./scripts/jenkins.sh
-source ./scripts/postgres.sh
-source ./scripts/debian.sh
+# DEVOPS Services
+source ./services/jenkins.sh
+source ./services/postgres.sh
+source ./services/debian.sh
 
-# DEVELOPER SUB-MENU
-submenu_developer () {
-    PS3='>> [UNDER CONSTRUCTION] DEVELOPER Tools: '
-    options=('JRE' 'NPM' 'QUIT')
-    select opt in "${options[@]}"
-    do
-        case $opt in
-            'JRE')
-                echo -e '\n>>> JRE'
-                submenu_todo
-                ;;
-            'NPM')
-                echo -e '\n>>> NPM'
-                submenu_todo
-                ;;
-            'QUIT')
-                PS3='> MAIN MENU: '
-                return
-                ;;
-            *) echo "invalid option $REPLY";;
-        esac
-    done
+# DEVELOPER Services
+# todo
+
+# SECURITY SUB-MENU
+submenu_security () {
+    HEADING='SECURITY Tools'
+    echo -ne """
+$(textgreen ">> ${HEADING}")
+1) $(textbluelight 'DEFECT-DOJO')
+2) $(textcyan 'DEPENDENCY-TRACK')
+3) $(textbluelight 'MOBSF')
+4) $(textyellow 'ZAP')
+5) $(textred 'PENTEST >')
+0) $(textgreydark 'ESC')
+"""
+    read -p ">> ${HEADING}: " -r
+    case ${REPLY} in
+        '1') submenu_dd;;
+        '2') submenu_dt;;
+        '3') submenu_mobsf;;
+        '4') submenu_zap;;
+        '5') submenu_pentest;;
+        '0') mainmenu;;
+        *) echo "invalid option $REPLY"; ${FUNCNAME[0]};;
+    esac
 }
 
 # DEVOPS SUB-MENU
 submenu_devops () {
-    PS3='>> DEVOPS Tools: '
-    options=('JENKINS' 'POSTGRES' 'DEBIAN' '' '' 'QUIT')
-    select opt in "${options[@]}"
-    do
-        case $opt in
-            'JENKINS')
-                echo -e '\n>>> JENKINS'
-                submenu_jenkins
-                ;;
-            'POSTGRES')
-                echo -e '\n>>> POSTGRES'
-                submenu_psql
-                ;;
-            'DEBIAN')
-                echo -e '\n>>> DEBIAN'
-                submenu_debian
-                ;;
-            '')
-                echo -e '\n>>>'
-                submenu_todo
-                ;;
-            '')
-                echo -e '\n>>> '
-                submenu_todo
-                ;;
-            'QUIT')
-                PS3='> MAIN MENU: '
-                return
-                ;;
-            *) echo "invalid option $REPLY";;
-        esac
-    done
+    HEADING='DEVOPS Tools'
+    echo -ne """
+$(textbluelight_bg ">> ${HEADING}")
+1) $(textred 'JENKINS')
+2) $(textbluelight 'POSTGRES')
+3) $(textmagenta 'DEBIAN')
+0) $(textgreydark 'ESC')
+"""
+    read -p ">> ${HEADING}: " -r
+    case ${REPLY} in
+        '1') submenu_jenkins;;
+        '2') submenu_psql;;
+        '3') submenu_debian;;
+        '0') mainmenu;;
+        *) echo "invalid option $REPLY"; ${FUNCNAME[0]};;
+    esac
 }
 
-# SECURITY SUB-MENU
-submenu_security () {
-    PS3='>> SECURITY Tools: '
-    options=('DEFECT-DOJO' 'DEPENDENCY-TRACK' 'MOBSF' 'ZAP' 'PENTEST' 'QUIT')
-    select opt in "${options[@]}"
-    do
-        case $opt in
-            'DEFECT-DOJO')
-                echo -e '\n>>> DEFECT-DOJO'
-                submenu_dd
-                ;;
-            'DEPENDENCY-TRACK')
-                echo -e '\n>>> DEPENDENCY-TRACK'
-                submenu_dt
-                ;;
-            'MOBSF')
-                echo -e '\n>>> MOBSF'
-                submenu_mobsf
-                ;;
-            'ZAP')
-                echo -e '\n>>> ZAP'
-                submenu_zap
-                ;;
-            'PENTEST')
-                echo -e '\n>>> PENTEST'
-                submenu_pt
-                ;;
-            'QUIT')
-                PS3='> MAIN MENU: '
-                return
-                ;;
-            *) echo "invalid option $REPLY";;
-        esac
-    done
+# DEVELOPER SUB-MENU
+submenu_developer () {
+    HEADING='DEVELOPER Tools'
+    echo -ne """
+$(textgrey_bg ">> ${HEADING}")
+1) $(textgrey 'JRE')
+2) $(textgrey 'NPM')
+0) $(textgreydark 'ESC')
+"""
+    read -p ">> ${HEADING}: " -r
+    case ${REPLY} in
+        '1') submenu_todo; ${FUNCNAME[0]};;
+        '2') submenu_todo; ${FUNCNAME[0]};;
+        '0') mainmenu;;
+        *) echo "invalid option $REPLY"; ${FUNCNAME[0]};;
+    esac
+}
+
+# MAIN MENU
+mainmenu () {
+    HEADING='MAIN MENU'
+    echo -en """
+$(textblue_bg "> ${HEADING}")
+1) $(textgreen 'SECURITY')
+2) $(textyellow 'DEVOPS')
+3) $(textgrey 'DEVELOPER')
+4) $(textred 'FULL STOP')
+0) $(textgreydark 'QUIT')
+"""
+    read -p "> ${HEADING}: " -r
+    case ${REPLY} in
+        '1') submenu_security;;
+        '2') submenu_devops;;
+        '3') submenu_developer;;
+        '4') docker_stop; ${FUNCNAME[0]};;
+        '6') exit;;
+        *)
+            echo "invalid option $REPLY"; ${FUNCNAME[0]};;
+    esac
 }
 
 # START HERE ->
@@ -122,38 +115,5 @@ docker_check
 docker_home_check
 docker_network
 psql_cli
-echo ''
 
-# MAIN MENU
-PS3="> MAIN MENU: "
-options=('SECURITY' 'DEVOPS' 'DEVELOPER' '' 'FULL STOP' 'QUIT')
-select opt in "${options[@]}"
-do
-    case $opt in
-        'SECURITY')
-            echo -e '\n>> SECURITY Tools'
-            submenu_security
-            ;;
-        'DEVOPS')
-            echo -e '\n>> DEVOPS Tools'
-            submenu_devops
-            ;;
-        'DEVELOPER')
-            echo -e '\n>> DEVELOPER Tools'
-            submenu_developer
-            ;;
-        '')
-            echo -e '\n>>> '
-            submenu_todo
-            ;;
-        'FULL STOP')
-            docker_stop
-            exit
-            ;;
-        'QUIT')
-            echo -e '\n[QUIT] Bye-bye.'
-            exit
-            ;;
-        *) echo "invalid option $REPLY";;
-    esac
-done
+mainmenu
