@@ -61,28 +61,28 @@ dd_init () {
     then
         if docker exec -it "${DD_CONTAINER_UWSGI}" "./../entrypoint-initializer.sh"
         then
-            echo -e "[INIT] ${DD_CONTAINER_UWSGI} SUCCESS."
+            init1 "${DD_CONTAINER_UWSGI} SUCCESS."
         fi
     fi
 
     if docker_container_create "${DD_CONTAINER_NGINX}" dd_nginx
     then
-        echo "[INIT] ${DD_CONTAINER_NGINX} SUCCESS."
+        init1 "${DD_CONTAINER_NGINX} SUCCESS."
     fi
 
     if docker_container_create "${DD_CONTAINER_BEAT}" dd_beat
     then
-        echo "[INIT] ${DD_CONTAINER_BEAT} SUCCESS."
+        init1 "${DD_CONTAINER_BEAT} SUCCESS."
     fi
 
     if docker_container_create "${DD_CONTAINER_WORKER}" dd_worker
     then
-        echo "[INIT] ${DD_CONTAINER_WORKER} SUCCESS."
+        init1 "${DD_CONTAINER_WORKER} SUCCESS."
     fi
 
     if docker_container_create "${DD_CONTAINER_RABBITMQ}" dd_rabbitmq
     then
-        echo "[INIT] ${DD_CONTAINER_RABBITMQ} SUCCESS."
+        init1 "${DD_CONTAINER_RABBITMQ} SUCCESS."
     fi
 }
 

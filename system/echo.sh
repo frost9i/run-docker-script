@@ -25,10 +25,10 @@ fail1 () {
     if [ -z "${1}" ]
     then
         textred "[FAIL]"
-        return 0
+        return 1
     fi
     textred "[FAIL] ${1}"
-    return 0
+    return 1
 }
 
 skip1 () {
@@ -46,6 +46,14 @@ info1 () {
         1="null"
     fi
     textgrey "[INFO] ${1}"
+}
+
+init1 () {
+    if [[ -z "${1}" ]]
+    then
+        1="null"
+    fi
+    textgreen "[INIT] ${1}"
 }
 
 script_ask () {

@@ -3,8 +3,8 @@
 docker_check () {
     if ! docker ps 2>&1 1>/dev/null
     then
-        echo -e '[ERROR] Docker daemon is not running'
-        echo -e '[USER] Start Docker manually and restart the script.'
+        error1 '[ERROR] Docker daemon is not running'
+        textbluelight '[USER] Start Docker manually and restart the script.'
         exit 1
     fi
     check1 'System check PASSED.'
@@ -13,9 +13,9 @@ docker_check () {
 docker_home_check () {
     if [ -z $DOCKER_MY_HOME ]
     then
-        echo -e '[WARNING] $DOCKER_MY_HOME is not set.'
-        echo -e '[WARNING] This will break the script.'
-        echo -e '[WARNING] Please define variable and restart script'
+        textred '[WARNING] $DOCKER_MY_HOME is not set.'
+        textred '[WARNING] This will break the script.'
+        textred '[WARNING] Please define variable and restart script'
         if script_ask 'Exit?'
         then
             echo ''
@@ -61,12 +61,11 @@ docker_ask_port () {
 }
 
 docker_stop () {
-    echo -e '[STOP] FULL STOP'
     if ! docker ps -q | xargs docker stop 2>/dev/null
     then
-        echo -e '[ERROR] No containers were up.'
+        error1 'No containers were up.'
     fi
-    echo -e '[STOP] DONE.'
+    textmagenta '[STOP] DONE.'
 }
 
 docker_container_status () {
@@ -76,9 +75,9 @@ docker_container_status () {
         then
             if docker ps --format "{{ .Names}}" | grep -i ${CONTAINER} >> /dev/null
             then
-                echo -e "[STATUS] ${CONTAINER} RUNNING."
+                textgreen "[STATUS] ${CONTAINER} RUNNING."
             else
-                echo -e "[STATUS] ${CONTAINER} STOPPED."
+                textgreydark "[STATUS] ${CONTAINER} STOPPED."
             fi
         fi
     done
@@ -98,10 +97,10 @@ docker_container_check () {
 docker_container_create () {
     if ! docker_container_check "${1}"
     then
-        echo -e "[CREATE] ${1}"
+        textgrey_bg "[CREATE] ${1}"
         if ${2}
         then
-            echo "[CREATE] SUCCESS."
+            textgrey_bg "[CREATE] SUCCESS."
         fi
     else
         skip1 "${1}"
@@ -116,7 +115,7 @@ docker_container_delete () {
         then
             if docker rm -f ${CONTAINER} > /dev/null
             then
-                echo "[DELETE] DONE."
+                textred "[DELETE] DONE."
             fi
         fi
     done
@@ -127,7 +126,7 @@ docker_container_start () {
     do
         if docker_container_check ${CONTAINER}
         then
-            echo -e "[START] ${CONTAINER}"
+            textgreen "[START] ${CONTAINER}"
             if docker start ${CONTAINER} > /dev/null
             then
                 echo -e "[START] SUCCESS."
@@ -143,10 +142,10 @@ docker_container_stop () {
     do
         if docker_container_check ${CONTAINER}
         then
-            echo -e "[STOP] ${CONTAINER}"
+            textmagenta "[STOP] ${CONTAINER}"
             if docker stop ${CONTAINER} > /dev/null
             then
-                echo -e "[STOP] DONE."
+                textmagenta "[STOP] DONE."
             fi
         fi
     done
@@ -157,7 +156,7 @@ docker_container_restart () {
     then
         if docker restart "${1}" > /dev/null
         then
-            echo -e "[RESTART] SUCCESS."
+            textyellow "[RESTART] SUCCESS."
         fi
         error1
     fi
