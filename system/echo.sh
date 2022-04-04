@@ -14,7 +14,7 @@ error1 () {
         echo -e "[ERROR] Something wrong."
         exit 1
     fi
-    echo -e "[ERROR] ${1}"
+    textred "[ERROR] ${1}"
 }
 
 error2 () {
@@ -25,18 +25,18 @@ fail1 () {
     if [ -z "${1}" ]
     then
         textred "[FAIL]"
-        return 1
+        return 0
     fi
     textred "[FAIL] ${1}"
-    return 1
+    return 0
 }
 
 skip1 () {
     if [ -z "${1}" ]
     then
-        echo -e "[SKIPPED]"
+        textcyan "[SKIPPED]"
     else
-        echo -e "[SKIP] ${1}"
+        textcyan "[SKIP] ${1}"
     fi
 }
 
@@ -45,7 +45,7 @@ info1 () {
     then
         1="null"
     fi
-    echo -e "[INFO] ${1}"
+    textgrey "[INFO] ${1}"
 }
 
 script_ask () {
@@ -60,6 +60,6 @@ script_ask () {
 }
 
 submenu_todo () {
-    echo -e '[UNDER CONSTRUCTION]'
+    textgrey_bg '[UNDER CONSTRUCTION]'
     return 1
 }

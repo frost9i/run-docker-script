@@ -30,11 +30,12 @@ $(textbluelight_bg ">> ${HEADING}")
 """
     read -p ">> ${HEADING}: " -r
     case ${REPLY} in
-        '1') docker_container_start ${DD_LIST}; ${FUNCNAME[0]};;
-        '2') docker_container_stop ${DD_LIST}; ${FUNCNAME[0]};;
+        '1') docker_container_start ${DD_LIST[@]}; ${FUNCNAME[0]};;
+        '2') docker_container_stop ${DD_LIST[@]}; ${FUNCNAME[0]};;
         '3') dd_init; ${FUNCNAME[0]};;
-        '4') docker_container_status ${DD_LIST}; ${FUNCNAME[0]};;
-        '5') docker_container_delete ${DD_LIST}; ${FUNCNAME[0]};;
+        '4') docker_container_status ${DD_LIST[@]}; ${FUNCNAME[0]};;
+        '5') docker_container_delete ${DD_LIST[@]}; ${FUNCNAME[0]};;
+        '6') submenu_todo;; # delete database
         '0') submenu_security;;
         *) echo "invalid option $REPLY"; ${FUNCNAME[0]};;
     esac
@@ -58,7 +59,7 @@ dd_init () {
 
     if docker_container_create "${DD_CONTAINER_UWSGI}" dd_uwsgi
     then
-        if docker exec -it "${DD_CONTAINER_UWSGI}" ./../entrypoint-initializer.sh
+        if docker exec -it "${DD_CONTAINER_UWSGI}" "./../entrypoint-initializer.sh"
         then
             echo -e "[INIT] ${DD_CONTAINER_UWSGI} SUCCESS."
         fi

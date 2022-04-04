@@ -31,7 +31,6 @@ docker_network () {
     then
         check1 "DOCKER_NETWORK_NAME=${DOCKER_NETWORK_NAME}"
         docker network create ${DOCKER_NETWORK_NAME} > /dev/null
-        return 0
     fi
     info1 "DOCKER_NETWORK_NAME=${DOCKER_NETWORK_NAME}"
 }
@@ -66,10 +65,8 @@ docker_stop () {
     if ! docker ps -q | xargs docker stop 2>/dev/null
     then
         echo -e '[ERROR] No containers were up.'
-        return
     fi
     echo -e '[STOP] DONE.'
-    return
 }
 
 docker_container_status () {
@@ -80,22 +77,22 @@ docker_container_status () {
             if docker ps --format "{{ .Names}}" | grep -i ${CONTAINER} >> /dev/null
             then
                 echo -e "[STATUS] ${CONTAINER} RUNNING."
-                return 0
+            else
+                echo -e "[STATUS] ${CONTAINER} STOPPED."
             fi
-            echo -e "[STATUS] ${CONTAINER} STOPPED."
-            return 1
         fi
-        echo -e "[STATUS] MISSING."
     done
 }
 
 docker_container_check () {
     if docker ps -a --format "{{ .Names}}" | grep -i ${1} >> /dev/null
     then
+        info1 "${1} OK."
         return 0
+    else
+        error1 "${1} DOES NOT EXIST."
+        return 1
     fi
-    error1 "${1} DOES NOT EXIST."
-    return 1
 }
 
 docker_container_create () {
@@ -134,10 +131,10 @@ docker_container_start () {
             if docker start ${CONTAINER} > /dev/null
             then
                 echo -e "[START] SUCCESS."
-                return 0
+            else
+                fail1 "START ${CONTAINER}"
             fi
         fi
-        fail1 "START ${CONTAINER}"
     done
 }
 
@@ -150,10 +147,8 @@ docker_container_stop () {
             if docker stop ${CONTAINER} > /dev/null
             then
                 echo -e "[STOP] DONE."
-                return 0
             fi
         fi
-        fail1 "STOP ${CONTAINER}"
     done
 }
 
@@ -163,7 +158,6 @@ docker_container_restart () {
         if docker restart "${1}" > /dev/null
         then
             echo -e "[RESTART] SUCCESS."
-            return
         fi
         error1
     fi

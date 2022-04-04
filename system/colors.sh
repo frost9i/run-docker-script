@@ -25,6 +25,3 @@ textmagenta_bg() { printf "${ESC}[1;45m${1}${RESET}\n" ; }
 textcyan_bg() { printf "${ESC}[1;46m${1}${RESET}\n" ; }
 textgrey_bg() { printf "${ESC}[1;47m${1}${RESET}\n" ; }
 textbluelight_bg() { printf "${ESC}[1;104m${1}${RESET}\n" ; }
-
-# Combinations
-boldtextblue() { printf "${ESC}[1;94m${1}${RESET}\n"; }
