@@ -37,7 +37,7 @@ docker_network () {
 
 docker_ask_port () {
     echo ''
-    info1 "PRESET PORT ${1}:${2}"
+    info1 "PRE-SET PORT ${1}:${2}"
     read -p "[PRESS] EXPOSE PORT for ${1}? [1024-65535]: " -r
     if [[ ${REPLY} =~ ^[0-9]+$ ]]
     then

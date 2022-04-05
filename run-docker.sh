@@ -36,7 +36,7 @@ $(textgreen_bg ">> ${HEADING}")
 (5)$(textred 'PENTEST >')
 (Q)$(textgrey 'ESC')
 """
-    read -p ">> ${HEADING}: " -r
+    read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
         '1') submenu_dd;;
         '2') submenu_dt;;
@@ -58,7 +58,7 @@ $(textbluelight_bg ">> ${HEADING}")
 (3)$(textmagenta 'DEBIAN')
 (Q)$(textgrey 'ESC')
 """
-    read -p ">> ${HEADING}: " -r
+    read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
         '1') submenu_jenkins;;
         '2') submenu_psql;;
@@ -78,7 +78,7 @@ $(textgrey_bg ">> ${HEADING}")
 (3)$(textgrey 'NODE')
 (Q)$(textgrey 'ESC')
 """
-    read -p ">> ${HEADING}: " -r
+    read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
         '1') submenu_todo; ${FUNCNAME[0]};;
         '2') submenu_todo; ${FUNCNAME[0]};;
@@ -91,7 +91,7 @@ $(textgrey_bg ">> ${HEADING}")
 # MAIN MENU
 mainmenu () {
     HEADING='MAIN MENU'
-    echo -en """
+    echo -ne """
 $(textblue_bg "> ${HEADING}")
 (1)$(textgreen 'SECURITY')
 (2)$(textyellow 'DEVOPS')
@@ -99,12 +99,12 @@ $(textblue_bg "> ${HEADING}")
 (F)$(textred 'FULL STOP')
 (Q)$(textgrey 'QUIT')
 """
-    read -p "> ${HEADING}: " -r
+    read -p $"> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
         '1') submenu_security;;
         '2') submenu_devops;;
         '3') submenu_developer;;
-        [Ff]*) docker_stop; exit;;
+        [Ff]*) if script_ask "Confirm"; then docker_stop; exit; fi; ${FUNCNAME[0]};;
         [Qq]*) exit;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
     esac

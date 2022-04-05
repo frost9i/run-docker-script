@@ -8,7 +8,7 @@ submenu_jenkins () {
     HEADING='JENKINS Controls'
     heading_srv ${HEADING}
     textgreydark "(P)SHOW INIT ADMIN PASSWORD"
-    read -p ">> ${HEADING}: " -r
+    read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
         '1') docker_container_start ${JENKINS_CONTAINER_NAME}; ${FUNCNAME[0]};;
         '2') docker_container_stop ${JENKINS_CONTAINER_NAME}; ${FUNCNAME[0]};;

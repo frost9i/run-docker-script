@@ -84,6 +84,6 @@ $(textbluelight_bg ">> ${1}")
 }
 
 submenu_todo () {
-    textgrey_bg '[UNDER CONSTRUCTION]'
+    textgrey_bg '\n[UNDER CONSTRUCTION]'
     return 1
 }

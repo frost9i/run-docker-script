@@ -6,7 +6,7 @@ DEBIAN_CONTAINER_NAME='debian'
 submenu_debian () {
     HEADING='DEBIAN Controls'
     heading_run ${HEADING}
-    read -p ">> ${HEADING}: " -r
+    read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
         '1') debian; ${FUNCNAME[0]};;
         '2') docker exec -it ${DEBIAN_CONTAINER_NAME} bash; ${FUNCNAME[0]};;

@@ -8,7 +8,7 @@ MOBSF_PSQL_DATABASE="${MOBSF_CONTAINER_NAME}"
 submenu_mobsf () {
     HEADING='MOBSF Controls'
     heading_srv ${HEADING}
-    read -p ">> ${HEADING}: " -r
+    read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
         '1') docker_container_start ${MOBSF_CONTAINER_NAME}; ${FUNCNAME[0]};;
         '2') docker_container_stop ${MOBSF_CONTAINER_NAME}; ${FUNCNAME[0]};;

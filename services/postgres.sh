@@ -9,7 +9,7 @@ PSQL_ROOT_PASS='pass'
 submenu_psql () {
     HEADING='POSTGRES Controls'
     heading_srv ${HEADING}
-    read -p ">> ${HEADING}: " -r
+    read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
         '1') psql_check; ${FUNCNAME[0]};;
         '2') docker_container_stop ${PSQL_CONTAINER_NAME}; ${FUNCNAME[0]};;

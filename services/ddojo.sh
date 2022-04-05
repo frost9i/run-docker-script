@@ -25,7 +25,7 @@ DD_LIST=("${DD_CONTAINER_UWSGI}"
 submenu_dd () {
     HEADING='DEFECT-DOJO Controls'
     heading_srv ${HEADING}
-    read -p ">> ${HEADING}: " -r
+    read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
         '1') docker_container_start ${DD_LIST[@]}; ${FUNCNAME[0]};;
         '2') docker_container_stop ${DD_LIST[@]}; ${FUNCNAME[0]};;

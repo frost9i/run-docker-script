@@ -15,7 +15,7 @@ DT_LIST=("${DT_CONTAINER_API}" "${DT_CONTAINER_FE}")
 submenu_dt () {
     HEADING='DEPENDENCY-TRACK Controls'
     heading_run ${HEADING}
-    read -p ">> ${HEADING}: " -r
+    read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
         '1') docker_container_start ${DT_LIST[@]}; ${FUNCNAME[0]};;
         '2') docker_container_stop ${DT_LIST[@]}; ${FUNCNAME[0]};;

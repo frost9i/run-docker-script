@@ -6,7 +6,7 @@ ZAP_CONTAINER_NAME='zap'
 submenu_zap () {
     HEADING='ZAP Controls'
     heading_run ${HEADING}
-    read -p ">> ${HEADING}: " -r
+    read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
         '1') zap; ${FUNCNAME[0]};;
         '2') docker exec -it "${ZAP_CONTAINER_NAME}" bash; ${FUNCNAME[0]};;
