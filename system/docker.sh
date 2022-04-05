@@ -77,7 +77,7 @@ docker_container_status () {
             then
                 textgreen "[STATUS] ${CONTAINER} RUNNING."
             else
-                textgreydark "[STATUS] ${CONTAINER} STOPPED."
+                textgrey "[STATUS] ${CONTAINER} STOPPED."
             fi
         fi
     done
@@ -100,7 +100,7 @@ docker_container_create () {
         textgrey_bg "[CREATE] ${1}"
         if ${2}
         then
-            textgrey_bg "[CREATE] SUCCESS."
+            textgreen_bg "[CREATE] SUCCESS."
         fi
     else
         skip1 "${1}"

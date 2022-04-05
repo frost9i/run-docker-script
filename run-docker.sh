@@ -28,13 +28,13 @@ source ./services/debian.sh
 submenu_security () {
     HEADING='SECURITY Tools'
     echo -ne """
-$(textgreen ">> ${HEADING}")
-1) $(textbluelight 'DEFECT-DOJO')
-2) $(textcyan 'DEPENDENCY-TRACK')
-3) $(textbluelight 'MOBSF')
-4) $(textyellow 'ZAP')
-5) $(textred 'PENTEST >')
-0) $(textgreydark 'ESC')
+$(textgreen_bg ">> ${HEADING}")
+(1)$(textbluelight 'DEFECT-DOJO')
+(2)$(textcyan 'DEPENDENCY-TRACK')
+(3)$(textbluelight 'MOBSF')
+(4)$(textyellow 'ZAP')
+(5)$(textred 'PENTEST >')
+(Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -r
     case ${REPLY} in
@@ -43,8 +43,8 @@ $(textgreen ">> ${HEADING}")
         '3') submenu_mobsf;;
         '4') submenu_zap;;
         '5') submenu_pentest;;
-        '0') mainmenu;;
-        *) echo "invalid option $REPLY"; ${FUNCNAME[0]};;
+        [Qq]*) mainmenu;;
+        *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
     esac
 }
 
@@ -53,18 +53,18 @@ submenu_devops () {
     HEADING='DEVOPS Tools'
     echo -ne """
 $(textbluelight_bg ">> ${HEADING}")
-1) $(textred 'JENKINS')
-2) $(textbluelight 'POSTGRES')
-3) $(textmagenta 'DEBIAN')
-0) $(textgreydark 'ESC')
+(1)$(textred 'JENKINS')
+(2)$(textbluelight 'POSTGRES')
+(3)$(textmagenta 'DEBIAN')
+(Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -r
     case ${REPLY} in
         '1') submenu_jenkins;;
         '2') submenu_psql;;
         '3') submenu_debian;;
-        '0') mainmenu;;
-        *) echo "invalid option $REPLY"; ${FUNCNAME[0]};;
+        [Qq]*) mainmenu;;
+        *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
     esac
 }
 
@@ -73,16 +73,18 @@ submenu_developer () {
     HEADING='DEVELOPER Tools'
     echo -ne """
 $(textgrey_bg ">> ${HEADING}")
-1) $(textgrey 'JRE')
-2) $(textgrey 'NPM')
-0) $(textgreydark 'ESC')
+(1)$(textgrey 'JRE')
+(2)$(textgrey 'NPM')
+(3)$(textgrey 'NODE')
+(Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -r
     case ${REPLY} in
         '1') submenu_todo; ${FUNCNAME[0]};;
         '2') submenu_todo; ${FUNCNAME[0]};;
-        '0') mainmenu;;
-        *) echo "invalid option $REPLY"; ${FUNCNAME[0]};;
+        '3') submenu_todo; ${FUNCNAME[0]};;
+        [Qq]*) mainmenu;;
+        *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
     esac
 }
 
@@ -91,21 +93,20 @@ mainmenu () {
     HEADING='MAIN MENU'
     echo -en """
 $(textblue_bg "> ${HEADING}")
-1) $(textgreen 'SECURITY')
-2) $(textyellow 'DEVOPS')
-3) $(textgrey 'DEVELOPER')
-4) $(textred 'FULL STOP')
-0) $(textgreydark 'QUIT')
+(1)$(textgreen 'SECURITY')
+(2)$(textyellow 'DEVOPS')
+(3)$(textgrey 'DEVELOPER')
+(F)$(textred 'FULL STOP')
+(Q)$(textgrey 'QUIT')
 """
     read -p "> ${HEADING}: " -r
     case ${REPLY} in
         '1') submenu_security;;
         '2') submenu_devops;;
         '3') submenu_developer;;
-        '4') docker_stop; ${FUNCNAME[0]};;
-        '0') exit;;
-        *)
-            echo "invalid option $REPLY"; ${FUNCNAME[0]};;
+        [Ff]*) docker_stop; exit;;
+        [Qq]*) exit;;
+        *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
     esac
 }
 

@@ -53,7 +53,7 @@ init1 () {
     then
         1="null"
     fi
-    textgreen "[INIT] ${1}"
+    textyellow_bg "[INIT] ${1}"
 }
 
 script_ask () {
@@ -65,6 +65,22 @@ script_ask () {
         return 0
     fi
     return 1
+}
+
+heading_srv () {
+    echo -ne """
+$(textbluelight_bg ">> ${1}")
+(1)$(textgreen 'START')   (2)$(textmagenta 'STOP')    (3)$(textyellow 'INIT')
+(Q)$(textgrey 'ESC')     (S)$(textgrey 'STATUS')  (D)$(textred 'DELETE')
+"""
+}
+
+heading_run () {
+    echo -ne """
+$(textbluelight_bg ">> ${1}")
+(1)$(textgreen 'RUN')   (2)$(textcyan 'SHELL')    (3)$(textyellow 'INIT')
+(Q)$(textgrey 'ESC')   (S)$(textgrey 'STATUS')   (D)$(textred 'DELETE')
+"""
 }
 
 submenu_todo () {

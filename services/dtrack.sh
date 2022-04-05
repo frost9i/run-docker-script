@@ -14,20 +14,16 @@ DT_LIST=("${DT_CONTAINER_API}" "${DT_CONTAINER_FE}")
 # DEPENDENCY-TRACK SUB-MENU
 submenu_dt () {
     HEADING='DEPENDENCY-TRACK Controls'
-    echo -ne """
-$(textcyan_bg ">> ${HEADING}")
-1)$(textgreen 'START')  2)$(textmagenta 'STOP')  3)$(textyellow 'INIT')  4)$(textgreydark 'STATUS')  5)$(textred 'DELETE')  0)$(textgreydark 'ESC')
-"""
+    heading_run ${HEADING}
     read -p ">> ${HEADING}: " -r
     case ${REPLY} in
         '1') docker_container_start ${DT_LIST[@]}; ${FUNCNAME[0]};;
         '2') docker_container_stop ${DT_LIST[@]}; ${FUNCNAME[0]};;
         '3') dt_init; ${FUNCNAME[0]};;
-        '4') docker_container_status ${DT_LIST[@]}; ${FUNCNAME[0]};;
-        '5') docker_container_delete ${DT_LIST[@]}; ${FUNCNAME[0]};;
-        '0') submenu_security;;
-        *)
-            echo "invalid option $REPLY"; ${FUNCNAME[0]};;
+        [Ss]*) docker_container_status ${DT_LIST[@]}; ${FUNCNAME[0]};;
+        [Dd]*) docker_container_delete ${DT_LIST[@]}; ${FUNCNAME[0]};;
+        [Qq]*) submenu_security;;
+        *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
     esac
 }
 

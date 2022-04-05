@@ -3,7 +3,7 @@
 DD_SERVICE_NAME='defectdojo'
 DD_PSQL_DATABASE="${DD_SERVICE_NAME}"
 
-DD_UWSGI_PORT='8080'
+DD_UWSGI_PORT='8008'
 DD_CONTAINER_UWSGI="${DD_SERVICE_NAME}"
 DD_CONTAINER_NGINX="${DD_SERVICE_NAME}-nginx"
 DD_CONTAINER_BEAT="${DD_SERVICE_NAME}-beat"
@@ -24,25 +24,22 @@ DD_LIST=("${DD_CONTAINER_UWSGI}"
 # DEFECT-DOJO SUB-MENU
 submenu_dd () {
     HEADING='DEFECT-DOJO Controls'
-    echo -ne """
-$(textbluelight_bg ">> ${HEADING}")
-1)$(textgreen 'START')  2)$(textmagenta 'STOP')  3)$(textyellow 'INIT')  4)$(textgreydark 'STATUS')  5)$(textred 'DELETE')  0)$(textgreydark 'ESC')
-"""
+    heading_srv ${HEADING}
     read -p ">> ${HEADING}: " -r
     case ${REPLY} in
         '1') docker_container_start ${DD_LIST[@]}; ${FUNCNAME[0]};;
         '2') docker_container_stop ${DD_LIST[@]}; ${FUNCNAME[0]};;
         '3') dd_init; ${FUNCNAME[0]};;
-        '4') docker_container_status ${DD_LIST[@]}; ${FUNCNAME[0]};;
-        '5') docker_container_delete ${DD_LIST[@]}; ${FUNCNAME[0]};;
-        '6') submenu_todo;; # delete database
-        '0') submenu_security;;
-        *) echo "invalid option $REPLY"; ${FUNCNAME[0]};;
+        '4') submenu_todo;; # delete database
+        [Ss]*) docker_container_status ${DD_LIST[@]}; ${FUNCNAME[0]};;
+        [Dd]*) docker_container_delete ${DD_LIST[@]}; ${FUNCNAME[0]};;
+        [Qq]*) submenu_security;;
+        *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
     esac
 }
 
 dd_init () {
-    echo -e "[INIT] DEFECTDOJO"
+    textyellow "[INIT] DEFECTDOJO"
 
     psql_check
 

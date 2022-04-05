@@ -6,21 +6,18 @@ JENKINS_PORT='7000' # 8080
 # JENKINS SUB-MENU
 submenu_jenkins () {
     HEADING='JENKINS Controls'
-    echo -ne """
-$(textred_bg ">> ${HEADING}") 
-1)$(textgreen 'START')  2)$(textmagenta 'STOP')  3)$(textyellow 'INIT')  4)$(textgreydark 'STATUS')  5)$(textred 'DELETE')  6)$(textgreydark 'SHOW ADMIN PASSWORD')  0)$(textgreydark 'ESC')
-"""
+    heading_srv ${HEADING}
+    textgreydark "(P)SHOW INIT ADMIN PASSWORD"
     read -p ">> ${HEADING}: " -r
     case ${REPLY} in
         '1') docker_container_start ${JENKINS_CONTAINER_NAME}; ${FUNCNAME[0]};;
         '2') docker_container_stop ${JENKINS_CONTAINER_NAME}; ${FUNCNAME[0]};;
         '3') jenkins_init && submenu_jenkins;;
-        '4') docker_container_status ${JENKINS_CONTAINER_NAME}; ${FUNCNAME[0]};;
-        '5') docker_container_delete ${JENKINS_CONTAINER_NAME}; ${FUNCNAME[0]};;
-        '6') if docker exec -it -u root ${JENKINS_CONTAINER_NAME} bash -c "cat /var/jenkins_home/secrets/initialAdminPassword"; then echo ''; fi; ${FUNCNAME[0]};;
-        '0') submenu_devops;;
-        *)
-            echo "invalid option $REPLY"; ${FUNCNAME[0]};;
+        [Ss]*) docker_container_status ${JENKINS_CONTAINER_NAME}; ${FUNCNAME[0]};;
+        [Dd]*) docker_container_delete ${JENKINS_CONTAINER_NAME}; ${FUNCNAME[0]};;
+        [Pp]*) if docker exec -it -u root ${JENKINS_CONTAINER_NAME} bash -c "cat /var/jenkins_home/secrets/initialAdminPassword"; then echo ''; fi; ${FUNCNAME[0]};;
+        [Qq]*) submenu_devops;;
+        *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
     esac
 }
 
@@ -36,7 +33,7 @@ jenkins_init () {
 
     if docker_container_create "${JENKINS_CONTAINER_NAME}" jenkins_start
     then
-        echo -e "[INIT] ${JENKINS_CONTAINER_NAME} SUCCESS."
+        init1 "${JENKINS_CONTAINER_NAME} SUCCESS."
     fi
 }
 

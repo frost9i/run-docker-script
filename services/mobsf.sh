@@ -7,20 +7,16 @@ MOBSF_PSQL_DATABASE="${MOBSF_CONTAINER_NAME}"
 # MOBSF SUB-MENU
 submenu_mobsf () {
     HEADING='MOBSF Controls'
-    echo -ne """
-$(textbluelight_bg ">> ${HEADING}")
-1)$(textgreen 'START')  2)$(textmagenta 'STOP')  3)$(textyellow 'INIT')  4)$(textgreydark 'STATUS')  5)$(textred 'DELETE')  0)$(textgreydark 'ESC')
-"""
+    heading_srv ${HEADING}
     read -p ">> ${HEADING}: " -r
     case ${REPLY} in
         '1') docker_container_start ${MOBSF_CONTAINER_NAME}; ${FUNCNAME[0]};;
         '2') docker_container_stop ${MOBSF_CONTAINER_NAME}; ${FUNCNAME[0]};;
         '3') mobsf_init; ${FUNCNAME[0]};;
-        '4') docker_container_status ${MOBSF_CONTAINER_NAME}; ${FUNCNAME[0]};;
-        '5') docker_container_delete ${MOBSF_CONTAINER_NAME}; ${FUNCNAME[0]};;
-        '0') submenu_security;;
-        *)
-            echo "invalid option $REPLY"; ${FUNCNAME[0]};;
+        [Ss]*) docker_container_status ${MOBSF_CONTAINER_NAME}; ${FUNCNAME[0]};;
+        [Dd]*) docker_container_delete ${MOBSF_CONTAINER_NAME}; ${FUNCNAME[0]};;
+        [Qq]*) submenu_security;;
+        *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
     esac
 }
 
@@ -53,7 +49,7 @@ mobsf_init () {
             docker exec -u root "${MOBSF_CONTAINER_NAME}" ./scripts/postgres_support.sh True
             if docker_container_restart "${MOBSF_CONTAINER_NAME}"
             then
-                echo -e "[INIT] ${MOBSF_CONTAINER_NAME} SUCCESS."
+                init1 "${MOBSF_CONTAINER_NAME} SUCCESS."
                 return
             fi
             error1
