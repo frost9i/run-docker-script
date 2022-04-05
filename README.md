@@ -11,9 +11,11 @@ Includes categorized services
 ║             ╠═[MOBSF]
 ║             ╠═[ZAP]
 ║             ║
-║             ╚═[PENTEST]═╦═[JUICE-SHOP]
-║                         ╠═[DVWA]
-║                         ╚═[VAMPI]
+║             ╠═[PENTEST]═╦═[JUICE-SHOP]
+║             ║           ╠═[DVWA]
+║             ║           ╚═[VAMPI]
+║             ║
+║             ╚═[SAST]══════[SEMGREP]
 ║
 ╠═[DEVOPS]════╦═[DEBIAN]
 ║             ╠═[JENKINS]
@@ -46,9 +48,14 @@ DOCKER_MY_HOME=
 [ZAP (https://github.com/zaproxy/zaproxy)](https://github.com/zaproxy/zaproxy)  
   
 **PENTEST:**  
+Vulnerable applications playground collection  
 [JUICE-SHOP (https://github.com/juice-shop/juice-shop)](https://github.com/juice-shop/juice-shop)  
 [DVWA (https://github.com/digininja/DVWA)](https://github.com/digininja/DVWA)  
 [VAMPI (https://github.com/erev0s/VAmPI)](https://github.com/erev0s/VAmPI)  
+  
+**SAST:**  
+Static Application Security Testing tools collection  
+[SEMGREP (https://hub.docker.com/r/returntocorp/semgrep-agent)](https://hub.docker.com/r/returntocorp/semgrep-agent)  
   
 **DEVOPS:**  
 [DEBIAN (https://hub.docker.com/_/debian)](https://hub.docker.com/_/debian)  
