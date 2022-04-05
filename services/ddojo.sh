@@ -45,7 +45,7 @@ dd_init () {
 
     psql_db_create "${DD_PSQL_DATABASE}"
 
-    if script_ask 'MOUNT EXTERNAL dojo-app FOLDER?'
+    if script_ask 'MOUNT EXTERNAL FOLDER TO /dojo-app ?'
     then
         DOCKER_MOUNT_DIR="-v ${DOCKER_MY_HOME}/ddojo-app:/app"
     else

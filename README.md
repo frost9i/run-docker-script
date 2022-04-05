@@ -28,6 +28,7 @@ Includes categorized services
 ---
 ### Requirements:  
 `bash` - Shell  
+`Docker` - CLI Container management  
 `psql` - CLI Postgres management  
 ### Configuration:  
 **Environment variables**  

@@ -19,7 +19,7 @@ submenu_debian () {
 }
 
 debian () {
-    if script_ask 'MOUNT EXTERNAL FOLDER to /tmp/debian?'
+    if script_ask 'MOUNT EXTERNAL FOLDER TO /tmp/debian ?'
     then
         DOCKER_MOUNT_DIR="-v ${DOCKER_MY_HOME}/debian:/tmp/debian"
     else
@@ -32,7 +32,7 @@ debian () {
 }
 
 debian_init () {
-    if script_ask 'MOUNT EXTERNAL FOLDER to /tmp/debian?'
+    if script_ask 'MOUNT EXTERNAL FOLDER TO /tmp/debian ?'
     then
         DOCKER_MOUNT_DIR="-v ${DOCKER_MY_HOME}/debian:/tmp/debian"
     else

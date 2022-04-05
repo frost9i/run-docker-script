@@ -15,6 +15,7 @@ source ./services/dtrack.sh
 source ./services/mobsf.sh
 source ./services/zap.sh
 source ./services/pentest.sh
+source ./services/sast.sh
 
 # DEVOPS Services
 source ./services/jenkins.sh
@@ -34,6 +35,7 @@ $(textgreen_bg ">> ${HEADING}")
 (3)$(textbluelight 'MOBSF')
 (4)$(textyellow 'ZAP')
 (5)$(textred 'PENTEST >')
+(6)$(textgreen 'SAST >')
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
@@ -43,6 +45,7 @@ $(textgreen_bg ">> ${HEADING}")
         '3') submenu_mobsf;;
         '4') submenu_zap;;
         '5') submenu_pentest;;
+        '6') submenu_sast;;
         [Qq]*) mainmenu;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
     esac

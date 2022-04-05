@@ -22,7 +22,7 @@ submenu_jenkins () {
 }
 
 jenkins_init () {
-    if script_ask 'MOUNT EXTERNAL /var/jenkins_home FOLDER?'
+    if script_ask 'MOUNT EXTERNAL FOLDER TO /var/jenkins_home ?'
     then
         DOCKER_MOUNT_DIR="-v ${DOCKER_MY_HOME}/jenkins:/var/jenkins_home"
     else
