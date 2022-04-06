@@ -46,7 +46,8 @@ $(textgreen_bg ">> ${HEADING}")
         '4') submenu_zap;;
         '5') submenu_pentest;;
         '6') submenu_sast;;
-        [Qq]*) mainmenu;;
+        [Q]) exit;;
+        [q]) mainmenu;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
     esac
 }
@@ -66,7 +67,8 @@ $(textbluelight_bg ">> ${HEADING}")
         '1') submenu_jenkins;;
         '2') submenu_psql;;
         '3') submenu_debian;;
-        [Qq]*) mainmenu;;
+        [Q]) exit;;
+        [q]) mainmenu;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
     esac
 }
@@ -86,7 +88,8 @@ $(textgrey_bg ">> ${HEADING}")
         '1') submenu_todo; ${FUNCNAME[0]};;
         '2') submenu_todo; ${FUNCNAME[0]};;
         '3') submenu_todo; ${FUNCNAME[0]};;
-        [Qq]*) mainmenu;;
+        [Q]) exit;;
+        [q]) mainmenu;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
     esac
 }

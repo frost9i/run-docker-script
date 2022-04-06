@@ -13,7 +13,8 @@ submenu_zap () {
         '3') zap_init; ${FUNCNAME[0]};;
         [Ss]*) docker_container_status ${ZAP_CONTAINER_NAME}; ${FUNCNAME[0]};;
         [Dd]*) if script_ask "Confirm"; then  docker_container_delete ${ZAP_CONTAINER_NAME}; fi; ${FUNCNAME[0]};;
-        [Qq]*) submenu_security;;
+        [Q]) exit;;
+        [q]) submenu_security;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
     esac
 }

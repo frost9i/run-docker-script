@@ -17,7 +17,8 @@ $(textred_bg ">> ${HEADING}")
     case ${REPLY} in
         '1') docker_container_create ${SEMGREP_CONTAINER_NAME} semgrep; ${FUNCNAME[0]};;
         [Ss]*) docker_container_stop ${SAST_LIST[@]}; ${FUNCNAME[0]};;
-        [Qq]*) submenu_security;;
+        [Q]) exit;;
+        [q]) submenu_security;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
     esac
 }

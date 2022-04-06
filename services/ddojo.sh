@@ -34,7 +34,8 @@ submenu_dd () {
         '4') submenu_todo;; # delete database
         [Ss]*) docker_container_status ${DD_LIST[@]}; ${FUNCNAME[0]};;
         [Dd]*) if script_ask "Confirm"; then docker_container_delete ${DD_LIST[@]}; fi; ${FUNCNAME[0]};;
-        [Qq]*) submenu_security;;
+        [Q]) exit;;
+        [q]) submenu_security;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
     esac
 }

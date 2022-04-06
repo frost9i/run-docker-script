@@ -20,7 +20,8 @@ submenu_psql () {
         [Rr]) psql_db_delete; ${FUNCNAME[0]};;
         [Ss]*) docker_container_status ${PSQL_CONTAINER_NAME}; ${FUNCNAME[0]};;
         [Dd]*) if script_ask "Confirm"; then docker_container_delete ${PSQL_CONTAINER_NAME}; fi; ${FUNCNAME[0]};;
-        [Qq]*) submenu_devops;;
+        [Q]) exit;;
+        [q]) submenu_devops;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
     esac
 }

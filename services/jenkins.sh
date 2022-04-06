@@ -16,7 +16,8 @@ submenu_jenkins () {
         [Ss]*) docker_container_status ${JENKINS_CONTAINER_NAME}; ${FUNCNAME[0]};;
         [Dd]*) if script_ask "Confirm"; then docker_container_delete ${JENKINS_CONTAINER_NAME}; fi; ${FUNCNAME[0]};;
         [Pp]*) if docker exec -it -u root ${JENKINS_CONTAINER_NAME} bash -c "cat /var/jenkins_home/secrets/initialAdminPassword"; then echo ''; fi; ${FUNCNAME[0]};;
-        [Qq]*) submenu_devops;;
+        [Q]) exit;;
+        [q]) submenu_devops;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
     esac
 }
