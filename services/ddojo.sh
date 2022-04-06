@@ -3,7 +3,8 @@
 DD_SERVICE_NAME='defectdojo'
 DD_PSQL_DATABASE="${DD_SERVICE_NAME}"
 
-DD_UWSGI_PORT='8008'
+DD_PORT='8008'
+
 DD_CONTAINER_UWSGI="${DD_SERVICE_NAME}"
 DD_CONTAINER_NGINX="${DD_SERVICE_NAME}-nginx"
 DD_CONTAINER_BEAT="${DD_SERVICE_NAME}-beat"
@@ -45,14 +46,14 @@ dd_init () {
 
     psql_db_create "${DD_PSQL_DATABASE}"
 
+    docker_ask_port "${DD_CONTAINER_NGINX}" "${DD_PORT}"
+
     if script_ask 'MOUNT EXTERNAL FOLDER TO /dojo-app ?'
     then
         DOCKER_MOUNT_DIR="-v ${DOCKER_MY_HOME}/ddojo-app:/app"
     else
         DOCKER_MOUNT_DIR=''
     fi
-
-    docker_ask_port "${DD_CONTAINER_UWSGI}" "${DD_UWSGI_PORT}"
 
     if docker_container_create "${DD_CONTAINER_UWSGI}" dd_uwsgi
     then
@@ -98,7 +99,6 @@ dd_rabbitmq () {
 # -v ${DOCKER_MY_HOME}/ddojo-app:/app \
 dd_uwsgi () {
     docker run -d ${DOCKER_MOUNT_DIR} \
-    -p ${CONTAINER_EXPOSED_PORT}:${DD_UWSGI_PORT} \
     --name ${DD_CONTAINER_UWSGI} \
     --network ${DOCKER_NETWORK_NAME} \
     --entrypoint='//entrypoint-uwsgi.sh' \
@@ -135,12 +135,12 @@ dd_uwsgi () {
 
 dd_nginx () {
     docker run -d \
-    -p 9000:8080 \
+    -p ${CONTAINER_EXPOSED_PORT}:8080 \
     --name ${DD_CONTAINER_NGINX} \
     --network ${DOCKER_NETWORK_NAME} \
     -e DD_UWSGI_HOST=${DD_CONTAINER_UWSGI} \
     -e DD_UWSGI_PORT='3031' \
-    -e DD_UWSGI_PASS="${DD_CONTAINER_NGINX}:3031" \
+    -e DD_UWSGI_PASS="${DD_CONTAINER_UWSGI}:3031" \
     defectdojo/defectdojo-nginx
 }
 

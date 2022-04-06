@@ -9,7 +9,7 @@ PSQL_ROOT_PASS='pass'
 submenu_psql () {
     HEADING='POSTGRES Controls'
     heading_srv ${HEADING}
-    echo -en "(L)LIST_db  (C)CREATE_db  (R)DROP_db\n"
+    echo -en "(L)LIST    (C)CREATE  (R)DROP\n"
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
         '1') psql_check; ${FUNCNAME[0]};;
@@ -49,7 +49,7 @@ psql_db_create () {
 
 psql_db_delete () {
     psql_db_list
-    read -p "[INPUT] DROP DATABASE: " -r
+    read -p "[INPUT] DROP DATABASE NAME: " -r
     psql_connect "DROP DATABASE IF EXISTS ${REPLY}"
 }
 
