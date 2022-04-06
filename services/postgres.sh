@@ -5,17 +5,25 @@ PSQL_CONTAINER_PORT='5432'
 PSQL_ROOT_USER='pgown'
 PSQL_ROOT_PASS='pass'
 
+# TODO
+# Database operation:
+# Delete DB, input name
+# or select from list
+
 # POSTGRES SUB-MENU
 submenu_psql () {
     HEADING='POSTGRES Controls'
     heading_srv ${HEADING}
+    echo -en "(L)LIST_db (R)DROP_db\n"
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
         '1') psql_check; ${FUNCNAME[0]};;
         '2') docker_container_stop ${PSQL_CONTAINER_NAME}; ${FUNCNAME[0]};;
         '3') psql_check; ${FUNCNAME[0]};;
+        [Ll]) psql_db_list; ${FUNCNAME[0]};;
+        [Rr]) psql_db_delete; ${FUNCNAME[0]};;
         [Ss]*) docker_container_status ${PSQL_CONTAINER_NAME}; ${FUNCNAME[0]};;
-        [Dd]*) docker_container_delete ${PSQL_CONTAINER_NAME}; ${FUNCNAME[0]};;
+        [Dd]*) if script_ask "Confirm"; then docker_container_delete ${PSQL_CONTAINER_NAME}; fi; ${FUNCNAME[0]};;
         [Qq]*) submenu_devops;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
     esac
@@ -27,7 +35,7 @@ psql_connect () {
     PGDATABASE=${PSQL_ROOT_USER}
     PGUSER=${PSQL_ROOT_USER} \
     PGPASSWORD=${PSQL_ROOT_PASS} \
-    psql -c "${1}"
+    psql -t -c "${1}"
 }
 
 psql_db_create () {
@@ -41,6 +49,17 @@ psql_db_create () {
         fi
     fi
     error1 "${FUNCNAME[0]}"
+}
+
+psql_db_delete () {
+    psql_db_list
+    read -p "[INPUT] DROP DATABASE: " -r
+    psql_connect "DROP DATABASE IF EXISTS ${REPLY}"
+}
+
+psql_db_list () {
+    textgrey_bg "DATABASE LIST:"
+    psql_connect "SELECT datname FROM pg_database WHERE datname <> ALL ('{template0,template1,postgres,pgown}')"
 }
 
 psql_check () {
@@ -82,7 +101,7 @@ psql_create () {
     error1 "${FUNCNAME[0]}"
 }
 
-psql_cli () {
+psql_cli_check () {
     if ! command -v psql > /dev/null
     then
         fail1 '[FAIL] psql CLI not found.'

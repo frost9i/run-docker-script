@@ -118,6 +118,6 @@ date
 docker_check
 docker_home_check
 docker_network
-psql_cli
+psql_cli_check
 
 mainmenu
