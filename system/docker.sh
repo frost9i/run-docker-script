@@ -97,10 +97,10 @@ docker_container_check () {
 docker_container_create () {
     if ! docker_container_check "${1}"
     then
-        textgrey_bg "[CREATE] ${1}"
+        textgrey "${1}"
         if ${2}
         then
-            textgreen_bg "[CREATE] SUCCESS."
+            textgreen "[CREATE] SUCCESS."
         fi
     else
         skip1 "${1}"

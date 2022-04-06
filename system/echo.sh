@@ -53,7 +53,7 @@ init1 () {
     then
         1="null"
     fi
-    textyellow_bg "[INIT] ${1}"
+    textyellow "[INIT] ${1}"
 }
 
 script_ask () {
