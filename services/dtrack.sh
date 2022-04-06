@@ -21,7 +21,7 @@ submenu_dt () {
         '2') docker_container_stop ${DT_LIST[@]}; ${FUNCNAME[0]};;
         '3') dt_init; ${FUNCNAME[0]};;
         [Ss]*) docker_container_status ${DT_LIST[@]}; ${FUNCNAME[0]};;
-        [Dd]*) docker_container_delete ${DT_LIST[@]}; ${FUNCNAME[0]};;
+        [Dd]*) if script_ask "Confirm"; then docker_container_delete ${DT_LIST[@]}; fi; ${FUNCNAME[0]};;
         [Qq]*) submenu_security;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
     esac

@@ -14,7 +14,7 @@ submenu_mobsf () {
         '2') docker_container_stop ${MOBSF_CONTAINER_NAME}; ${FUNCNAME[0]};;
         '3') mobsf_init; ${FUNCNAME[0]};;
         [Ss]*) docker_container_status ${MOBSF_CONTAINER_NAME}; ${FUNCNAME[0]};;
-        [Dd]*) docker_container_delete ${MOBSF_CONTAINER_NAME}; ${FUNCNAME[0]};;
+        [Dd]*) if script_ask "Confirm"; then  docker_container_delete ${MOBSF_CONTAINER_NAME}; fi; ${FUNCNAME[0]};;
         [Qq]*) submenu_security;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
     esac
