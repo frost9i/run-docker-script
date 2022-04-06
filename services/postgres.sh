@@ -5,11 +5,6 @@ PSQL_CONTAINER_PORT='5432'
 PSQL_ROOT_USER='pgown'
 PSQL_ROOT_PASS='pass'
 
-# TODO
-# Database operation:
-# Delete DB, input name
-# or select from list
-
 # POSTGRES SUB-MENU
 submenu_psql () {
     HEADING='POSTGRES Controls'
