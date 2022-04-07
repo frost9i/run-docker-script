@@ -58,10 +58,11 @@ dd_init () {
 
     if docker_container_create "${DD_CONTAINER_UWSGI}" dd_uwsgi
     then
-        if docker exec -it "${DD_CONTAINER_UWSGI}" "./../entrypoint-initializer.sh"
-        then
-            init1 "${DD_CONTAINER_UWSGI} SUCCESS."
-        fi
+        echo ''
+        # if docker exec -it "${DD_CONTAINER_UWSGI}" "./../entrypoint-initializer.sh"
+        # then
+        #     init1 "${DD_CONTAINER_UWSGI} SUCCESS."
+        # fi
     fi
 
     if docker_container_create "${DD_CONTAINER_NGINX}" dd_nginx
@@ -107,17 +108,17 @@ dd_uwsgi () {
     -e DD_CELERY_BROKER_HOST=${DD_CONTAINER_RABBITMQ} \
     -e DD_CELERY_BROKER_PORT='5672' \
     -e DD_CELERY_BROKER_SCHEME='amqp' \
-    -e DD_CELERY_BROKER_USER=${DD_RABBITMQ_USER} \
-    -e DD_CELERY_BROKER_PASSWORD=${DD_RABBITMQ_PASS} \
+    -e DD_CELERY_BROKER_USER="${DD_RABBITMQ_USER}" \
+    -e DD_CELERY_BROKER_PASSWORD="${DD_RABBITMQ_PASS}" \
     -e DD_CELERY_BROKER_PATH='//' \
     -e DD_CELERY_BEAT_SCHEDULE_FILENAME='/run/celery-beat-schedule' \
     -e DD_DATABASE_ENGINE='django.db.backends.postgresql' \
-    -e DD_DATABASE_URL="postgresql://${PSQL_ROOT_USER}:${PSQL_ROOT_PASS}@${PSQL_CONTAINER_NAME}:5432/${DD_PSQL_DATABASE}" \
-    -e DD_DATABASE_HOST=${PSQL_CONTAINER_NAME} \
-    -e DD_DATABASE_PORT=${PSQL_CONTAINER_PORT} \
-    -e DD_DATABASE_NAME=${DD_PSQL_DATABASE} \
-    -e DD_DATABASE_USER=${PSQL_ROOT_USER} \
-    -e DD_DATABASE_PASSWORD=${PSQL_ROOT_PASS} \
+    -e DD_DATABASE_URL="postgresql://${PSQL_ROOT_USER}:${PSQL_ROOT_PASS}@${PSQL_CONTAINER_NAME}:${PSQL_CONTAINER_PORT}/${DD_PSQL_DATABASE}" \
+    -e DD_DATABASE_HOST="${PSQL_CONTAINER_NAME}" \
+    -e DD_DATABASE_PORT="${PSQL_CONTAINER_PORT}" \
+    -e DD_DATABASE_NAME="${DD_PSQL_DATABASE}" \
+    -e DD_DATABASE_USER="${PSQL_ROOT_USER}" \
+    -e DD_DATABASE_PASSWORD="${PSQL_ROOT_PASS}" \
     -e DD_UWSGI_ENDPOINT='0.0.0.0:3031' \
     -e DD_ADMIN_USER='admin' \
     -e DD_ADMIN_PASSWORD='pass' \
@@ -139,7 +140,7 @@ dd_nginx () {
     -p ${CONTAINER_EXPOSED_PORT}:8080 \
     --name ${DD_CONTAINER_NGINX} \
     --network ${DOCKER_NETWORK_NAME} \
-    -e DD_UWSGI_HOST=${DD_CONTAINER_UWSGI} \
+    -e DD_UWSGI_HOST="${DD_CONTAINER_UWSGI}" \
     -e DD_UWSGI_PORT='3031' \
     -e DD_UWSGI_PASS="${DD_CONTAINER_UWSGI}:3031" \
     defectdojo/defectdojo-nginx
@@ -151,22 +152,22 @@ dd_worker () {
     --network ${DOCKER_NETWORK_NAME} \
     --entrypoint='//entrypoint-celery-worker.sh' \
     -e DD_ALLOWED_HOSTS='*' \
-    -e DD_CELERY_BROKER_HOST=${DD_CONTAINER_RABBITMQ} \
+    -e DD_CELERY_BROKER_HOST="${DD_CONTAINER_RABBITMQ}" \
     -e DD_CELERY_BROKER_PORT='5672' \
     -e DD_CELERY_BROKER_SCHEME='amqp' \
-    -e DD_CELERY_BROKER_USER=${DD_RABBITMQ_USER} \
-    -e DD_CELERY_BROKER_PASSWORD=${DD_RABBITMQ_PASS} \
+    -e DD_CELERY_BROKER_USER="${DD_RABBITMQ_USER}" \
+    -e DD_CELERY_BROKER_PASSWORD="${DD_RABBITMQ_PASS}" \
     -e DD_CELERY_BROKER_PATH='//' \
     -e DD_CELERY_BEAT_SCHEDULE_FILENAME='/run/celery-beat-schedule' \
     -e DD_DATABASE_ENGINE='django.db.backends.postgresql' \
     -e DD_DATABASE_URL="postgresql://${PSQL_ROOT_USER}:${PSQL_ROOT_PASS}@${PSQL_CONTAINER_NAME}:${PSQL_CONTAINER_PORT}/${DD_PSQL_DATABASE}" \
-    -e DD_DATABASE_HOST=${PSQL_CONTAINER_NAME} \
-    -e DD_DATABASE_PORT=${PSQL_CONTAINER_PORT} \
-    -e DD_DATABASE_NAME=${DD_PSQL_DATABASE} \
-    -e DD_DATABASE_USER=${PSQL_ROOT_USER} \
+    -e DD_DATABASE_HOST="${PSQL_CONTAINER_NAME}" \
+    -e DD_DATABASE_PORT="${PSQL_CONTAINER_PORT}" \
+    -e DD_DATABASE_NAME="${DD_PSQL_DATABASE}" \
+    -e DD_DATABASE_USER="${PSQL_ROOT_USER}" \
     -e DD_DATABASE_PASSWORD=${PSQL_ROOT_PASS} \
     -e DD_UWSGI_ENDPOINT='0.0.0.0:3031' \
-    -e DD_SECRET_KEY=${DD_SECRET_KEY} \
+    -e DD_SECRET_KEY="${DD_SECRET_KEY_SET}" \
     defectdojo/defectdojo-django
 }
 
@@ -176,21 +177,21 @@ dd_beat () {
     --network ${DOCKER_NETWORK_NAME} \
     --entrypoint='//entrypoint-celery-beat.sh' \
     -e DD_ALLOWED_HOSTS='*' \
-    -e DD_CELERY_BROKER_HOST=${DD_CONTAINER_RABBITMQ} \
+    -e DD_CELERY_BROKER_HOST="${DD_CONTAINER_RABBITMQ}" \
     -e DD_CELERY_BROKER_PORT='5672' \
     -e DD_CELERY_BROKER_SCHEME='amqp' \
-    -e DD_CELERY_BROKER_USER=${DD_RABBITMQ_USER} \
-    -e DD_CELERY_BROKER_PASSWORD=${DD_RABBITMQ_PASS} \
+    -e DD_CELERY_BROKER_USER="${DD_RABBITMQ_USER}" \
+    -e DD_CELERY_BROKER_PASSWORD="${DD_RABBITMQ_PASS}" \
     -e DD_CELERY_BROKER_PATH='//' \
     -e DD_CELERY_BEAT_SCHEDULE_FILENAME='/run/celery-beat-schedule' \
     -e DD_DATABASE_ENGINE='django.db.backends.postgresql' \
     -e DD_DATABASE_URL="postgresql://${PSQL_ROOT_USER}:${PSQL_ROOT_PASS}@${PSQL_CONTAINER_NAME}:${PSQL_CONTAINER_PORT}/${DD_PSQL_DATABASE}" \
-    -e DD_DATABASE_HOST=${PSQL_CONTAINER_NAME} \
-    -e DD_DATABASE_PORT=${PSQL_CONTAINER_PORT} \
-    -e DD_DATABASE_NAME=${DD_PSQL_DATABASE} \
-    -e DD_DATABASE_USER=${PSQL_ROOT_USER} \
-    -e DD_DATABASE_PASSWORD=${PSQL_ROOT_PASS} \
+    -e DD_DATABASE_HOST="${PSQL_CONTAINER_NAME}" \
+    -e DD_DATABASE_PORT="${PSQL_CONTAINER_PORT}" \
+    -e DD_DATABASE_NAME="${DD_PSQL_DATABASE}" \
+    -e DD_DATABASE_USER="${PSQL_ROOT_USER}" \
+    -e DD_DATABASE_PASSWORD="${PSQL_ROOT_PASS}" \
     -e DD_UWSGI_ENDPOINT='0.0.0.0:3031' \
-    -e DD_SECRET_KEY=${DD_SECRET_KEY} \
+    -e DD_SECRET_KEY="${DD_SECRET_KEY_SET}" \
     defectdojo/defectdojo-django
 }

@@ -69,6 +69,7 @@ docker_stop () {
 }
 
 docker_container_status () {
+    echo ''
     for CONTAINER in ${@}
     do
         if docker_container_check ${CONTAINER}
@@ -95,6 +96,7 @@ docker_container_check () {
 }
 
 docker_container_create () {
+    echo ''
     if ! docker_container_check "${1}"
     then
         textgrey "${1}"
@@ -108,6 +110,7 @@ docker_container_create () {
 }
 
 docker_container_delete () {
+    echo ''
     for CONTAINER in ${@}
     do
         echo -e "[DELETE] ${CONTAINER}"
@@ -122,6 +125,7 @@ docker_container_delete () {
 }
 
 docker_container_start () {
+    echo ''
     for CONTAINER in ${@}
     do
         if docker_container_check ${CONTAINER}
@@ -138,6 +142,7 @@ docker_container_start () {
 }
 
 docker_container_stop () {
+    echo ''
     for CONTAINER in ${@}
     do
         if docker_container_check ${CONTAINER}
@@ -152,6 +157,7 @@ docker_container_stop () {
 }
 
 docker_container_restart () {
+    echo ''
     if docker_container_status ${1}
     then
         if docker restart "${1}" > /dev/null
