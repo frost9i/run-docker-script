@@ -69,7 +69,6 @@ docker_stop () {
 }
 
 docker_container_status () {
-    echo ''
     for CONTAINER in ${@}
     do
         if docker_container_check ${CONTAINER}
@@ -96,9 +95,9 @@ docker_container_check () {
 }
 
 docker_container_create () {
-    echo ''
     if ! docker_container_check "${1}"
     then
+        echo ''
         textgrey "${1}"
         if ${2}
         then
@@ -110,10 +109,10 @@ docker_container_create () {
 }
 
 docker_container_delete () {
-    echo ''
     for CONTAINER in ${@}
     do
-        echo -e "[DELETE] ${CONTAINER}"
+        echo ''
+        textgrey "[DELETE] ${CONTAINER}"
         if docker_container_check ${CONTAINER}
         then
             if docker rm -f ${CONTAINER} > /dev/null
@@ -125,15 +124,15 @@ docker_container_delete () {
 }
 
 docker_container_start () {
-    echo ''
     for CONTAINER in ${@}
     do
         if docker_container_check ${CONTAINER}
         then
-            textgreen "[START] ${CONTAINER}"
+            echo ''
+            textgrey "[START] ${CONTAINER}"
             if docker start ${CONTAINER} > /dev/null
             then
-                echo -e "[START] SUCCESS."
+                textgreen "[START] SUCCESS."
             else
                 fail1 "START ${CONTAINER}"
             fi
@@ -142,12 +141,12 @@ docker_container_start () {
 }
 
 docker_container_stop () {
-    echo ''
     for CONTAINER in ${@}
     do
         if docker_container_check ${CONTAINER}
         then
-            textmagenta "[STOP] ${CONTAINER}"
+            echo ''
+            textgrey "[STOP] ${CONTAINER}"
             if docker stop ${CONTAINER} > /dev/null
             then
                 textmagenta "[STOP] DONE."
@@ -157,9 +156,9 @@ docker_container_stop () {
 }
 
 docker_container_restart () {
-    echo ''
     if docker_container_status ${1}
     then
+        textgrey "[RESTART] ${1}"
         if docker restart "${1}" > /dev/null
         then
             textyellow "[RESTART] SUCCESS."
