@@ -28,7 +28,7 @@ submenu_dd () {
     heading_srv ${HEADING}
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
-        '1') docker_container_start ${DD_LIST[@]}; ${FUNCNAME[0]};;
+        '1') psql_check; docker_container_start ${DD_LIST[@]}; ${FUNCNAME[0]};;
         '2') docker_container_stop ${DD_LIST[@]}; ${FUNCNAME[0]};;
         '3') dd_init; ${FUNCNAME[0]};;
         '4') submenu_todo;; # delete database
