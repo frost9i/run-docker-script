@@ -22,6 +22,9 @@ source ./services/jenkins.sh
 source ./services/postgres.sh
 source ./services/debian.sh
 
+# DEVTOOLS
+source ./services/dev.sh
+
 # DEVELOPER Services
 # todo
 
@@ -75,19 +78,15 @@ $(textbluelight_bg ">> ${HEADING}")
 
 # DEVELOPER SUB-MENU
 submenu_developer () {
-    HEADING='DEVELOPER Tools'
+    HEADING='DEV TOOLS'
     echo -ne """
-$(textgrey_bg ">> ${HEADING}")
-(1)$(textgrey 'JRE')
-(2)$(textgrey 'NPM')
-(3)$(textgrey 'NODE')
+$(textcyan_bg ">> ${HEADING}")
+(1)$(textyellow 'RUN PYTHON')
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
-        '1') submenu_todo; ${FUNCNAME[0]};;
-        '2') submenu_todo; ${FUNCNAME[0]};;
-        '3') submenu_todo; ${FUNCNAME[0]};;
+        '1') python; ${FUNCNAME[0]};;
         [Q]) exit;;
         [q]) mainmenu;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
@@ -101,8 +100,8 @@ mainmenu () {
 $(textblue_bg "> ${HEADING}")
 (1)$(textgreen 'SECURITY')
 (2)$(textyellow 'DEVOPS')
-(3)$(textgrey 'DEVELOPER')
-(F)$(textred 'FULL STOP')
+(3)$(textcyan 'DEVTOOLS')
+(F)$(textred 'FULLSTOP')
 (Q)$(textgrey 'QUIT')
 """
     read -p $"> ${HEADING}: " -rn 1; echo ''

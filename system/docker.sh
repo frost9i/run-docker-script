@@ -66,7 +66,6 @@ docker_stop () {
         error1 'No containers were up.'
     fi
     textmagenta '[STOP] DONE.'
-    echo ''
 
 }
 
@@ -80,7 +79,6 @@ docker_container_status () {
                 textgreen "[STATUS] ${CONTAINER} RUNNING."
             else
                 textgrey "[STATUS] ${CONTAINER} STOPPED."
-                echo ''
             fi
         fi
     done
@@ -104,7 +102,6 @@ docker_container_create () {
         if ${2}
         then
             textgreen "[CREATE] SUCCESS."
-            echo ''
         fi
     else
         skip1 "${1}"
@@ -112,6 +109,7 @@ docker_container_create () {
 }
 
 docker_container_delete () {
+    echo ''
     for CONTAINER in ${@}
     do
         textgrey "[DELETE] ${CONTAINER}"
@@ -120,7 +118,6 @@ docker_container_delete () {
             if docker rm -f ${CONTAINER} > /dev/null
             then
                 textred "[DELETE] DONE."
-                echo ''
             fi
         fi
     done
@@ -135,7 +132,6 @@ docker_container_start () {
             if docker start ${CONTAINER} > /dev/null
             then
                 textgreen "[START] SUCCESS."
-                echo ''
             else
                 fail1 "START ${CONTAINER}"
             fi
@@ -152,7 +148,6 @@ docker_container_stop () {
             if docker stop ${CONTAINER} > /dev/null
             then
                 textmagenta "[STOP] DONE."
-                echo ''
             fi
         fi
     done

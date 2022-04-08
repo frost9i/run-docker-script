@@ -6,26 +6,23 @@
 Includes categorized services  
   
 ```dart
-╦═[SECURITY]══╦═[DEFECT-DOJO]
-║             ╠═[DEPENDENCY-TRACK]
-║             ╠═[MOBSF]
-║             ╠═[ZAP]
-║             ║
-║             ╠═[PENTEST]═╦═[JUICE-SHOP]
-║             ║           ╠═[DVWA]
-║             ║           ╚═[VAMPI]
-║             ║
-║             ╚═[SAST]══════[SEMGREP]
+╦═[SECURITY]═╦═[DEFECT-DOJO]
+║            ╠═[DEPENDENCY-TRACK]
+║            ╠═[MOBSF]
+║            ╠═[ZAP]
+║            ║
+║            ╠═[PENTEST]═╦═[JUICE-SHOP]
+║            ║           ╠═[DVWA]
+║            ║           ╚═[VAMPI]
+║            ║
+║            ╚═[SAST]══════[SEMGREP]
 ║
-╠═[DEVOPS]════╦═[DEBIAN]
-║             ╠═[JENKINS]
-║             ╚═[POSTGRES]
+╠═[DEVOPS]═══╦═[DEBIAN]
+║            ╠═[JENKINS]
+║            ╚═[POSTGRES]
 ║
-╠═[DEVELOPER]═╦═[?JRE]
-║             ╠═[?NPM]
-║             ╚═[?YARN]
-║
-╚═[ETC]═════════[?TBD]
+╚═[DEV]══════╦═[PYTHON]
+             ╚═[?]
 ```
 ---
 ### Requirements:  
@@ -62,3 +59,6 @@ Static Application Security Testing tools collection
 [JENKINS (https://hub.docker.com/_/jenkins)](https://hub.docker.com/_/jenkins)  
 [POSTGRES (https://hub.docker.com/_/postgres)](https://hub.docker.com/_/postgres)  
   
+**DEV:**  
+Developer tools collection  
+[PYTHON (https://hub.docker.com/_/python)](https://hub.docker.com/_/python)  
