@@ -90,7 +90,7 @@ docker_container_check () {
         info1 "${1} OK."
         return 0
     else
-        error1 "${1} DOES NOT EXIST."
+        info1 "${1} DOES NOT EXIST."
         return 1
     fi
 }
@@ -98,7 +98,7 @@ docker_container_check () {
 docker_container_create () {
     if ! docker_container_check "${1}"
     then
-        textgrey "${1}"
+        textgrey "Creating ${1}"
         if ${2}
         then
             textgreen "[CREATE] SUCCESS."

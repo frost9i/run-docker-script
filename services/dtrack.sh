@@ -3,8 +3,8 @@
 DT_SERVICE_NAME='dtrack'
 DT_PSQL_DATABASE="${DT_SERVICE_NAME}"
 
-DT_API_PORT='8091'
-DT_FE_PORT='8090'
+DT_API_PORT='8011'
+DT_FE_PORT='8010'
 
 DT_CONTAINER_API="${DT_SERVICE_NAME}-api"
 DT_CONTAINER_FE="${DT_SERVICE_NAME}-fe"
@@ -14,10 +14,10 @@ DT_LIST=("${DT_CONTAINER_API}" "${DT_CONTAINER_FE}")
 # DEPENDENCY-TRACK SUB-MENU
 submenu_dt () {
     HEADING='DEPENDENCY-TRACK Controls'
-    heading_run ${HEADING}
+    heading_srv ${HEADING}
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
-        '1') docker_container_start ${DT_LIST[@]}; ${FUNCNAME[0]};;
+        '1') psql_check; docker_container_start ${DT_LIST[@]}; ${FUNCNAME[0]};;
         '2') docker_container_stop ${DT_LIST[@]}; ${FUNCNAME[0]};;
         '3') dt_init; ${FUNCNAME[0]};;
         [Ss]*) docker_container_status ${DT_LIST[@]}; ${FUNCNAME[0]};;

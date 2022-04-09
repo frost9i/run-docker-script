@@ -14,7 +14,7 @@ textcyan() { printf "${ESC}[1;36m${1}${RESET}\n" ; }
 textgrey() { printf "${ESC}[1;37m${1}${RESET}\n" ; }
 textdefault() { printf "${ESC}[1;39m${1}${RESET}\n" ; }
 textgreydark() { printf "${ESC}[1;90m${1}${RESET}\n" ; }
-textbluelight() { printf "${ESC}[1;94m${1}${RESET}\n" ; }
+textbluelight() { printf "${ESC}[0;94m${1}${RESET}\n" ; }
 
 # Background text colors
 textred_bg() { printf "${ESC}[1;41m${1}${RESET}\n" ; }

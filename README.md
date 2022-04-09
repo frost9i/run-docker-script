@@ -37,6 +37,7 @@ DOCKER_MY_HOME=
 *Linux:* `/home/your_name/docker`  
 *MacOS:* `/home/your_name/docker`  
   
+---
 ### References:  
 **SECURITY:**  
 [DEFECT-DOJO (https://github.com/DefectDojo/django-DefectDojo)](https://github.com/DefectDojo/django-DefectDojo)  

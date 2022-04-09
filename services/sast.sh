@@ -24,9 +24,9 @@ $(textred_bg ">> ${HEADING}")
 }
 
 semgrep () {
-    if script_ask 'MOUNT EXTERNAL FOLDER TO /app ?'
+    if script_ask 'MOUNT EXTERNAL FOLDER TO /semgrep-agent ?'
     then
-        DOCKER_MOUNT_DIR="-v ${DOCKER_MY_HOME}/semgrep:/app"
+        DOCKER_MOUNT_DIR="-v ${DOCKER_MY_HOME}/semgrep:/semgrep-agent"
     else
         DOCKER_MOUNT_DIR=''
     fi
