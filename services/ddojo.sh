@@ -22,24 +22,6 @@ DD_LIST=("${DD_CONTAINER_UWSGI}"
     "${DD_CONTAINER_WORKER}"
     "${DD_CONTAINER_RABBITMQ}")
 
-# DEFECT-DOJO SUB-MENU
-submenu_dd () {
-    HEADING='DEFECT-DOJO Controls'
-    heading_srv ${HEADING}
-    read -p ">> ${HEADING}: " -rn 1; echo ''
-    case ${REPLY} in
-        '1') psql_check; docker_container_start ${DD_LIST[@]}; ${FUNCNAME[0]};;
-        '2') docker_container_stop ${DD_LIST[@]}; ${FUNCNAME[0]};;
-        '3') dd_init; ${FUNCNAME[0]};;
-        '4') submenu_todo;; # delete database
-        [Ss]*) docker_container_status ${DD_LIST[@]}; ${FUNCNAME[0]};;
-        [Dd]*) if script_ask "Confirm"; then docker_container_delete ${DD_LIST[@]}; fi; ${FUNCNAME[0]};;
-        [Q]) exit;;
-        [q]) submenu_security;;
-        *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
-    esac
-}
-
 dd_init () {
     textyellow "[INIT] DEFECTDOJO"
 

@@ -4,23 +4,6 @@ MOBSF_CONTAINER_NAME='mobsf'
 MOBSF_CONTAINER_PORT='8000'
 MOBSF_PSQL_DATABASE="${MOBSF_CONTAINER_NAME}"
 
-# MOBSF SUB-MENU
-submenu_mobsf () {
-    HEADING='MOBSF Controls'
-    heading_srv ${HEADING}
-    read -p ">> ${HEADING}: " -rn 1; echo ''
-    case ${REPLY} in
-        '1') docker_container_start ${MOBSF_CONTAINER_NAME}; ${FUNCNAME[0]};;
-        '2') docker_container_stop ${MOBSF_CONTAINER_NAME}; ${FUNCNAME[0]};;
-        '3') mobsf_init; ${FUNCNAME[0]};;
-        [Ss]*) docker_container_status ${MOBSF_CONTAINER_NAME}; ${FUNCNAME[0]};;
-        [Dd]*) if script_ask "Confirm"; then  docker_container_delete ${MOBSF_CONTAINER_NAME}; fi; ${FUNCNAME[0]};;
-        [Q]) exit;;
-        [q]) submenu_security;;
-        *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
-    esac
-}
-
 mobsf () {
     docker run -d \
     -p "${CONTAINER_EXPOSED_PORT}":"${MOBSF_CONTAINER_PORT}" \

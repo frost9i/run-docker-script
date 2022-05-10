@@ -3,8 +3,8 @@
 docker_check () {
     if ! docker ps 2>&1 1>/dev/null
     then
-        error1 '[ERROR] Docker daemon is not running'
-        textbluelight '[USER] Start Docker manually and restart the script.'
+        error1 'Docker daemon is not running'
+        textbluelight '[!] Start Docker manually and restart this script.'
         exit 1
     fi
     check1 'System check PASSED.'
@@ -162,5 +162,28 @@ docker_container_restart () {
             textyellow "[RESTART] SUCCESS."
         fi
         error1
+    fi
+}
+
+docker_image_check () {
+    if docker images --format "{{ .Repository}}" | grep -i ${1} >> /dev/null
+    then
+        info1 "${1} IMAGE AVAILABLE."
+        return 0
+    fi
+    info1 "${1} IMAGE DOES NOT EXIST."
+    return 1
+}
+
+docker_image_build () {
+    if ! docker_image_check ${2}
+    then
+        if docker build -f dockerfiles/${1} -t ${2}:local .
+        then
+            info1 "${2} BUILD SUCCESS."
+            return 0
+        fi
+        error1 "${2} BUILD FAILED."
+        return 1
     fi
 }

@@ -2,33 +2,17 @@
 
 DEBIAN_CONTAINER_NAME='debian'
 
-# DEBIAN SUB-MENU
-submenu_debian () {
-    HEADING='DEBIAN Controls'
-    heading_run ${HEADING}
-    read -p ">> ${HEADING}: " -rn 1; echo ''
-    case ${REPLY} in
-        '1') debian; ${FUNCNAME[0]};;
-        '2') docker exec -it ${DEBIAN_CONTAINER_NAME} bash; ${FUNCNAME[0]};;
-        '3') debian_init; ${FUNCNAME[0]};;
-        [Ss]*) docker_container_status ${DEBIAN_CONTAINER_NAME}; ${FUNCNAME[0]};;
-        [Dd]*) if script_ask "Confirm"; then docker_container_delete ${DEBIAN_CONTAINER_NAME}; fi; ${FUNCNAME[0]};;
-        [Q]) exit;;
-        [q]) submenu_devops;;
-        *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
-    esac
-}
-
 debian () {
-    if script_ask 'MOUNT EXTERNAL FOLDER TO /tmp/debian ?'
+    if script_ask 'MOUNT EXTERNAL FOLDERS?'
     then
-        DOCKER_MOUNT_DIR="-v ${DOCKER_MY_HOME}/debian:/tmp/debian"
+        DOCKER_MOUNT_DIR="-v ${DOCKER_MY_HOME}/debian:/home/debian -v ${DOCKER_MY_HOME}/git:/home/git"
     else
         DOCKER_MOUNT_DIR=''
     fi
 
     docker run -it --rm ${DOCKER_MOUNT_DIR} \
     --name ${DEBIAN_CONTAINER_NAME} \
+    -p 5500:5500 -p 3001:3001 \
     debian bash
 }
 
