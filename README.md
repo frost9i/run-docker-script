@@ -11,16 +11,28 @@ Includes categorized services
 ║            ║             ╠═[MOBSF]
 ║            ║             ╚═[MOZILLA-OBSERVATORY]
 ║            ╠═[TOOLS]═════╦═[SEMGREP]
+║            ║             ╠═[GITLEAKS] todo
 ║            ║             ╚═[ZAP]
 ║            ╚═[VULN-APPS]═╦═[JUICE-SHOP]
 ║                          ╠═[DVWA]
 ╠═[DEVOPS]═══╦═[DEBIAN]    ╚═[VAMPI]
 ║            ╠═[JENKINS]
 ║            ╠═[POSTGRES]
-║            ╚═[REDIS]
-╚═[DEV]══════╦═[PYTHON]
-             ╚═[NODEJS]
+║            ╠═[REDIS]
+║            ╠═[JIRA] todo
+║            ╚═[VAULT] todo
+╚═[DEV]══════╦═[PYTHON]═╦═[v3.9]
+             ║          ╚═[v3.7]
+             ╚═[NODEJS]═╦═[v18]
+                        ╠═[v17]
+                        ╚═[v11]
 ```
+TODO:  
+K8s  
+JIRA  
+VAULT  
+GITLAB-CI (CI/CD)  
+GITHAB-ACTIONS (CI/CD)  
 ---
 ### Requirements:  
 `bash` - Shell  

@@ -5,31 +5,13 @@ NODEJS_CONTAINER_NAME='nodejs'
 
 DEV_LIST=(${PYTHON_CONTAINER_NAME}, ${NODEJS_CONTAINER_NAME})
 
-nodejs18 () {
+nodejs () {
     docker run -it \
     --rm \
     --name "${NODEJS_CONTAINER_NAME}-17" \
     --network ${DOCKER_NETWORK_NAME} \
     -v "${DOCKER_MY_HOME}/git:/home/git" \
-    node:18-slim sh
-}
-
-nodejs17 () {
-    docker run -it \
-    --rm \
-    --name "${NODEJS_CONTAINER_NAME}-17" \
-    --network ${DOCKER_NETWORK_NAME} \
-    -v "${DOCKER_MY_HOME}/git:/home/git" \
-    node:17-slim sh
-}
-
-nodejs11 () {
-    docker run -it \
-    --rm \
-    --name "${NODEJS_CONTAINER_NAME}-11" \
-    --network ${DOCKER_NETWORK_NAME} \
-    -v "${DOCKER_MY_HOME}/git:/home/git" \
-    node:11-slim sh
+    node:${1}-alpine sh
 }
 
 python () {
@@ -38,5 +20,5 @@ python () {
     --name ${PYTHON_CONTAINER_NAME} \
     --network ${DOCKER_NETWORK_NAME} \
     -v "${DOCKER_MY_HOME}/git:/home/git" \
-    python:3.7-alpine sh
+    python:${1}-alpine sh
 }
