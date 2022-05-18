@@ -1,0 +1,21 @@
+# https://github.com/mozilla/http-observatory.git
+# https://github.com/mozilla/http-observatory/blob/master/httpobs/Dockerfile
+
+FROM python:3.7
+
+RUN apt update && apt install -y \
+    git
+
+RUN git clone https://github.com/mozilla/http-observatory
+
+RUN install -d /var/run/httpobs /var/log/httpobs
+
+WORKDIR /http-observatory
+
+RUN pip install --upgrade --no-cache-dir \
+    -r httpobs/requirements.txt \
+    -r httpobs/database/requirements.txt \
+    -r httpobs/scanner/requirements.txt \
+    -r httpobs/website/requirements.txt
+
+ENV PYTHONPATH $PYTHONPATH:/http-observatory

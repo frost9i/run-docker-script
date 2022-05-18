@@ -3,25 +3,6 @@
 JENKINS_CONTAINER_NAME='jenkins'
 JENKINS_PORT='7000' # 8080
 
-# JENKINS SUB-MENU
-submenu_jenkins () {
-    HEADING='JENKINS Controls'
-    heading_srv ${HEADING}
-    textgreydark "(P)SHOW INIT ADMIN PASSWORD"
-    read -p ">> ${HEADING}: " -rn 1; echo ''
-    case ${REPLY} in
-        '1') docker_container_start ${JENKINS_CONTAINER_NAME}; ${FUNCNAME[0]};;
-        '2') docker_container_stop ${JENKINS_CONTAINER_NAME}; ${FUNCNAME[0]};;
-        '3') jenkins_init && submenu_jenkins;;
-        [Ss]*) docker_container_status ${JENKINS_CONTAINER_NAME}; ${FUNCNAME[0]};;
-        [Dd]*) if script_ask "Confirm"; then docker_container_delete ${JENKINS_CONTAINER_NAME}; fi; ${FUNCNAME[0]};;
-        [Pp]*) if docker exec -it -u root ${JENKINS_CONTAINER_NAME} bash -c "cat /var/jenkins_home/secrets/initialAdminPassword"; then echo ''; fi; ${FUNCNAME[0]};;
-        [Q]) exit;;
-        [q]) submenu_devops;;
-        *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
-    esac
-}
-
 jenkins_init () {
     if script_ask 'MOUNT EXTERNAL FOLDER TO /var/jenkins_home ?'
     then

@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Reference:
+# https://docs.dependencytrack.org/getting-started/configuration/
+# https://hub.docker.com/r/dependencytrack/apiserver/tags
+
+DT_SERVICE_VERSION='latest'
+
 DT_SERVICE_NAME='dtrack'
 DT_PSQL_DATABASE="${DT_SERVICE_NAME}"
 
@@ -11,23 +17,6 @@ DT_CONTAINER_FE="${DT_SERVICE_NAME}-fe"
 
 DT_LIST=("${DT_CONTAINER_API}" "${DT_CONTAINER_FE}")
 
-# DEPENDENCY-TRACK SUB-MENU
-submenu_dt () {
-    HEADING='DEPENDENCY-TRACK Controls'
-    heading_srv ${HEADING}
-    read -p ">> ${HEADING}: " -rn 1; echo ''
-    case ${REPLY} in
-        '1') psql_check; docker_container_start ${DT_LIST[@]}; ${FUNCNAME[0]};;
-        '2') docker_container_stop ${DT_LIST[@]}; ${FUNCNAME[0]};;
-        '3') dt_init; ${FUNCNAME[0]};;
-        [Ss]*) docker_container_status ${DT_LIST[@]}; ${FUNCNAME[0]};;
-        [Dd]*) if script_ask "Confirm"; then docker_container_delete ${DT_LIST[@]}; fi; ${FUNCNAME[0]};;
-        [Q]) exit;;
-        [q]) submenu_security;;
-        *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
-    esac
-}
-
 dt_init () {
     psql_check
 
@@ -35,7 +24,7 @@ dt_init () {
 
     if script_ask 'MOUNT EXTERNAL FOLDER TO /data ?'
     then
-        DOCKER_MOUNT_DIR="-v ${DOCKER_MY_HOME}/dtrack-api:/data"
+        DOCKER_MOUNT_DIR="-v ${DOCKER_MY_HOME}/dtrack-data:/data"
     else
         DOCKER_MOUNT_DIR=''
     fi
@@ -68,10 +57,10 @@ dt_api () {
     --network "${DOCKER_NETWORK_NAME}" \
     -e ALPINE_DATABASE_MODE='external' \
     -e ALPINE_DATABASE_DRIVER='org.postgresql.Driver' \
-    -e ALPINE_DATABASE_URL="jdbc:postgresql://${PSQL_CONTAINER_NAME}:${PSQL_CONTAINER_PORT}/${DT_SERVICE_NAME}" \
+    -e ALPINE_DATABASE_URL="jdbc:postgresql://${PSQL_CONTAINER_NAME}:${PSQL_CONTAINER_PORT}/${DT_PSQL_DATABASE}" \
     -e ALPINE_DATABASE_USERNAME="${PSQL_ROOT_USER}" \
     -e ALPINE_DATABASE_PASSWORD="${PSQL_ROOT_PASS}" \
-    dependencytrack/apiserver:latest
+    dependencytrack/apiserver:${DT_SERVICE_VERSION}
 }
 
 dt_fe () {
@@ -80,7 +69,5 @@ dt_fe () {
     --name "${DT_CONTAINER_FE}" \
     --network "${DOCKER_NETWORK_NAME}" \
     -e API_BASE_URL="http://localhost:${DT_API_PORT}" \
-    dependencytrack/frontend:latest
+    dependencytrack/frontend:${DT_SERVICE_VERSION}
 }
-
-# Reference: https://docs.dependencytrack.org/getting-started/configuration/

@@ -67,7 +67,7 @@ script_ask () {
     return 1
 }
 
-heading_srv () {
+heading_service () {
     echo -ne """
 $(textbluelight_bg ">> ${1}")
 (1)$(textgreen 'START')   (2)$(textmagenta 'STOP')    (3)$(textyellow 'INIT')

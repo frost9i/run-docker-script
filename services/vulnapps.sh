@@ -8,30 +8,7 @@ JUICESHOP_PORT='3000' # 3000
 DVWA_PORT='3001' # 80
 VAMPI_PORT='3002' # 5000
 
-PENTEST_LIST=(${JUICESHOP_CONTAINER_NAME} ${DVWA_CONTAINER_NAME} ${VAMPI_CONTAINER_NAME})
-
-# PENTEST SUB-MENU
-submenu_pentest () {
-    HEADING='PENTEST MENU'
-    echo -ne """
-$(textred_bg ">> ${HEADING}")
-(1)$(textyellow 'RUN JUICE-SHOP')
-(2)$(textcyan 'RUN DVWA')
-(3)$(textmagenta 'RUN VAMPI')
-(S)$(textred 'STOP ALL')
-(Q)$(textgrey 'ESC')
-"""
-    read -p ">> ${HEADING}: " -rn 1; echo ''
-    case ${REPLY} in
-        '1') docker_container_create ${JUICESHOP_CONTAINER_NAME} juice_shop; ${FUNCNAME[0]};;
-        '2') docker_container_create ${DVWA_CONTAINER_NAME} dvwa; ${FUNCNAME[0]};;
-        '3') docker_container_create ${VAMPI_CONTAINER_NAME} vampi; ${FUNCNAME[0]};;
-        [Ss]*) docker_container_stop ${PENTEST_LIST[@]}; ${FUNCNAME[0]};;
-        [Q]) exit;;
-        [q]) submenu_security;;
-        *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
-    esac
-}
+VULNAPPS_LIST=(${JUICESHOP_CONTAINER_NAME} ${DVWA_CONTAINER_NAME} ${VAMPI_CONTAINER_NAME})
 
 juice_shop () {
     docker_ask_port "${JUICESHOP_CONTAINER_NAME}" "${JUICESHOP_PORT}"
@@ -55,7 +32,6 @@ dvwa () {
     vulnerables/web-dvwa
 }
 
-# docker build -f Dockerfile -t vampi:local .
 vampi () {
     docker_ask_port "${VAMPI_CONTAINER_NAME}" "${VAMPI_PORT}"
 
