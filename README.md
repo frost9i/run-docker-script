@@ -19,15 +19,12 @@ Includes categorized services
 ║            ╠═[JENKINS]
 ║            ╠═[POSTGRES]
 ║            ╠═[REDIS]
-║            ╠═[CI/CD]═╦═[GITLAB-CI] todo
-║            ║         ╚═[GITHAB-ACTIONS] todo
-║            ╚═[ETC]═╦═[JIRA] todo
-║                    ╚═[VAULT] todo
-╚═[DEV]══════╦═[PYTHON]═╦═[v3.9]
-             ║          ╚═[v3.7]
-             ╚═[NODEJS]═╦═[v.18]
-                        ╠═[v.17]
-                        ╚═[v.11]
+║            ╠═[CI/CD]═════╦═[GITLAB-CI] todo
+║            ║             ╚═[GITHAB-ACTIONS] todo
+║            ╚═[ETC]═══════╦═[JIRA] todo
+║                          ╚═[VAULT] todo
+╚═[DEV]══════╦═[PYTHON]═══[3.7|3.9]
+             ╚═[NODEJS]═══[11|17|18]
 ```
 ---
 ### Requirements:  
