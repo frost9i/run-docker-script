@@ -15,7 +15,7 @@ juice_shop () {
 
     docker run -d \
     --rm \
-    --name ${JUICESHOP_CONTAINER_NAME} 
+    --name ${JUICESHOP_CONTAINER_NAME} \
     --network ${DOCKER_NETWORK_NAME} \
     -p ${CONTAINER_EXPOSED_PORT}:3000 \
     bkimminich/juice-shop
