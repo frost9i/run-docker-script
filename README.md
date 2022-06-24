@@ -11,20 +11,27 @@ Includes categorized services
 ║            ║             ╠═[MOBSF]
 ║            ║             ╚═[MOZILLA-OBSERVATORY]
 ║            ╠═[TOOLS]═════╦═[SEMGREP]
-║            ║             ╠═[GITLEAKS] todo
-║            ║             ╚═[ZAP]
+║            ║             ╠═[ZAP]
+║            ║             ╠═[TRIVY]
+║            ║             ╚═[DEPENDENCY-CHECK]
 ║            ╚═[VULN-APPS]═╦═[JUICE-SHOP]
 ║                          ╠═[DVWA]
-╠═[DEVOPS]═══╦═[DEBIAN]    ╚═[VAMPI]
+║                          ╚═[VAMPI]
+║
+╠═[DEVOPS]═══╦═[DEBIAN]
 ║            ╠═[JENKINS]
 ║            ╠═[POSTGRES]
-║            ╠═[REDIS]
-║            ╠═[CI/CD]═════╦═[GITLAB-CI] todo
-║            ║             ╚═[GITHAB-ACTIONS] todo
-║            ╚═[ETC]═══════╦═[JIRA] todo
-║                          ╚═[VAULT] todo
+║            ╚═[REDIS]
+║
 ╚═[DEV]══════╦═[PYTHON]═══[3.7|3.9]
-             ╚═[NODEJS]═══[11|17|18]
+             ╠═[NODEJS]═══[11|17|18]
+             ╚═[MAVEN]
+
+══[TODO]═════╦═[GITLEAKS]
+             ╠═[CONFLUENCE-JIRA]
+             ╠═[HASHICORP-VAULT]
+             ╠═[GITLAB-CI]
+             ╚═[GITHAB-ACTIONS]
 ```
 ---
 ### Requirements:  

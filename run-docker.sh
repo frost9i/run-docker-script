@@ -15,6 +15,7 @@ source ./services/ddojo.sh
 source ./services/dtrack.sh
 source ./services/mobsf.sh
 source ./services/observatory.sh
+source ./services/sca.sh
 source ./services/semgrep.sh
 source ./services/zap.sh
 source ./services/vulnapps.sh
