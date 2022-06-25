@@ -12,7 +12,8 @@ nodejs () {
     --name "${NODEJS_CONTAINER_NAME}-${1}" \
     --network ${DOCKER_NETWORK_NAME} \
     -v "${DOCKER_MY_HOME}/git:/git" \
-    node:${1}-alpine sh
+    node:${1}-alpine \
+    sh
 }
 
 python () {
@@ -21,7 +22,8 @@ python () {
     --name ${PYTHON_CONTAINER_NAME} \
     --network ${DOCKER_NETWORK_NAME} \
     -v "${DOCKER_MY_HOME}/git:/git" \
-    python:${1}-alpine sh
+    python:${1}-alpine \
+    sh
 }
 
 maven () {
