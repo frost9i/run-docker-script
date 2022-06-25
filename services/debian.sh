@@ -5,7 +5,7 @@ DEBIAN_CONTAINER_NAME='debian'
 debian () {
     if script_ask 'MOUNT EXTERNAL FOLDERS?'
     then
-        DOCKER_MOUNT_DIR="-v ${DOCKER_MY_HOME}/debian:/home/debian -v ${DOCKER_MY_HOME}/git:/home/git"
+        DOCKER_MOUNT_DIR="-v ${DOCKER_MY_HOME}/debian:/home/debian -v ${DOCKER_MY_HOME}/git:/git"
     else
         DOCKER_MOUNT_DIR=''
     fi

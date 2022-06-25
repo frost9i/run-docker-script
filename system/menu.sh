@@ -147,12 +147,16 @@ submenu_security_tools () {
 $(textred_bg ">> ${HEADING}")
 (1)RUN $(textblue 'SEMGREP')
 (2)RUN $(textcyan 'ZAP')
+(3)RUN $(textyellow 'Trivy')
+(4)RUN $(textgreen 'Dependency Check')
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
         '1') docker_container_create ${SEMGREP_CONTAINER_NAME} semgrep; ${FUNCNAME[0]};;
-        '1') docker_container_create ${ZAP_CONTAINER_NAME} zap; ${FUNCNAME[0]};;
+        '2') docker_container_create ${ZAP_CONTAINER_NAME} zap; ${FUNCNAME[0]};;
+        '3') trivy; ${FUNCNAME[0]};;
+        '4') dcheck; ${FUNCNAME[0]};;
         [Q]) exit;;
         [q]) submenu_security;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
@@ -290,12 +294,14 @@ submenu_developer () {
 $(textcyan_bg ">> ${HEADING}")
 (1)RUN $(textyellow 'PYTHON')
 (2)RUN $(textgreen 'NODE.JS')
+(3)RUN $(textblue 'MAVEN')
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
         '1') python_menu; ${FUNCNAME[0]};;
         '2') nodejs_menu; ${FUNCNAME[0]};;
+        '3') maven; ${FUNCNAME[0]};;
         [Q]) exit;;
         [q]) mainmenu;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;

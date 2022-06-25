@@ -27,28 +27,19 @@ OBS_LIST=("${OBS_CONTAINER_API}" "${OBS_CONTAINER_CELERY}")
 
 obs_init () {
     psql_check
-
     psql_db_create "${OBS_PSQL_DATABASE}"
 
     docker_ask_port "${OBS_CONTAINER_API}" "${OBS_API_PORT}"
-    DT_API_PORT="${CONTAINER_EXPOSED_PORT}"
+    # CONTAINER_EXPOSED_PORT
 
-    if docker_container_create "${OBS_CONTAINER_API}" httpobs
+    if docker_container_create "${OBS_CONTAINER_API}" "${OBS_CONTAINER_API}"
     then
-        echo -e "[INIT] ${DT_CONTAINER_API} SUCCESS."
-    fi
-
-    docker_ask_port "${DT_CONTAINER_FE}" "${DT_FE_PORT}"
-
-    if docker_container_create "${DT_CONTAINER_FE}" dt_fe
-    then
-        echo -e "[INIT] ${DT_CONTAINER_FE} SUCCESS."
-        info1 "DEPENDENCY-TRACK URL: http://localhost:${CONTAINER_EXPOSED_PORT}"
-        info1 "DEFAULT LOGIN:admin PASSWORD:admin"
+        echo -e "[INIT] ${OBS_CONTAINER_API} SUCCESS."
+        info1 "MOZILLA-OBSERVATORY URL: http://localhost:${CONTAINER_EXPOSED_PORT}"
         echo ''
         return
     fi
-    error1 "DEPENDENCY-TRACK INIT"
+    error1 "MOZILLA-OBSERVATORY INIT"
 }
 
 httpobs_api () {
