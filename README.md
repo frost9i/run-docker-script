@@ -53,17 +53,19 @@ DOCKER_MY_HOME=
 [DEFECT-DOJO (https://github.com/DefectDojo/django-DefectDojo)](https://github.com/DefectDojo/django-DefectDojo)  
 [DEPENDENCY-TRACK (https://github.com/DependencyTrack/dependency-track)](https://github.com/DependencyTrack/dependency-track)  
 [MOBSF (https://github.com/MobSF/Mobile-Security-Framework-MobSF)](https://github.com/MobSF/Mobile-Security-Framework-MobSF)  
+[MOZILLA-OBSERVATORY (https://github.com/mozilla/http-observatory)](https://github.com/mozilla/http-observatory)  
+  
+**SECURITY TOOLS:**  
+[SEMGREP (https://hub.docker.com/r/returntocorp/semgrep-agent)](https://hub.docker.com/r/returntocorp/semgrep-agent)  
+[ZAP (https://hub.docker.com/r/owasp/zap2docker-stable)](https://hub.docker.com/r/owasp/zap2docker-stable)  
+[TRIVY (https://hub.docker.com/r/aquasec/trivy)](https://hub.docker.com/r/aquasec/trivy)  
+[DEPENDENCY-CHECK (https://hub.docker.com/r/owasp/dependency-check)](https://hub.docker.com/r/owasp/dependency-check)  
   
 **PENTEST:**  
 Vulnerable applications playground collection  
 [JUICE-SHOP (https://github.com/juice-shop/juice-shop)](https://github.com/juice-shop/juice-shop)  
 [DVWA (https://github.com/digininja/DVWA)](https://github.com/digininja/DVWA)  
 [VAMPI (https://github.com/erev0s/VAmPI)](https://github.com/erev0s/VAmPI)  
-  
-**SECURITY SCANNING TOOLS:**  
-Static Application Security Testing tools collection  
-[SEMGREP (https://hub.docker.com/r/returntocorp/semgrep-agent)](https://hub.docker.com/r/returntocorp/semgrep-agent)  
-[ZAP (https://github.com/zaproxy/zaproxy)](https://github.com/zaproxy/zaproxy)  
   
 **DEVOPS:**  
 [DEBIAN (https://hub.docker.com/_/debian)](https://hub.docker.com/_/debian)  
@@ -75,4 +77,5 @@ Static Application Security Testing tools collection
 Developer tools collection  
 [PYTHON (https://hub.docker.com/_/python)](https://hub.docker.com/_/python)  
 [NODEJS (https://hub.docker.com/_/node)](https://hub.docker.com/_/node)  
+[MAVEN (https://hub.docker.com/_/maven)](https://hub.docker.com/_/maven)  
   

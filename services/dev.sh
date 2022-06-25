@@ -30,6 +30,6 @@ maven () {
     --name ${MAVEN_CONTAINER_NAME} \
     --network ${DOCKER_NETWORK_NAME} \
     -v "${DOCKER_MY_HOME}/git:/git" \
-    maven:3-ibmjava-8 \
+    maven:latest \
     bash
 }
