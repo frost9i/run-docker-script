@@ -9,7 +9,8 @@ Includes categorized services
 ╦═[SECURITY]═╦═[SERVICES]══╦═[DEFECT-DOJO]
 ║            ║             ╠═[DEPENDENCY-TRACK]
 ║            ║             ╠═[MOBSF]
-║            ║             ╚═[MOZILLA-OBSERVATORY]
+║            ║             ╠═[MOZILLA-OBSERVATORY]
+║            ║             ╚═[CSP-PROCESSOR]
 ║            ╠═[TOOLS]═════╦═[SEMGREP]
 ║            ║             ╠═[ZAP]
 ║            ║             ╠═[TRIVY]
@@ -24,10 +25,12 @@ Includes categorized services
 ║            ╚═[REDIS]
 ║
 ╚═[DEV]══════╦═[PYTHON]═══[3.7|3.9]
-             ╠═[NODEJS]═══[11|17|18]
+             ╠═[NODEJS]═══[11|14|16|17|18]
              ╚═[MAVEN]
 
 ══[TODO]═════╦═[GITLEAKS]
+             ╠═[TRUFFLEHOG]
+             ╠═[VWAD]
              ╠═[CONFLUENCE-JIRA]
              ╠═[HASHICORP-VAULT]
              ╠═[GITLAB-CI]
@@ -54,6 +57,7 @@ DOCKER_MY_HOME=
 [DEPENDENCY-TRACK (https://github.com/DependencyTrack/dependency-track)](https://github.com/DependencyTrack/dependency-track)  
 [MOBSF (https://github.com/MobSF/Mobile-Security-Framework-MobSF)](https://github.com/MobSF/Mobile-Security-Framework-MobSF)  
 [MOZILLA-OBSERVATORY (https://github.com/mozilla/http-observatory)](https://github.com/mozilla/http-observatory)  
+[CSP-PROCESSOR (https://hub.docker.com/r/ixdotai/csp)](https://hub.docker.com/r/ixdotai/csp)  
   
 **SECURITY TOOLS:**  
 [SEMGREP (https://hub.docker.com/r/returntocorp/semgrep-agent)](https://hub.docker.com/r/returntocorp/semgrep-agent)  
@@ -78,4 +82,8 @@ Developer tools collection
 [PYTHON (https://hub.docker.com/_/python)](https://hub.docker.com/_/python)  
 [NODEJS (https://hub.docker.com/_/node)](https://hub.docker.com/_/node)  
 [MAVEN (https://hub.docker.com/_/maven)](https://hub.docker.com/_/maven)  
+  
+**TODO:**  
+[VWAD (https://github.com/OWASP/OWASP-VWAD)](https://github.com/OWASP/OWASP-VWAD)  
+[TRUFFLEHOG (https://hub.docker.com/r/trufflesecurity/trufflehog)](https://hub.docker.com/r/trufflesecurity/trufflehog)  
   

@@ -5,20 +5,22 @@
 DOCKER_NETWORK_NAME='docker-net'
 
 # System
-source ./system/menu.sh
 source ./system/docker.sh
 source ./system/echo.sh
 source ./system/colors.sh
 
+# Menus
+source ./system/menus/main_menu.sh
+
 # SECURITY Services
-source ./services/ddojo.sh
-source ./services/dtrack.sh
-source ./services/mobsf.sh
-source ./services/observatory.sh
+source ./services/security/ddojo.sh
+source ./services/security/dtrack.sh
+source ./services/security/mobsf.sh
+source ./services/security/observatory.sh
+source ./services/security/vulnapps.sh
 source ./services/sca.sh
 source ./services/semgrep.sh
 source ./services/zap.sh
-source ./services/vulnapps.sh
 
 # DEVOPS Services
 source ./services/jenkins.sh

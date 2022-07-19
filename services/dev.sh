@@ -9,7 +9,7 @@ DEV_LIST=(${PYTHON_CONTAINER_NAME}, ${NODEJS_CONTAINER_NAME}, ${MAVEN_CONTAINER_
 nodejs () {
     docker run -it \
     --rm \
-    --name "${NODEJS_CONTAINER_NAME}-${1}" \
+    --name "${NODEJS_CONTAINER_NAME}" \
     --network ${DOCKER_NETWORK_NAME} \
     -v "${DOCKER_MY_HOME}/git:/git" \
     node:${1}-alpine \
