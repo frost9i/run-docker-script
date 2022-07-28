@@ -38,6 +38,7 @@ $(textcyan_bg ">> ${HEADING}")
     case ${REPLY} in
         '1') python "3.7"; ${FUNCNAME[0]};;
         '2') python "3.9"; ${FUNCNAME[0]};;
+        '2') python "3.10"; ${FUNCNAME[0]};;
         [Q]) exit;;
         [q]) submenu_developer;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;

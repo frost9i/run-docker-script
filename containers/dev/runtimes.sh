@@ -8,6 +8,7 @@ DEV_LIST=(${PYTHON_CONTAINER_NAME}, ${NODEJS_CONTAINER_NAME}, ${MAVEN_CONTAINER_
 
 nodejs () {
     docker run -it \
+    -p 5000:3000 \
     --rm \
     --name "${NODEJS_CONTAINER_NAME}" \
     --network ${DOCKER_NETWORK_NAME} \

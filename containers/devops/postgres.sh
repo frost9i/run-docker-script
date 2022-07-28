@@ -98,5 +98,5 @@ psql_server () {
     --network ${DOCKER_NETWORK_NAME} \
     -e POSTGRES_USER=${PSQL_ROOT_USER} \
     -e POSTGRES_PASSWORD=${PSQL_ROOT_PASS} \
-    postgres:11-buster
+    postgres:14-alpine
 }

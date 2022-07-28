@@ -11,10 +11,14 @@ Includes categorized services
 ║            ║             ╠═[MOBSF]
 ║            ║             ╠═[MOZILLA-OBSERVATORY]
 ║            ║             ╚═[CSP-PROCESSOR]
-║            ╠═[TOOLS]═════╦═[SEMGREP]
-║            ║             ╠═[ZAP]
+║            ║
+║            ╠═[TOOLS]═════╦═[ZAP]
+║            ║             ╠═[SEMGREP]
+║            ║             ╠═[CATS]
+║            ║             ╠═[TRUFFLEHOG]
 ║            ║             ╠═[TRIVY]
 ║            ║             ╚═[DEPENDENCY-CHECK]
+║            ║
 ║            ╚═[VULN-APPS]═╦═[JUICE-SHOP]
 ║                          ╠═[DVWA]
 ║                          ╚═[VAMPI]
@@ -22,16 +26,15 @@ Includes categorized services
 ╠═[DEVOPS]═══╦═[DEBIAN]
 ║            ╠═[JENKINS]
 ║            ╠═[POSTGRES]
-║            ╚═[REDIS]
+║            ╠═[REDIS]
+║            ╚═[JIRA]
 ║
-╚═[DEV]══════╦═[PYTHON]═══[3.7|3.9]
+╚═[DEV]══════╦═[PYTHON]═══[3.7|3.9|3.10]
              ╠═[NODEJS]═══[11|14|16|17|18]
              ╚═[MAVEN]
 
 ══[TODO]═════╦═[GITLEAKS]
-             ╠═[TRUFFLEHOG]
              ╠═[VWAD]
-             ╠═[CONFLUENCE-JIRA]
              ╠═[HASHICORP-VAULT]
              ╠═[GITLAB-CI]
              ╚═[GITHAB-ACTIONS]
@@ -60,8 +63,9 @@ DOCKER_MY_HOME=
 [CSP-PROCESSOR (https://hub.docker.com/r/ixdotai/csp)](https://hub.docker.com/r/ixdotai/csp)  
   
 **SECURITY TOOLS:**  
-[SEMGREP (https://hub.docker.com/r/returntocorp/semgrep-agent)](https://hub.docker.com/r/returntocorp/semgrep-agent)  
 [ZAP (https://hub.docker.com/r/owasp/zap2docker-stable)](https://hub.docker.com/r/owasp/zap2docker-stable)  
+[SEMGREP (https://hub.docker.com/r/returntocorp/semgrep-agent)](https://hub.docker.com/r/returntocorp/semgrep-agent)  
+[CATS (https://github.com/Endava/cats)](https://github.com/Endava/cats)  
 [TRIVY (https://hub.docker.com/r/aquasec/trivy)](https://hub.docker.com/r/aquasec/trivy)  
 [DEPENDENCY-CHECK (https://hub.docker.com/r/owasp/dependency-check)](https://hub.docker.com/r/owasp/dependency-check)  
   

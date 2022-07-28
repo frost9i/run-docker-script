@@ -5,11 +5,11 @@ submenu_security_services () {
     HEADING='SECURITY Services'
     echo -ne """
 $(textgreen_bg ">> ${HEADING}")
-(1)$(textbluelight 'DEFECT-DOJO')
-(2)$(textgreen 'DEPENDENCY-TRACK')
-(3)$(textcyan 'Mobile-Security-Framework')
-(4)$(textred 'Mozilla-Observatory')
-(5)$(textyellow 'CSP-Processor')
+(1)$(textblue 'DEFECT-DOJO')
+(2)$(textcyan 'DEPENDENCY-TRACK')
+(3)$(textyellow 'MobSF')
+(4)$(textgreen 'Mozilla-Observatory')
+(5)$(textmagenta 'CSP-Processor')
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
@@ -62,7 +62,7 @@ submenu_dt () {
 
 # MOBSF SUB-MENU
 submenu_mobsf () {
-    HEADING='MOBSF Controls'
+    HEADING='Mobile-Security-Framework Controls'
     heading_service ${HEADING}
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
@@ -97,8 +97,6 @@ submenu_obs () {
 }
 
 # CSP PROCESSOR SUB-MENU
-source ./services/security/csp.sh
-
 submenu_csp () {
     HEADING='CSP-PROCESSOR Controls'
     echo -ne """
@@ -121,42 +119,30 @@ $(textcyan_bg ">> ${HEADING}")
     esac
 }
 
-# SECURITY TOOLS SUB-MENU
+#############################
+## SECURITY TOOLS SUB-MENU ##
 submenu_security_tools () {
     HEADING='SECURITY Tools'
     echo -ne """
 $(textred_bg ">> ${HEADING}")
-(1)RUN $(textblue 'SEMGREP')
-(2)RUN $(textcyan 'ZAP')
-(3)RUN $(textyellow 'Trivy')
-(4)RUN $(textgreen 'Dependency Check')
+(1)RUN $(textblue 'ZAP')
+(2)RUN $(textblue 'SEMGREP')
+(3)RUN $(textyellow 'CATS')
+(4)RUN $(textyellow 'TruffleHog')
+(5)RUN $(textgreen 'Trivy')
+(6)RUN $(textgreen 'Dependency Check')
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
-        '1') docker_container_create ${SEMGREP_CONTAINER_NAME} semgrep; ${FUNCNAME[0]};;
-        '2') docker_container_create ${ZAP_CONTAINER_NAME} zap; ${FUNCNAME[0]};;
-        '3') trivy; ${FUNCNAME[0]};;
-        '4') dcheck; ${FUNCNAME[0]};;
+        '1') zap; ${FUNCNAME[0]};;
+        '2') semgrep; ${FUNCNAME[0]};;
+        '3') cats; ${FUNCNAME[0]};;
+        '4') trufflehog; ${FUNCNAME[0]};;
+        '5') trivy; ${FUNCNAME[0]};;
+        '6') dcheck; ${FUNCNAME[0]};;
         [Q]) exit;;
         [q]) submenu_security;;
-        *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
-    esac
-}
-
-# ZAP SUB-MENU
-submenu_zap () {
-    HEADING='ZAP Controls'
-    heading_run ${HEADING}
-    read -p ">> ${HEADING}: " -rn 1; echo ''
-    case ${REPLY} in
-        '1') zap; ${FUNCNAME[0]};;
-        '2') docker exec -it "${ZAP_CONTAINER_NAME}" bash; ${FUNCNAME[0]};;
-        '3') zap_init; ${FUNCNAME[0]};;
-        [Ss]*) docker_container_status ${ZAP_CONTAINER_NAME}; ${FUNCNAME[0]};;
-        [Dd]*) if script_ask "Confirm"; then  docker_container_delete ${ZAP_CONTAINER_NAME}; fi; ${FUNCNAME[0]};;
-        [Q]) exit;;
-        [q]) submenu_security_tools;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
     esac
 }

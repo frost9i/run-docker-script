@@ -26,8 +26,6 @@ $(textblue_bg "> ${HEADING}")
 ##############
 ## SECURITY ##
 # SUB-MENU ###
-source ./system/menus/sub_security.sh
-
 submenu_security () {
     HEADING='SECURITY Tools'
     echo -ne """
@@ -51,24 +49,24 @@ $(textgreen_bg ">> ${HEADING}")
 ############
 ## DEVOPS ##
 # SUB-MENU #
-source ./system/menus/sub_devops.sh
-
 submenu_devops () {
     HEADING='DEVOPS Tools'
     echo -ne """
 $(textbluelight_bg ">> ${HEADING}")
 (1)$(textred 'JENKINS')
 (2)$(textbluelight 'POSTGRES')
-(3)$(textmagenta 'DEBIAN')
-(4)RUN $(textcyan 'REDIS')
+(3)$(textmagenta 'DEBIAN') SHELL
+(4)RUN $(textred 'REDIS')
+(5)$(textblue 'JIRA')
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
         '1') submenu_jenkins;;
         '2') submenu_psql;;
-        '3') submenu_debian;;
+        '3') debian; ${FUNCNAME[0]};;
         '4') redis; ${FUNCNAME[0]};;
+        '5') submenu_jira;;
         [Q]) exit;;
         [q]) mainmenu;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
@@ -78,8 +76,6 @@ $(textbluelight_bg ">> ${HEADING}")
 #############
 ## DEVELOP ##
 # SUB-MENU ##
-source ./system/menus/sub_dev.sh
-
 submenu_developer () {
     HEADING='DEV TOOLS'
     echo -ne """
