@@ -89,7 +89,7 @@ docker_container_check () {
         info1 "${1} OK."
         return 0
     else
-        info1 "${1} DOES NOT EXIST."
+        info1 "${1} CONTAINER DOES NOT EXIST."
         return 1
     fi
 }
