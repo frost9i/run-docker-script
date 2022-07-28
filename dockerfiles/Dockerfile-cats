@@ -1,0 +1,13 @@
+FROM openjdk:19-jdk-alpine3.15
+
+RUN apk update && apk add git curl wget tar
+RUN mkdir -p /opt/cats/results
+RUN wget -O /tmp/cats.tar.gz https://github.com/Endava/cats/releases/download/cats-7.3.0/cats_uberjar_7.3.0.tar.gz
+RUN tar -xzf /tmp/cats.tar.gz -C /opt/cats > /dev/null
+RUN rm /tmp/cats.tar.gz
+
+WORKDIR /opt/cats
+
+RUN echo "Usage: java -jar cats.jar"
+
+CMD [ "java", "-jar", "cats.jar" ]
