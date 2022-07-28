@@ -8,10 +8,3 @@ zap () {
     --network ${DOCKER_NETWORK_NAME} \
     owasp/zap2docker-stable bash
 }
-
-zap_init () {
-    docker run -it -d \
-    --name ${ZAP_CONTAINER_NAME} \
-    --network ${DOCKER_NETWORK_NAME} \
-    owasp/zap2docker-stable bash
-}

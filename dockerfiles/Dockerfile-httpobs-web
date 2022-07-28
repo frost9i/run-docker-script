@@ -1,0 +1,19 @@
+FROM node:11-alpine
+
+RUN apk --no-cache add \
+    git
+
+RUN git clone https://github.com/mozilla/http-observatory-website.git
+RUN chown -R node:node /http-observatory-website
+
+RUN apk del git
+
+USER node
+WORKDIR /http-observatory-website
+
+# RUN sed -i 's/5500/8080/' config/webpack.config.js
+RUN find . -path './node_modules' -prune -o -type f \( -name *.index.js -o -name index.html -o -name constants.js -o -name http.js \) -exec sed -i 's/http-observatory.security.mozilla.org/localhost:57001/g' {} +
+
+RUN npm install
+
+CMD npm run watch

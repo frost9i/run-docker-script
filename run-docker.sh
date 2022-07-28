@@ -2,32 +2,45 @@
 
 # VARIABLES
 # DOCKER_MY_HOME="C:/Users/your_name/docker" is set as environmental variable
-DOCKER_NETWORK_NAME='docker-net'
+DOCKER_NETWORK_NAME='mylocal'
 
 # System
-source ./system/menu.sh
 source ./system/docker.sh
 source ./system/echo.sh
 source ./system/colors.sh
 
-# SECURITY Services
-source ./services/ddojo.sh
-source ./services/dtrack.sh
-source ./services/mobsf.sh
-source ./services/observatory.sh
-source ./services/sca.sh
-source ./services/semgrep.sh
-source ./services/zap.sh
-source ./services/vulnapps.sh
+# Menus
+source ./system/menus/main_menu.sh
+source ./system/menus/sub_security.sh
+source ./system/menus/sub_devops.sh
+source ./system/menus/sub_dev.sh
 
-# DEVOPS Services
-source ./services/jenkins.sh
-source ./services/postgres.sh
-source ./services/debian.sh
-source ./services/redis.sh
+
+# SECURITY
+source ./containers/security/services/ddojo.sh
+source ./containers/security/services/dtrack.sh
+source ./containers/security/services/mobsf.sh
+source ./containers/security/services/observatory.sh
+source ./containers/security/services/csp.sh
+
+source ./containers/security/tools/cats.sh
+source ./containers/security/tools/sca.sh
+source ./containers/security/tools/semgrep.sh
+source ./containers/security/tools/trufflehog.sh
+source ./containers/security/tools/zap.sh
+
+source ./containers/security/vulnapps.sh
+
+
+# DEVOPS
+source ./containers/devops/jenkins.sh
+source ./containers/devops/postgres.sh
+source ./containers/devops/debian.sh
+source ./containers/devops/redis.sh
+source ./containers/devops/jira.sh
 
 # DEVTOOLS
-source ./services/dev.sh
+source ./containers/dev/runtimes.sh
 
 # START HERE ->
 date

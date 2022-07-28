@@ -1,0 +1,24 @@
+# https://github.com/sgerlach/javaspringvulny
+# https://github.com/sgerlach/javaspringvulny/blob/main/Dockerfile
+
+FROM openjdk:11.0.10-jdk-slim
+
+# git clone https://github.com/sgerlach/javaspringvulny.git
+
+RUN mkdir /javavulny /app
+COPY . /javavulny/
+RUN sed -i 's/localhost\:5432/db\:5432/' /javavulny/src/main/resources/application.properties
+
+RUN cd /javavulny \
+&& ./gradlew --no-daemon build \
+&& cp build/libs/java-spring-vuly-0.1.0.jar /app/ \
+&& rm -Rf build/ \
+&& cd / \
+&& rm -Rf /javavulny /root/.gradle/
+
+WORKDIR /app
+# Using remote DB not local
+#COPY ./db ./db
+
+ENV PWD=/app
+CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/app/java-spring-vuly-0.1.0.jar"]

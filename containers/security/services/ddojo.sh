@@ -1,11 +1,11 @@
 #!/bin/bash
 
-DD_SERVICE_NAME='defectdojo'
+DD_SERVICE_NAME='ddojo'
 DD_PSQL_DATABASE="${DD_SERVICE_NAME}"
 
 DD_PORT='8008'
 
-DD_CONTAINER_UWSGI="${DD_SERVICE_NAME}"
+DD_CONTAINER_UWSGI="${DD_SERVICE_NAME}-uwsgi"
 DD_CONTAINER_NGINX="${DD_SERVICE_NAME}-nginx"
 DD_CONTAINER_BEAT="${DD_SERVICE_NAME}-beat"
 DD_CONTAINER_WORKER="${DD_SERVICE_NAME}-worker"
@@ -16,11 +16,12 @@ DD_CONTAINER_RABBITMQ='rabbitmq'
 DD_RABBITMQ_USER="${DD_SERVICE_NAME}"
 DD_RABBITMQ_PASS="${DD_SERVICE_NAME}"
 
-DD_LIST=("${DD_CONTAINER_UWSGI}"
-    "${DD_CONTAINER_NGINX}"
-    "${DD_CONTAINER_BEAT}"
-    "${DD_CONTAINER_WORKER}"
-    "${DD_CONTAINER_RABBITMQ}")
+DD_LIST=(   "${DD_CONTAINER_UWSGI}"
+            "${DD_CONTAINER_NGINX}"
+            "${DD_CONTAINER_BEAT}"
+            "${DD_CONTAINER_WORKER}"
+            "${DD_CONTAINER_RABBITMQ}"
+        )
 
 dd_init () {
     textyellow "[INIT] DEFECTDOJO"
@@ -41,10 +42,10 @@ dd_init () {
     if docker_container_create "${DD_CONTAINER_UWSGI}" dd_uwsgi
     then
         echo ''
-        # if docker exec -it "${DD_CONTAINER_UWSGI}" "./../entrypoint-initializer.sh"
-        # then
-        #     init1 "${DD_CONTAINER_UWSGI} SUCCESS."
-        # fi
+        if docker exec -it "${DD_CONTAINER_UWSGI}" "./../entrypoint-initializer.sh"
+        then
+            init1 "${DD_CONTAINER_UWSGI} SUCCESS."
+        fi
     fi
 
     if docker_container_create "${DD_CONTAINER_NGINX}" dd_nginx

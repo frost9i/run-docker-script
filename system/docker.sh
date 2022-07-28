@@ -29,7 +29,6 @@ docker_home_check () {
 docker_network () {
     if ! docker network ls --format '{{ .Name}}' | grep -i ${DOCKER_NETWORK_NAME} > /dev/null
     then
-        check1 "DOCKER_NETWORK_NAME=${DOCKER_NETWORK_NAME}"
         docker network create ${DOCKER_NETWORK_NAME} > /dev/null
     fi
     info1 "DOCKER_NETWORK_NAME=${DOCKER_NETWORK_NAME}"
@@ -90,7 +89,7 @@ docker_container_check () {
         info1 "${1} OK."
         return 0
     else
-        info1 "${1} DOES NOT EXIST."
+        info1 "${1} CONTAINER DOES NOT EXIST."
         return 1
     fi
 }
@@ -137,6 +136,13 @@ docker_container_start () {
             fi
         fi
     done
+}
+
+docker_container_logs () {
+    if docker_container_check ${1}
+    then
+        docker logs -f ${1}
+    fi
 }
 
 docker_container_stop () {
