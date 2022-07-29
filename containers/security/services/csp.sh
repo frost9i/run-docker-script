@@ -27,6 +27,8 @@ CSP_PARAM_LOGLEVEL='DEBUG' # CRITICAL:50, ERROR:40, WARNING:30, INFO:20, DEBUG:1
 # | `ADDRESS`                | `*`         | The IP address to bind to                                              |
 
 csp_processor () {
+    docker_ask_port "${CSP_CONTAINER_NAME}" "${CSP_CONTAINER_PORT}"
+
     docker run \
     -d --rm \
     -p $CSP_CONTAINER_PORT:$CSP_PARAM_PORT \
@@ -36,5 +38,6 @@ csp_processor () {
     -e LOGLEVEL=$CSP_PARAM_LOGLEVEL \
     -e CSP_PATH=$CSP_PARAM_PATH \
     -e HEALTHZ_PATH=$CSP_PARAM_HEALZ \
-    ixdotai/csp
+    ixdotai/csp \
+    && echo_port "$CSP_CONTAINER_PORT"
 }

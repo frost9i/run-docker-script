@@ -25,4 +25,6 @@ jenkins_start () {
     --name ${JENKINS_CONTAINER_NAME} \
     --network ${DOCKER_NETWORK_NAME} \
     jenkins/jenkins:latest
+
+    echo_port
 }

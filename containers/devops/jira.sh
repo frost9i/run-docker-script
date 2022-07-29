@@ -1,7 +1,8 @@
 #!/bin/bash
 
 JIRA_CONTAINER_NAME='jira'
-JIRA_CONTAINER_PORT='8800' # 8080
+JIRA_CONTAINER_PORT='8800'
+JIRA_CONTAINER_PORT_DEFAULT='8080' # 8080
 
 jira_init () {
     psql_check
@@ -27,7 +28,7 @@ jira_start () {
     psql_check
 
     docker run -d ${DOCKER_MOUNT_DIR} \
-    -p ${CONTAINER_EXPOSED_PORT}:8080 \
+    -p ${CONTAINER_EXPOSED_PORT}:${JIRA_CONTAINER_PORT_DEFAULT} \
     --name ${JIRA_CONTAINER_NAME} \
     --network ${DOCKER_NETWORK_NAME} \
     -e ATL_JDBC_URL="jdbc:postgresql://${PSQL_CONTAINER_NAME}:${PSQL_CONTAINER_PORT}/${JIRA_CONTAINER_NAME}" \
@@ -36,6 +37,8 @@ jira_start () {
     -e ATL_DB_DRIVER='org.postgresql.Driver' \
     -e ATL_DB_TYPE='postgres72' \
     atlassian/jira-software
+
+    echo_port
 }
 
 # -v C:/Users/Sergii_Moroz1/docker/jira:/var/atlassian/application-data/jira \
