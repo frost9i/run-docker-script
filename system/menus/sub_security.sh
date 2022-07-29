@@ -137,7 +137,7 @@ $(textred_bg ">> ${HEADING}")
     case ${REPLY} in
         '1') zap; ${FUNCNAME[0]};;
         '2') semgrep; ${FUNCNAME[0]};;
-        '3') if docker_image_check ${CATS_CONTAINER_NAME}; then docker_container_create ${CATS_CONTAINER_NAME} ${CATS_CONTAINER_NAME}; else docker_image_build 'Dockerfile-cats' ${CATS_CONTAINER_NAME}; fi; ${FUNCNAME[0]};;
+        '3') cats_start ${FUNCNAME[0]};;
         '4') trufflehog; ${FUNCNAME[0]};;
         '5') trivy; ${FUNCNAME[0]};;
         '6') dcheck; ${FUNCNAME[0]};;

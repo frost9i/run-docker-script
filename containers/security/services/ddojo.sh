@@ -4,6 +4,8 @@ DD_SERVICE_NAME='ddojo'
 DD_PSQL_DATABASE="${DD_SERVICE_NAME}"
 
 DD_PORT='8008'
+DD_SUPERUSER_NAME='admin'
+DD_SUPERUSER_PASS='pass'
 
 DD_CONTAINER_UWSGI="${DD_SERVICE_NAME}-uwsgi"
 DD_CONTAINER_NGINX="${DD_SERVICE_NAME}-nginx"
@@ -103,9 +105,9 @@ dd_uwsgi () {
     -e DD_DATABASE_USER="${PSQL_ROOT_USER}" \
     -e DD_DATABASE_PASSWORD="${PSQL_ROOT_PASS}" \
     -e DD_UWSGI_ENDPOINT='0.0.0.0:3031' \
-    -e DD_ADMIN_USER='admin' \
-    -e DD_ADMIN_PASSWORD='pass' \
-    -e DD_ADMIN_MAIL='admin@defectdojo.local' \
+    -e DD_ADMIN_USER="${DD_SUPERUSER_NAME}" \
+    -e DD_ADMIN_PASSWORD="${DD_SUPERUSER_PASS}" \
+    -e DD_ADMIN_MAIL="${DD_SUPERUSER_NAME}@defectdojo.local" \
     -e DD_ADMIN_FIRST_NAME='super' \
     -e DD_ADMIN_LAST_NAME='user' \
     -e DD_SECRET_KEY=${DD_SECRET_KEY_SET} \
