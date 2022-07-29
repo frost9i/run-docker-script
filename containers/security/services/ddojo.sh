@@ -40,22 +40,20 @@ dd_init () {
         DOCKER_MOUNT_DIR=''
     fi
 
-    docker_ask_port "${DD_CONTAINER_UWSGI}" "${DD_UWSGI_PORT}"
+    docker_ask_port "${DD_CONTAINER_NGINX}" "${DD_NGINX_PORT}"
+
     if docker_container_create "${DD_CONTAINER_UWSGI}" dd_uwsgi
     then
         echo ''
         if docker exec -it "${DD_CONTAINER_UWSGI}" "./../entrypoint-initializer.sh"
         then
             init1 "${DD_CONTAINER_UWSGI} SUCCESS."
-            echo_port
         fi
     fi
 
-    docker_ask_port "${DD_CONTAINER_NGINX}" "${DD_NGINX_PORT}"
-    if docker_container_create "${DD_CONTAINER_NGINX}" dd_nginx
+    if docker_container_create "${DD_CONTAINER_RABBITMQ}" dd_rabbitmq
     then
-        init1 "${DD_CONTAINER_NGINX} SUCCESS."
-        echo_port
+        init1 "${DD_CONTAINER_RABBITMQ} SUCCESS."
     fi
 
     if docker_container_create "${DD_CONTAINER_BEAT}" dd_beat
@@ -68,9 +66,10 @@ dd_init () {
         init1 "${DD_CONTAINER_WORKER} SUCCESS."
     fi
 
-    if docker_container_create "${DD_CONTAINER_RABBITMQ}" dd_rabbitmq
+    if docker_container_create "${DD_CONTAINER_NGINX}" dd_nginx
     then
-        init1 "${DD_CONTAINER_RABBITMQ} SUCCESS."
+        init1 "${DD_CONTAINER_NGINX} SUCCESS."
+        echo_port
     fi
 }
 
