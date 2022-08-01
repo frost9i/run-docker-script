@@ -81,6 +81,7 @@ Vulnerable applications playground collection
 [JENKINS (https://hub.docker.com/_/jenkins)](https://hub.docker.com/_/jenkins)  
 [POSTGRES (https://hub.docker.com/_/postgres)](https://hub.docker.com/_/postgres)  
 [REDIS (https://hub.docker.com/_/redis)](https://hub.docker.com/_/redis)  
+[JIRA (https://hub.docker.com/r/atlassian/jira-software)](https://hub.docker.com/r/atlassian/jira-software)  
   
 **DEV:**  
 Developer tools collection  

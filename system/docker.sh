@@ -65,6 +65,7 @@ docker_stop () {
         error1 'No containers were up.'
     fi
     textmagenta '[STOP] DONE.'
+    echo ''
 
 }
 
