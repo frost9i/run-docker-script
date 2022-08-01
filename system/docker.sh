@@ -89,6 +89,7 @@ docker_container_check () {
         info1 "${1} OK."
         return 0
     else
+        echo ''
         info1 "${1} CONTAINER DOES NOT EXIST."
         return 1
     fi
@@ -100,7 +101,7 @@ docker_container_create () {
         textgrey "Creating ${1}"
         if ${2}
         then
-            textgreen "[CREATE] SUCCESS."
+            textgreen "[CREATE] SUCCESS ${1}"
         fi
     else
         skip1 "${1}"
@@ -117,6 +118,7 @@ docker_container_delete () {
             if docker rm -f ${CONTAINER} > /dev/null
             then
                 textred "[DELETE] DONE."
+                echo ''
             fi
         fi
     done
@@ -131,6 +133,7 @@ docker_container_start () {
             if docker start ${CONTAINER} > /dev/null
             then
                 textgreen "[START] SUCCESS."
+                echo ''
             else
                 fail1 "START ${CONTAINER}"
             fi

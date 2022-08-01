@@ -103,14 +103,14 @@ submenu_csp () {
 $(textcyan_bg ">> ${HEADING}")
 (1)$(textgreen "RUN")
 (2)$(textred "STOP")
-(3)$(textyellow "LOGS")
+(L)$(textyellow "LOGS")
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
         '1') docker_container_create ${CSP_CONTAINER_NAME} csp_processor; ${FUNCNAME[0]};;
         '2') docker_container_stop ${CSP_CONTAINER_NAME}; ${FUNCNAME[0]};;
-        '3') docker logs -f ${CSP_CONTAINER_NAME} && ${FUNCNAME[0]};;
+        [Ll]) docker logs -f ${CSP_CONTAINER_NAME} && ${FUNCNAME[0]};;
         [Ss]*) docker_container_status ${CSP_CONTAINER_NAME}; ${FUNCNAME[0]};;
         [Dd]*) if script_ask "Confirm"; then docker_container_delete ${CSP_CONTAINER_NAME}; fi; ${FUNCNAME[0]};;
         [Q]) exit;;
@@ -137,7 +137,7 @@ $(textred_bg ">> ${HEADING}")
     case ${REPLY} in
         '1') zap; ${FUNCNAME[0]};;
         '2') semgrep; ${FUNCNAME[0]};;
-        '3') if docker_image_check ${CATS_CONTAINER_NAME}; then docker_container_create ${CATS_CONTAINER_NAME} ${CATS_CONTAINER_NAME}; else docker_image_build 'Dockerfile-cats' ${CATS_CONTAINER_NAME}; fi; ${FUNCNAME[0]};;
+        '3') cats_start ${FUNCNAME[0]};;
         '4') trufflehog; ${FUNCNAME[0]};;
         '5') trivy; ${FUNCNAME[0]};;
         '6') dcheck; ${FUNCNAME[0]};;

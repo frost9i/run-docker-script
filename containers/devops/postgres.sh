@@ -92,6 +92,8 @@ psql_cli_check () {
 }
 
 psql_server () {
+    docker_ask_port ${PSQL_CONTAINER_NAME} ${PSQL_CONTAINER_PORT}
+
     docker run -d \
     -p ${PSQL_CONTAINER_PORT}:5432 \
     --name ${PSQL_CONTAINER_NAME} \
@@ -99,4 +101,6 @@ psql_server () {
     -e POSTGRES_USER=${PSQL_ROOT_USER} \
     -e POSTGRES_PASSWORD=${PSQL_ROOT_PASS} \
     postgres:14-alpine
+
+    echo_port
 }

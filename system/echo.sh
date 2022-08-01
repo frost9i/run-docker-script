@@ -87,3 +87,7 @@ submenu_todo () {
     textgrey_bg '\n[UNDER CONSTRUCTION]'
     return 1
 }
+
+echo_port () {
+    info1 "$(textmagenta http://localhost:${CONTAINER_EXPOSED_PORT})"
+}

@@ -70,4 +70,6 @@ dt_fe () {
     --network "${DOCKER_NETWORK_NAME}" \
     -e API_BASE_URL="http://localhost:${DT_API_PORT}" \
     dependencytrack/frontend:${DT_SERVICE_VERSION}
+
+    echo_port
 }

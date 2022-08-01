@@ -3,7 +3,10 @@
 DD_SERVICE_NAME='ddojo'
 DD_PSQL_DATABASE="${DD_SERVICE_NAME}"
 
-DD_PORT='8008'
+DD_NGINX_PORT='8880'
+DD_UWSGI_PORT='8881'
+DD_SUPERUSER_NAME='admin'
+DD_SUPERUSER_PASS='pass'
 
 DD_CONTAINER_UWSGI="${DD_SERVICE_NAME}-uwsgi"
 DD_CONTAINER_NGINX="${DD_SERVICE_NAME}-nginx"
@@ -30,14 +33,14 @@ dd_init () {
 
     psql_db_create "${DD_PSQL_DATABASE}"
 
-    docker_ask_port "${DD_CONTAINER_NGINX}" "${DD_PORT}"
-
     if script_ask 'MOUNT EXTERNAL FOLDER TO /dojo-app ?'
     then
         DOCKER_MOUNT_DIR="-v ${DOCKER_MY_HOME}/ddojo-app:/app"
     else
         DOCKER_MOUNT_DIR=''
     fi
+
+    docker_ask_port "${DD_CONTAINER_NGINX}" "${DD_NGINX_PORT}"
 
     if docker_container_create "${DD_CONTAINER_UWSGI}" dd_uwsgi
     then
@@ -48,9 +51,9 @@ dd_init () {
         fi
     fi
 
-    if docker_container_create "${DD_CONTAINER_NGINX}" dd_nginx
+    if docker_container_create "${DD_CONTAINER_RABBITMQ}" dd_rabbitmq
     then
-        init1 "${DD_CONTAINER_NGINX} SUCCESS."
+        init1 "${DD_CONTAINER_RABBITMQ} SUCCESS."
     fi
 
     if docker_container_create "${DD_CONTAINER_BEAT}" dd_beat
@@ -63,9 +66,10 @@ dd_init () {
         init1 "${DD_CONTAINER_WORKER} SUCCESS."
     fi
 
-    if docker_container_create "${DD_CONTAINER_RABBITMQ}" dd_rabbitmq
+    if docker_container_create "${DD_CONTAINER_NGINX}" dd_nginx
     then
-        init1 "${DD_CONTAINER_RABBITMQ} SUCCESS."
+        init1 "${DD_CONTAINER_NGINX} SUCCESS."
+        echo_port
     fi
 }
 
@@ -103,9 +107,9 @@ dd_uwsgi () {
     -e DD_DATABASE_USER="${PSQL_ROOT_USER}" \
     -e DD_DATABASE_PASSWORD="${PSQL_ROOT_PASS}" \
     -e DD_UWSGI_ENDPOINT='0.0.0.0:3031' \
-    -e DD_ADMIN_USER='admin' \
-    -e DD_ADMIN_PASSWORD='pass' \
-    -e DD_ADMIN_MAIL='admin@defectdojo.local' \
+    -e DD_ADMIN_USER="${DD_SUPERUSER_NAME}" \
+    -e DD_ADMIN_PASSWORD="${DD_SUPERUSER_PASS}" \
+    -e DD_ADMIN_MAIL="${DD_SUPERUSER_NAME}@defectdojo.local" \
     -e DD_ADMIN_FIRST_NAME='super' \
     -e DD_ADMIN_LAST_NAME='user' \
     -e DD_SECRET_KEY=${DD_SECRET_KEY_SET} \

@@ -66,6 +66,7 @@ DOCKER_MY_HOME=
 [ZAP (https://hub.docker.com/r/owasp/zap2docker-stable)](https://hub.docker.com/r/owasp/zap2docker-stable)  
 [SEMGREP (https://hub.docker.com/r/returntocorp/semgrep-agent)](https://hub.docker.com/r/returntocorp/semgrep-agent)  
 [CATS (https://github.com/Endava/cats)](https://github.com/Endava/cats)  
+[TRUFFLEHOG (https://hub.docker.com/r/trufflesecurity/trufflehog)](https://hub.docker.com/r/trufflesecurity/trufflehog)  
 [TRIVY (https://hub.docker.com/r/aquasec/trivy)](https://hub.docker.com/r/aquasec/trivy)  
 [DEPENDENCY-CHECK (https://hub.docker.com/r/owasp/dependency-check)](https://hub.docker.com/r/owasp/dependency-check)  
   
@@ -89,5 +90,5 @@ Developer tools collection
   
 **TODO:**  
 [VWAD (https://github.com/OWASP/OWASP-VWAD)](https://github.com/OWASP/OWASP-VWAD)  
-[TRUFFLEHOG (https://hub.docker.com/r/trufflesecurity/trufflehog)](https://hub.docker.com/r/trufflesecurity/trufflehog)  
+[GITLEAKS (?)](?)
   
