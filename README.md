@@ -31,6 +31,7 @@ Includes categorized services
 ║
 ╚═[DEV]══════╦═[PYTHON]═══[3.7|3.9|3.10]
              ╠═[NODEJS]═══[11|14|16|17|18]
+             ╠═[JDK]══════[11|17]
              ╚═[MAVEN]
 
 ══[TODO]═════╦═[GITLEAKS]
@@ -87,6 +88,7 @@ Vulnerable applications playground collection
 Developer tools collection  
 [PYTHON (https://hub.docker.com/_/python)](https://hub.docker.com/_/python)  
 [NODEJS (https://hub.docker.com/_/node)](https://hub.docker.com/_/node)  
+[OPENJDK (https://hub.docker.com/_/openjdk)](https://hub.docker.com/_/openjdk)  
 [MAVEN (https://hub.docker.com/_/maven)](https://hub.docker.com/_/maven)  
   
 **TODO:**  

@@ -80,16 +80,18 @@ submenu_developer () {
     HEADING='DEV TOOLS'
     echo -ne """
 $(textcyan_bg ">> ${HEADING}")
-(1)RUN $(textyellow 'PYTHON')
-(2)RUN $(textgreen 'NODE.JS')
-(3)RUN $(textblue 'MAVEN')
+(1)RUN $(textblue "Py")$(textyellow "thon")
+(2)RUN $(textgreen 'Node').$(textyellow 'JS')
+(3)RUN $(textyellow 'JDK')
+(4)RUN $(textblue 'MAVEN')
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
         '1') python_menu; ${FUNCNAME[0]};;
         '2') nodejs_menu; ${FUNCNAME[0]};;
-        '3') maven; ${FUNCNAME[0]};;
+        '3') openjdk_menu; ${FUNCNAME[0]};;
+        '4') maven; ${FUNCNAME[0]};;
         [Q]) exit;;
         [q]) mainmenu;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
