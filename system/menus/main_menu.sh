@@ -80,9 +80,9 @@ submenu_developer () {
     HEADING='DEV TOOLS'
     echo -ne """
 $(textcyan_bg ">> ${HEADING}")
-(1)RUN $(textblue "Py")$(textyellow "thon")
-(2)RUN $(textgreen 'Node').$(textyellow 'JS')
-(3)RUN $(textyellow 'JDK')
+(1)RUN $(textyellow "Python")
+(2)RUN $(textgreen 'NodeJS')
+(3)RUN $(textmagenta 'JDK')
 (4)RUN $(textblue 'MAVEN')
 (Q)$(textgrey 'ESC')
 """

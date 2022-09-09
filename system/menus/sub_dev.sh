@@ -5,11 +5,11 @@ nodejs_menu () {
     HEADING='NODEJS'
     echo -ne """
 $(textcyan_bg ">> ${HEADING}")
-(1)RUN $(textgreen 'Node').$(textyellow 'JS') $(textgreen 'v.11')
-(2)RUN $(textgreen 'Node').$(textyellow 'JS') $(textgreen 'v.14')
-(3)RUN $(textgreen 'Node').$(textyellow 'JS') $(textgreen 'v.16')
-(4)RUN $(textgreen 'Node').$(textyellow 'JS') $(textgreen 'v.17')
-(5)RUN $(textgreen 'Node').$(textyellow 'JS') $(textgreen 'v.18')
+(1) NodeJS $(textgreen 'v.11')
+(2) NodeJS $(textgreen 'v.14')
+(3) NodeJS $(textgreen 'v.16')
+(4) NodeJS $(textgreen 'v.17')
+(5) NodeJS $(textgreen 'v.18')
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
