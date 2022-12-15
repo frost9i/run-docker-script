@@ -10,7 +10,8 @@ Includes categorized services
 ║            ║             ╠═[DEPENDENCY-TRACK]
 ║            ║             ╠═[MOBSF]
 ║            ║             ╠═[MOZILLA-OBSERVATORY]
-║            ║             ╚═[CSP-PROCESSOR]
+║            ║             ╠═[CSP-PROCESSOR]
+║            ║             ╚═[TRIVY]
 ║            ║
 ║            ╠═[TOOLS]═════╦═[ZAP]
 ║            ║             ╠═[SEMGREP]
@@ -23,7 +24,8 @@ Includes categorized services
 ║                          ╠═[DVWA]
 ║                          ╚═[VAMPI]
 ║
-╠═[DEVOPS]═══╦═[DEBIAN]
+╠═[DEVOPS]═══╦═[ALPINE]
+║            ╠═[DEBIAN]
 ║            ╠═[JENKINS]
 ║            ╠═[POSTGRES]
 ║            ╠═[REDIS]
@@ -62,6 +64,7 @@ DOCKER_MY_HOME=
 [MOBSF (https://github.com/MobSF/Mobile-Security-Framework-MobSF)](https://github.com/MobSF/Mobile-Security-Framework-MobSF)  
 [MOZILLA-OBSERVATORY (https://github.com/mozilla/http-observatory)](https://github.com/mozilla/http-observatory)  
 [CSP-PROCESSOR (https://hub.docker.com/r/ixdotai/csp)](https://hub.docker.com/r/ixdotai/csp)  
+[TRIVY (https://hub.docker.com/r/aquasec/trivy)](https://hub.docker.com/r/aquasec/trivy)  
   
 **SECURITY TOOLS:**  
 [ZAP (https://hub.docker.com/r/owasp/zap2docker-stable)](https://hub.docker.com/r/owasp/zap2docker-stable)  
@@ -79,6 +82,7 @@ Vulnerable applications playground collection
   
 **DEVOPS:**  
 [DEBIAN (https://hub.docker.com/_/debian)](https://hub.docker.com/_/debian)  
+[ALPINE (https://hub.docker.com/_/alpine)](https://hub.docker.com/_/alpine)  
 [JENKINS (https://hub.docker.com/_/jenkins)](https://hub.docker.com/_/jenkins)  
 [POSTGRES (https://hub.docker.com/_/postgres)](https://hub.docker.com/_/postgres)  
 [REDIS (https://hub.docker.com/_/redis)](https://hub.docker.com/_/redis)  

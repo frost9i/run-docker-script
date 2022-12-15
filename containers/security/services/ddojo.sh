@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Official:
+# https://hub.docker.com/r/defectdojo/defectdojo-django
+# https://hub.docker.com/r/defectdojo/defectdojo-nginx
+
+DOCKER_IMAGE_DJANGO='defectdojo/defectdojo-django'
+DOCKER_IMAGE_NGINX='defectdojo/defectdojo-nginx'
+DOCKER_IMAGE_RMQ='rabbitmq'
+
 DD_SERVICE_NAME='ddojo'
 DD_PSQL_DATABASE="${DD_SERVICE_NAME}"
 
@@ -19,12 +27,13 @@ DD_CONTAINER_RABBITMQ='rabbitmq'
 DD_RABBITMQ_USER="${DD_SERVICE_NAME}"
 DD_RABBITMQ_PASS="${DD_SERVICE_NAME}"
 
-DD_LIST=(   "${DD_CONTAINER_UWSGI}"
-            "${DD_CONTAINER_NGINX}"
-            "${DD_CONTAINER_BEAT}"
-            "${DD_CONTAINER_WORKER}"
-            "${DD_CONTAINER_RABBITMQ}"
-        )
+DD_LIST=(
+    "${DD_CONTAINER_UWSGI}"
+    "${DD_CONTAINER_NGINX}"
+    "${DD_CONTAINER_BEAT}"
+    "${DD_CONTAINER_WORKER}"
+    "${DD_CONTAINER_RABBITMQ}"
+)
 
 dd_init () {
     textyellow "[INIT] DEFECTDOJO"
@@ -82,7 +91,7 @@ dd_rabbitmq () {
     --network ${DOCKER_NETWORK_NAME} \
     -e RABBITMQ_DEFAULT_USER=${DD_RABBITMQ_USER} \
     -e RABBITMQ_DEFAULT_PASS=${DD_RABBITMQ_PASS} \
-    rabbitmq:latest
+    ${DOCKER_IMAGE_RMQ}
 }
 
 # -v ${DOCKER_MY_HOME}/ddojo-app:/app \
@@ -113,7 +122,7 @@ dd_uwsgi () {
     -e DD_ADMIN_FIRST_NAME='super' \
     -e DD_ADMIN_LAST_NAME='user' \
     -e DD_SECRET_KEY=${DD_SECRET_KEY_SET} \
-    defectdojo/defectdojo-django
+    ${DOCKER_IMAGE_DJANGO}
 }
 
 # -e DD_SITE_URL='https://somewhere.com' \
@@ -130,7 +139,7 @@ dd_nginx () {
     -e DD_UWSGI_HOST="${DD_CONTAINER_UWSGI}" \
     -e DD_UWSGI_PORT='3031' \
     -e DD_UWSGI_PASS="${DD_CONTAINER_UWSGI}:3031" \
-    defectdojo/defectdojo-nginx
+    ${DOCKER_IMAGE_NGINX}
 }
 
 dd_worker () {
@@ -155,7 +164,7 @@ dd_worker () {
     -e DD_DATABASE_PASSWORD=${PSQL_ROOT_PASS} \
     -e DD_UWSGI_ENDPOINT='0.0.0.0:3031' \
     -e DD_SECRET_KEY="${DD_SECRET_KEY_SET}" \
-    defectdojo/defectdojo-django
+    ${DOCKER_IMAGE_DJANGO}
 }
 
 dd_beat () {
@@ -180,5 +189,5 @@ dd_beat () {
     -e DD_DATABASE_PASSWORD="${PSQL_ROOT_PASS}" \
     -e DD_UWSGI_ENDPOINT='0.0.0.0:3031' \
     -e DD_SECRET_KEY="${DD_SECRET_KEY_SET}" \
-    defectdojo/defectdojo-django
+    ${DOCKER_IMAGE_DJANGO}
 }

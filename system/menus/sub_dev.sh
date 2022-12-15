@@ -32,6 +32,10 @@ python_menu () {
 $(textcyan_bg ">> ${HEADING}")
 (1)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.7')
 (2)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.9')
+(3)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.10')
+(4)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.7-slim')
+(5)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.9-slim')
+(6)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.10-slim')
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
@@ -39,6 +43,9 @@ $(textcyan_bg ">> ${HEADING}")
         '1') python "3.7"; ${FUNCNAME[0]};;
         '2') python "3.9"; ${FUNCNAME[0]};;
         '3') python "3.10"; ${FUNCNAME[0]};;
+        '4') python "3.7-slim"; ${FUNCNAME[0]};;
+        '5') python "3.9-slim"; ${FUNCNAME[0]};;
+        '6') python "3.10-slim"; ${FUNCNAME[0]};;
         [Q]) exit;;
         [q]) submenu_developer;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;

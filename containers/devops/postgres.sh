@@ -92,6 +92,7 @@ psql_cli_check () {
 }
 
 psql_server () {
+    echo "Default PORT: 5432"
     docker_ask_port ${PSQL_CONTAINER_NAME} ${PSQL_CONTAINER_PORT}
 
     docker run -d \

@@ -77,8 +77,10 @@ docker_container_status () {
             if docker ps --format "{{ .Names}}" | grep -i ${CONTAINER} >> /dev/null
             then
                 textgreen "[STATUS] ${CONTAINER} RUNNING."
+                echo ''
             else
                 textgrey "[STATUS] ${CONTAINER} STOPPED."
+                echo ''
             fi
         fi
     done
@@ -158,6 +160,7 @@ docker_container_stop () {
             if docker stop ${CONTAINER} > /dev/null
             then
                 textmagenta "[STOP] DONE."
+                echo ''
             fi
         fi
     done

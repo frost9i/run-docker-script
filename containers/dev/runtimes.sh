@@ -8,9 +8,8 @@ MAVEN_CONTAINER_NAME='maven'
 DEV_LIST=(${PYTHON_CONTAINER_NAME}, ${NODEJS_CONTAINER_NAME}, ${MAVEN_CONTAINER_NAME})
 
 nodejs () {
-    docker run -it \
-    -p 5000:3000 \
-    --rm \
+    docker run -it --rm \
+    -p 5000:5000 \
     --name "${NODEJS_CONTAINER_NAME}" \
     --network ${DOCKER_NETWORK_NAME} \
     -v "${DOCKER_MY_HOME}/git:/git" \
@@ -24,7 +23,7 @@ python () {
     --name ${PYTHON_CONTAINER_NAME} \
     --network ${DOCKER_NETWORK_NAME} \
     -v "${DOCKER_MY_HOME}/git:/git" \
-    python:${1}-alpine \
+    python:${1} \
     sh
 }
 
