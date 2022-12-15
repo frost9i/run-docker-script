@@ -1,5 +1,7 @@
 #!/bin/bash
 
+PSQL_IMAGE='postgres:15-alpine'
+
 PSQL_CONTAINER_NAME='postgres'
 PSQL_CONTAINER_PORT='5432'
 PSQL_ROOT_USER='pgown'
@@ -101,7 +103,5 @@ psql_server () {
     --network ${DOCKER_NETWORK_NAME} \
     -e POSTGRES_USER=${PSQL_ROOT_USER} \
     -e POSTGRES_PASSWORD=${PSQL_ROOT_PASS} \
-    postgres:14-alpine
-
-    echo_port
+    ${PSQL_IMAGE}
 }
