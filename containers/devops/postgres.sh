@@ -65,7 +65,7 @@ psql_check () {
 
 psql_start () {
     textgrey_bg "[START] ${PSQL_CONTAINER_NAME}"
-    if docker start ${PSQL_CONTAINER_NAME} > /dev/null
+    if docker start ${PSQL_CONTAINER_NAME}
     then
         sleep 5
         textgreen_bg '[START] SUCCESS.'
@@ -75,7 +75,7 @@ psql_start () {
 }
 
 psql_create () {
-    if psql_server > /dev/null
+    if psql_server
     then
         sleep 5
         textgreen_bg "[CREATE] SUCCESS: ${PSQL_CONTAINER_NAME}"
@@ -85,7 +85,7 @@ psql_create () {
 }
 
 psql_cli_check () {
-    if ! command -v psql > /dev/null
+    if ! command -v psql
     then
         fail1 '[FAIL] psql CLI not found.'
         return
@@ -95,7 +95,7 @@ psql_cli_check () {
 
 psql_server () {
     echo "Default PORT: 5432"
-    docker_ask_port ${PSQL_CONTAINER_NAME} ${PSQL_CONTAINER_PORT}
+    # docker_ask_port ${PSQL_CONTAINER_NAME} ${PSQL_CONTAINER_PORT}
 
     docker run -d \
     -p ${PSQL_CONTAINER_PORT}:5432 \
