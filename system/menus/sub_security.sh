@@ -10,6 +10,7 @@ $(textgreen_bg ">> ${HEADING}")
 (3)$(textyellow 'MobSF')
 (4)$(textgreen 'Mozilla-Observatory')
 (5)$(textmagenta 'CSP-Processor')
+(6)$(textgreen 'Trivy')
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
@@ -19,6 +20,7 @@ $(textgreen_bg ">> ${HEADING}")
         '3') submenu_mobsf;;
         '4') submenu_obs;;
         '5') submenu_csp;;
+        '6') submenu_trivy;;
         [Q]) exit;;
         [q]) submenu_security;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
@@ -119,6 +121,29 @@ $(textcyan_bg ">> ${HEADING}")
     esac
 }
 
+# TRIVY SUB-MENU
+submenu_trivy () {
+    HEADING='TRIVY Controls'
+    echo -ne """
+$(textgreen_bg ">> ${HEADING}")
+(1)$(textgreen "TRIVY") SHELL
+(2)$(textyellow "TRIVY") SERVER
+(3)$(textred "TRIVY") DB
+(Q)$(textgrey 'ESC')
+"""
+    read -p ">> ${HEADING}: " -rn 1; echo ''
+    case ${REPLY} in
+        '1') trivy; ${FUNCNAME[0]};;
+        '2') trivy-srv; ${FUNCNAME[0]};;
+        '3') trivy-redis; ${FUNCNAME[0]};;
+        [Ss]*) docker_container_status ${TRIVY_LIST[@]}; ${FUNCNAME[0]};;
+        # [Dd]*) if script_ask "Confirm"; then docker_container_delete ${OBS_LIST[@]}; fi; ${FUNCNAME[0]};;
+        [Q]) exit;;
+        [q]) submenu_security_services;;
+        *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
+    esac
+}
+
 #############################
 ## SECURITY TOOLS SUB-MENU ##
 submenu_security_tools () {
@@ -130,7 +155,7 @@ $(textred_bg ">> ${HEADING}")
 (3)RUN $(textyellow 'CATS')
 (4)RUN $(textyellow 'TruffleHog')
 (5)RUN $(textgreen 'Trivy')
-(6)RUN $(textgreen 'Dependency Check')
+(6)RUN $(textcyan 'Dependency Check')
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''

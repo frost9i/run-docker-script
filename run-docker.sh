@@ -22,9 +22,10 @@ source ./containers/security/services/dtrack.sh
 source ./containers/security/services/mobsf.sh
 source ./containers/security/services/observatory.sh
 source ./containers/security/services/csp.sh
+source ./containers/security/services/trivy.sh
 
 source ./containers/security/tools/cats.sh
-source ./containers/security/tools/sca.sh
+source ./containers/security/tools/dcheck.sh
 source ./containers/security/tools/semgrep.sh
 source ./containers/security/tools/trufflehog.sh
 source ./containers/security/tools/zap.sh
@@ -33,9 +34,10 @@ source ./containers/security/vulnapps.sh
 
 
 # DEVOPS
+source ./containers/devops/alpine.sh
+source ./containers/devops/debian.sh
 source ./containers/devops/jenkins.sh
 source ./containers/devops/postgres.sh
-source ./containers/devops/debian.sh
 source ./containers/devops/redis.sh
 source ./containers/devops/jira.sh
 

@@ -53,20 +53,22 @@ submenu_devops () {
     HEADING='DEVOPS Tools'
     echo -ne """
 $(textbluelight_bg ">> ${HEADING}")
-(1)$(textred 'JENKINS')
-(2)$(textbluelight 'POSTGRES')
-(3)$(textmagenta 'DEBIAN') SHELL
-(4)RUN $(textred 'REDIS')
-(5)$(textblue 'JIRA')
+(1)$(textyellow 'ALPINE') SHELL
+(2)$(textmagenta 'DEBIAN') SHELL
+(3)$(textred 'JENKINS')
+(4)$(textbluelight 'POSTGRES')
+(5)RUN $(textred 'REDIS')
+(6)$(textblue 'JIRA')
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
-        '1') submenu_jenkins;;
-        '2') submenu_psql;;
-        '3') debian; ${FUNCNAME[0]};;
-        '4') redis; ${FUNCNAME[0]};;
-        '5') submenu_jira;;
+        '1') alpine; ${FUNCNAME[0]};;
+        '2') debian; ${FUNCNAME[0]};;
+        '3') submenu_jenkins;;
+        '4') submenu_psql;;
+        '5') redis; ${FUNCNAME[0]};;
+        '6') submenu_jira;;
         [Q]) exit;;
         [q]) mainmenu;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
@@ -80,16 +82,18 @@ submenu_developer () {
     HEADING='DEV TOOLS'
     echo -ne """
 $(textcyan_bg ">> ${HEADING}")
-(1)RUN $(textyellow 'PYTHON')
-(2)RUN $(textgreen 'NODE.JS')
-(3)RUN $(textblue 'MAVEN')
+(1)RUN $(textyellow "Python")
+(2)RUN $(textgreen 'NodeJS')
+(3)RUN $(textmagenta 'JDK')
+(4)RUN $(textblue 'MAVEN')
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
         '1') python_menu; ${FUNCNAME[0]};;
         '2') nodejs_menu; ${FUNCNAME[0]};;
-        '3') maven; ${FUNCNAME[0]};;
+        '3') openjdk_menu; ${FUNCNAME[0]};;
+        '4') maven; ${FUNCNAME[0]};;
         [Q]) exit;;
         [q]) mainmenu;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;

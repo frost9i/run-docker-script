@@ -11,7 +11,7 @@ check1 () {
 error1 () {
     if [ -z "${1}" ]
     then
-        echo -e "[ERROR] Something wrong."
+        textred "[ERROR] Something wrong."
         exit 1
     fi
     textred "[ERROR] ${1}"
