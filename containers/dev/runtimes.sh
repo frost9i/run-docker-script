@@ -24,7 +24,7 @@ python () {
     --network ${DOCKER_NETWORK_NAME} \
     -v "${DOCKER_MY_HOME}/git:/git" \
     python:${1} \
-    sh
+    bash
 }
 
 maven () {
