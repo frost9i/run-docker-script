@@ -26,6 +26,15 @@ docker_home_check () {
     fi
 }
 
+docker_mount_check () {
+    if [ -z $DOCKER_MY_HOME/git ]
+    then
+        check1 "$DOCKER_MY_HOME/git does not exist."
+    else
+        check1 "DOCKER_MY_HOME/git directory exists for mounting."
+    fi
+}
+
 docker_network () {
     if ! docker network ls --format '{{ .Name}}' | grep -i ${DOCKER_NETWORK_NAME} > /dev/null
     then

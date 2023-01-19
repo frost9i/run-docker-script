@@ -18,6 +18,7 @@ Includes categorized services
 ║            ║             ╠═[CATS]
 ║            ║             ╠═[TRUFFLEHOG]
 ║            ║             ╠═[TRIVY]
+║            ║             ╠═[GITLEAKS]
 ║            ║             ╚═[DEPENDENCY-CHECK]
 ║            ║
 ║            ╚═[VULN-APPS]═╦═[JUICE-SHOP]
@@ -72,6 +73,7 @@ DOCKER_MY_HOME=
 [CATS (https://github.com/Endava/cats)](https://github.com/Endava/cats)  
 [TRUFFLEHOG (https://hub.docker.com/r/trufflesecurity/trufflehog)](https://hub.docker.com/r/trufflesecurity/trufflehog)  
 [TRIVY (https://hub.docker.com/r/aquasec/trivy)](https://hub.docker.com/r/aquasec/trivy)  
+[GITLEAKS (https://hub.docker.com/r/zricethezav/gitleaks)](https://hub.docker.com/r/zricethezav/gitleaks)  
 [DEPENDENCY-CHECK (https://hub.docker.com/r/owasp/dependency-check)](https://hub.docker.com/r/owasp/dependency-check)  
   
 **PENTEST:**  
