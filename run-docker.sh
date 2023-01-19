@@ -31,6 +31,7 @@ source ./containers/security/tools/semgrep.sh
 source ./containers/security/tools/trufflehog.sh
 source ./containers/security/tools/zap.sh
 source ./containers/security/tools/gitleaks.sh
+source ./containers/security/tools/dsecrets.sh
 ## Vulnerable applications
 source ./containers/security/vulnapps.sh
 

@@ -19,6 +19,7 @@ Includes categorized services
 ║            ║             ╠═[TRUFFLEHOG]
 ║            ║             ╠═[TRIVY]
 ║            ║             ╠═[GITLEAKS]
+║            ║             ╠═[DETECT-SECRETS]
 ║            ║             ╚═[DEPENDENCY-CHECK]
 ║            ║
 ║            ╚═[VULN-APPS]═╦═[JUICE-SHOP]
@@ -74,6 +75,7 @@ DOCKER_MY_HOME=
 [TRUFFLEHOG (https://hub.docker.com/r/trufflesecurity/trufflehog)](https://hub.docker.com/r/trufflesecurity/trufflehog)  
 [TRIVY (https://hub.docker.com/r/aquasec/trivy)](https://hub.docker.com/r/aquasec/trivy)  
 [GITLEAKS (https://hub.docker.com/r/zricethezav/gitleaks)](https://hub.docker.com/r/zricethezav/gitleaks)  
+[DETECT-SECRETS (https://github.com/Yelp/detect-secrets)](https://github.com/Yelp/detect-secrets)  
 [DEPENDENCY-CHECK (https://hub.docker.com/r/owasp/dependency-check)](https://hub.docker.com/r/owasp/dependency-check)  
   
 **PENTEST:**  

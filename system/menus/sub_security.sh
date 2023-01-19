@@ -156,7 +156,8 @@ $(textred_bg ">> ${HEADING}")
 (4)RUN $(textyellow 'TruffleHog')
 (5)RUN $(textgreen 'Trivy')
 (6)RUN $(textred 'Gitleaks')
-(7)RUN $(textcyan 'Dependency Check')
+(7)RUN $(textcyan 'Detect-secrets')
+(8)RUN $(textcyan 'Dependency Check')
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
@@ -167,7 +168,8 @@ $(textred_bg ">> ${HEADING}")
         '4') trufflehog; ${FUNCNAME[0]};;
         '5') trivy; ${FUNCNAME[0]};;
         '6') gitleaks; ${FUNCNAME[0]};;
-        '7') dcheck; ${FUNCNAME[0]};;
+        '7') dsecrets; ${FUNCNAME[0]};;
+        '8') dcheck; ${FUNCNAME[0]};;
         [Q]) exit;;
         [q]) submenu_security;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
