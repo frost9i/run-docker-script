@@ -5,20 +5,20 @@ nodejs_menu () {
     HEADING='NODEJS'
     echo -ne """
 $(textcyan_bg ">> ${HEADING}")
-(1) NodeJS $(textgreen 'v.11')
-(2) NodeJS $(textgreen 'v.14')
+(1) NodeJS $(textgreen 'v.18')
+(2) NodeJS $(textgreen 'v.17')
 (3) NodeJS $(textgreen 'v.16')
-(4) NodeJS $(textgreen 'v.17')
-(5) NodeJS $(textgreen 'v.18')
+(4) NodeJS $(textgreen 'v.14')
+(5) NodeJS $(textgreen 'v.11')
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
-        '1') nodejs "11"; ${FUNCNAME[0]};;
-        '2') nodejs "14"; ${FUNCNAME[0]};;
+        '1') nodejs "18"; ${FUNCNAME[0]};;
+        '2') nodejs "17"; ${FUNCNAME[0]};;
         '3') nodejs "16"; ${FUNCNAME[0]};;
-        '4') nodejs "17"; ${FUNCNAME[0]};;
-        '5') nodejs "18"; ${FUNCNAME[0]};;
+        '4') nodejs "14"; ${FUNCNAME[0]};;
+        '5') nodejs "11"; ${FUNCNAME[0]};;
         [Q]) exit;;
         [q]) submenu_developer;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;

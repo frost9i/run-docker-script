@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PSQL_IMAGE='postgres:15-alpine'
+PSQL_IMAGE='postgres:15.1-alpine'
 
 PSQL_CONTAINER_NAME='postgres'
 PSQL_CONTAINER_PORT='5432'
