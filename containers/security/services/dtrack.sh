@@ -22,12 +22,12 @@ dt_init () {
 
     psql_db_create "${DT_PSQL_DATABASE}"
 
-    # if script_ask 'MOUNT EXTERNAL FOLDER TO /data ?'
-    # then
-    #     DOCKER_MOUNT_DIR="-v ${DOCKER_MY_HOME}/dtrack-data:/data"
-    # else
-    #     DOCKER_MOUNT_DIR=''
-    # fi
+    if script_ask 'MOUNT EXTERNAL FOLDER TO /data ?'
+    then
+        DOCKER_MOUNT_DIR="-v ${DOCKER_MY_HOME}/dtrack:/data"
+    else
+        DOCKER_MOUNT_DIR=''
+    fi
 
     docker_ask_port "${DT_CONTAINER_API}" "${DT_API_PORT}"
     DT_API_PORT="${CONTAINER_EXPOSED_PORT}"

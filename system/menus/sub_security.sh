@@ -49,6 +49,7 @@ submenu_dd () {
 submenu_dt () {
     HEADING='DEPENDENCY-TRACK Controls'
     heading_service ${HEADING}
+    echo -en "SHOW:      (L)Logs-api(K)Logs-fe\n"
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
         '1') psql_check; docker_container_start ${DT_LIST[@]}; ${FUNCNAME[0]};;
@@ -56,6 +57,8 @@ submenu_dt () {
         '3') dt_init; ${FUNCNAME[0]};;
         [Ss]*) docker_container_status ${DT_LIST[@]}; ${FUNCNAME[0]};;
         [Dd]*) if script_ask "Confirm"; then docker_container_delete ${DT_LIST[@]}; fi; ${FUNCNAME[0]};;
+        [Ll]*) docker logs -f ${DT_SERVICE_NAME}-api; ${FUNCNAME[0]};;
+        [Kk]*) docker logs -f ${DT_SERVICE_NAME}-fe; ${FUNCNAME[0]};;
         [Q]) exit;;
         [q]) submenu_security_services;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;

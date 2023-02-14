@@ -17,7 +17,7 @@ $(textblue_bg "> ${HEADING}")
         '1') submenu_security;;
         '2') submenu_devops;;
         '3') submenu_developer;;
-        [Ff]*) if script_ask "Confirm"; then docker_stop; exit; fi; ${FUNCNAME[0]};;
+        [Ff]*) docker_stop; exit;;
         [Qq]*) exit;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
     esac
