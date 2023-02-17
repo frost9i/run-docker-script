@@ -4,8 +4,8 @@
 # https://hub.docker.com/r/defectdojo/defectdojo-django
 # https://hub.docker.com/r/defectdojo/defectdojo-nginx
 
-DOCKER_IMAGE_DJANGO='defectdojo/defectdojo-django'
-DOCKER_IMAGE_NGINX='defectdojo/defectdojo-nginx'
+DOCKER_IMAGE_DJANGO='defectdojo/defectdojo-django' # alpine by default
+DOCKER_IMAGE_NGINX='defectdojo/defectdojo-nginx' # alpine by default
 # DOCKER_IMAGE_DJANGO='dd:uwsgi'
 # DOCKER_IMAGE_NGINX='dd:nginx'
 DOCKER_IMAGE_RMQ='rabbitmq'
