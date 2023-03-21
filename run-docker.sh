@@ -36,14 +36,18 @@ source ./containers/security/tools/dsecrets.sh
 source ./containers/security/vulnapps.sh
 
 # DEVOPS
-source ./containers/devops/alpine.sh
-source ./containers/devops/debian.sh
+## Services
 source ./containers/devops/jenkins.sh
 source ./containers/devops/postgres.sh
 source ./containers/devops/redis.sh
 source ./containers/devops/jira.sh
+## Tools
+source ./containers/devops/postgres_client.sh
+## Shells
+source ./containers/devops/alpine.sh
+source ./containers/devops/debian.sh
 
-# DEVTOOLS
+# Runtimes
 source ./containers/dev/runtimes.sh
 
 # START HERE ->

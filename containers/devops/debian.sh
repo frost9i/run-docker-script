@@ -10,6 +10,10 @@ debian () {
         DOCKER_MOUNT_DIR=''
     fi
 
+    # -p 22022:22 \
+    # -v ${DOCKER_MY_HOME}/ssh:/ssh_keys \
+    # apt-get update && apt-get install -y openssh-server \
+
     docker run -it --rm \
     --name ${DEBIAN_CONTAINER_NAME} \
     --network ${DOCKER_NETWORK_NAME} \
