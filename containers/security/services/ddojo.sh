@@ -6,9 +6,9 @@
 
 DOCKER_IMAGE_DJANGO='defectdojo/defectdojo-django' # alpine by default
 DOCKER_IMAGE_NGINX='defectdojo/defectdojo-nginx' # alpine by default
-# DOCKER_IMAGE_DJANGO='dd:uwsgi'
-# DOCKER_IMAGE_NGINX='dd:nginx'
-DOCKER_IMAGE_RMQ='rabbitmq'
+# DOCKER_IMAGE_DJANGO='dd:uwsgi' # local build
+# DOCKER_IMAGE_NGINX='dd:nginx' # local build
+DOCKER_IMAGE_RMQ='rabbitmq:alpine'
 
 DD_SERVICE_NAME='ddojo'
 DD_PSQL_DATABASE="${DD_SERVICE_NAME}"
@@ -44,12 +44,12 @@ dd_init () {
 
     psql_db_create "${DD_PSQL_DATABASE}"
 
-    # if script_ask 'MOUNT EXTERNAL FOLDER TO /dojo-app ?'
-    # then
-    #     DOCKER_MOUNT_DIR="-v ${DOCKER_MY_HOME}/ddojo-app:/app"
-    # else
-    #     DOCKER_MOUNT_DIR=''
-    # fi
+    if script_ask 'MOUNT EXTERNAL FOLDER TO /dojo-app ?'
+    then
+        DOCKER_MOUNT_DIR="-v ${DOCKER_MY_HOME}/ddojo-app:/app"
+    else
+        DOCKER_MOUNT_DIR=''
+    fi
 
     docker_ask_port "${DD_CONTAINER_NGINX}" "${DD_NGINX_PORT}"
 
