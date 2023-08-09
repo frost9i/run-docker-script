@@ -59,14 +59,16 @@ openjdk_menu () {
     HEADING='OpenJDK'
     echo -ne """
 $(textcyan_bg ">> ${HEADING}")
-(1)RUN $(textyellow "OpenJDK") $(textgreen '11')
+(1)RUN $(textyellow "OpenJDK") $(textgreen '20')
 (2)RUN $(textyellow "OpenJDK") $(textgreen '17')
+(3)RUN $(textyellow "OpenJDK") $(textgreen '11')
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
-        '1') openjdk "11"; ${FUNCNAME[0]};;
+        '1') openjdk "20"; ${FUNCNAME[0]};;
         '2') openjdk "17"; ${FUNCNAME[0]};;
+        '3') openjdk "11"; ${FUNCNAME[0]};;
         [Q]) exit;;
         [q]) submenu_developer;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
