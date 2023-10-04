@@ -5,20 +5,22 @@ nodejs_menu () {
     HEADING='NODEJS'
     echo -ne """
 $(textcyan_bg ">> ${HEADING}")
-(1) NodeJS $(textgreen 'v.18')
-(2) NodeJS $(textgreen 'v.17')
-(3) NodeJS $(textgreen 'v.16')
-(4) NodeJS $(textgreen 'v.14')
-(5) NodeJS $(textgreen 'v.11')
+(1) NodeJS $(textgreen 'v.20')
+(2) NodeJS $(textgreen 'v.18')
+(3) NodeJS $(textgreen 'v.17')
+(4) NodeJS $(textgreen 'v.16')
+(5) NodeJS $(textgreen 'v.14')
+(6) NodeJS $(textgreen 'v.11')
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
-        '1') nodejs "18"; ${FUNCNAME[0]};;
-        '2') nodejs "17"; ${FUNCNAME[0]};;
-        '3') nodejs "16"; ${FUNCNAME[0]};;
-        '4') nodejs "14"; ${FUNCNAME[0]};;
-        '5') nodejs "11"; ${FUNCNAME[0]};;
+        '1') nodejs "20"; ${FUNCNAME[0]};;
+        '2') nodejs "18"; ${FUNCNAME[0]};;
+        '3') nodejs "17"; ${FUNCNAME[0]};;
+        '4') nodejs "16"; ${FUNCNAME[0]};;
+        '5') nodejs "14"; ${FUNCNAME[0]};;
+        '6') nodejs "11"; ${FUNCNAME[0]};;
         [Q]) exit;;
         [q]) submenu_developer;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
@@ -59,6 +61,7 @@ openjdk_menu () {
     HEADING='OpenJDK'
     echo -ne """
 $(textcyan_bg ">> ${HEADING}")
+(1)RUN $(textyellow "OpenJDK") $(textgreen '21')
 (1)RUN $(textyellow "OpenJDK") $(textgreen '20')
 (2)RUN $(textyellow "OpenJDK") $(textgreen '17')
 (3)RUN $(textyellow "OpenJDK") $(textgreen '11')
@@ -66,9 +69,10 @@ $(textcyan_bg ">> ${HEADING}")
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
-        '1') openjdk "20"; ${FUNCNAME[0]};;
-        '2') openjdk "17"; ${FUNCNAME[0]};;
-        '3') openjdk "11"; ${FUNCNAME[0]};;
+        '1') openjdk "21"; ${FUNCNAME[0]};;
+        '2') openjdk "20"; ${FUNCNAME[0]};;
+        '3') openjdk "17"; ${FUNCNAME[0]};;
+        '4') openjdk "11"; ${FUNCNAME[0]};;
         [Q]) exit;;
         [q]) submenu_developer;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
