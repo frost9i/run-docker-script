@@ -1,5 +1,8 @@
 #!/bin/bash
 
+shopt -s expand_aliases
+source ~/.bashrc # alias docker=podman
+
 docker_check () {
     if ! docker ps 2>&1 1>/dev/null
     then
