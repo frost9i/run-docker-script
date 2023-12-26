@@ -72,7 +72,7 @@ docker_ask_port () {
 }
 
 docker_stop () {
-    if ! docker ps -q | xargs docker stop 2>/dev/null
+    if ! docker stop $(docker ps -q)
     then
         error1 'No containers were up.'
     fi

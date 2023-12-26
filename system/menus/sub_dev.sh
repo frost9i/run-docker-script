@@ -62,9 +62,9 @@ openjdk_menu () {
     echo -ne """
 $(textcyan_bg ">> ${HEADING}")
 (1)RUN $(textyellow "OpenJDK") $(textgreen '21')
-(1)RUN $(textyellow "OpenJDK") $(textgreen '20')
-(2)RUN $(textyellow "OpenJDK") $(textgreen '17')
-(3)RUN $(textyellow "OpenJDK") $(textgreen '11')
+(2)RUN $(textyellow "OpenJDK") $(textgreen '20')
+(3)RUN $(textyellow "OpenJDK") $(textgreen '17')
+(4)RUN $(textyellow "OpenJDK") $(textgreen '11')
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
