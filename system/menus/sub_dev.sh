@@ -32,7 +32,7 @@ python_menu () {
     HEADING='PYTHON'
     echo -ne """
 $(textcyan_bg ">> ${HEADING}")
-(1)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.11-slim')
+(1)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.12-slim')
 (2)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.11-slim')
 (3)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.10-slim')
 (4)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.9-slim')
