@@ -33,23 +33,19 @@ python_menu () {
     echo -ne """
 $(textcyan_bg ">> ${HEADING}")
 (1)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.11-slim')
-(2)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.10-slim')
-(3)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.9-slim')
-(4)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.7-slim')
-(5)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.10')
-(6)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.9')
-(7)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.7')
+(2)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.11-slim')
+(3)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.10-slim')
+(4)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.9-slim')
+(5)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.7-slim')
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
-        '1') python "3.11-slim"; ${FUNCNAME[0]};;
-        '2') python "3.10-slim"; ${FUNCNAME[0]};;
-        '3') python "3.9-slim"; ${FUNCNAME[0]};;
-        '4') python "3.7-slim"; ${FUNCNAME[0]};;
-        '5') python "3.10"; ${FUNCNAME[0]};;
-        '6') python "3.9"; ${FUNCNAME[0]};;
-        '7') python "3.7"; ${FUNCNAME[0]};;
+        '1') python "3.12-slim"; ${FUNCNAME[0]};;
+        '2') python "3.11-slim"; ${FUNCNAME[0]};;
+        '3') python "3.10-slim"; ${FUNCNAME[0]};;
+        '4') python "3.9-slim"; ${FUNCNAME[0]};;
+        '5') python "3.7-slim"; ${FUNCNAME[0]};;
         [Q]) exit;;
         [q]) submenu_developer;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;

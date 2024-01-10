@@ -31,7 +31,6 @@ jira_start () {
     -p ${CONTAINER_EXPOSED_PORT}:${JIRA_CONTAINER_PORT_DEFAULT} \
     --name ${JIRA_CONTAINER_NAME} \
     --network ${DOCKER_NETWORK_NAME} \
-    --volume ${JIRA_CONTAINER_NAME}-data \
     -e ATL_JDBC_URL="jdbc:postgresql://${PSQL_CONTAINER_NAME}:${PSQL_CONTAINER_PORT}/${JIRA_CONTAINER_NAME}" \
     -e ATL_JDBC_USER=$PSQL_ROOT_USER \
     -e ATL_JDBC_PASSWORD=$PSQL_ROOT_PASS \
@@ -43,3 +42,4 @@ jira_start () {
 }
 
 # -v C:/Users/Sergii_Moroz1/docker/jira:/var/atlassian/application-data/jira \
+# --volume ${JIRA_CONTAINER_NAME}-data \
