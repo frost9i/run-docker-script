@@ -42,3 +42,4 @@ jira_start () {
 }
 
 # -v C:/Users/Sergii_Moroz1/docker/jira:/var/atlassian/application-data/jira \
+# --volume ${JIRA_CONTAINER_NAME}-data \

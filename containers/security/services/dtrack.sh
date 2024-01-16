@@ -24,7 +24,7 @@ dt_init () {
 
     if script_ask 'MOUNT EXTERNAL FOLDER TO /data ?'
     then
-        DOCKER_MOUNT_DIR="-v ${DOCKER_MY_HOME}/dtrack-data:/data"
+        DOCKER_MOUNT_DIR="-v ${DOCKER_MY_HOME}/dtrack:/data"
     else
         DOCKER_MOUNT_DIR=''
     fi

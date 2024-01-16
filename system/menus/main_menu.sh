@@ -17,7 +17,7 @@ $(textblue_bg "> ${HEADING}")
         '1') submenu_security;;
         '2') submenu_devops;;
         '3') submenu_developer;;
-        [Ff]*) if script_ask "Confirm"; then docker_stop; exit; fi; ${FUNCNAME[0]};;
+        [Ff]*) docker_stop; exit;;
         [Qq]*) exit;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
     esac
@@ -50,25 +50,19 @@ $(textgreen_bg ">> ${HEADING}")
 ## DEVOPS ##
 # SUB-MENU #
 submenu_devops () {
-    HEADING='DEVOPS Tools'
+    HEADING='DEVOPS MENU'
     echo -ne """
 $(textbluelight_bg ">> ${HEADING}")
-(1)$(textyellow 'ALPINE') SHELL
-(2)$(textmagenta 'DEBIAN') SHELL
-(3)$(textred 'JENKINS')
-(4)$(textbluelight 'POSTGRES')
-(5)RUN $(textred 'REDIS')
-(6)$(textblue 'JIRA')
+(1)$(textyellow 'SERVICES')
+(2)$(textblue 'TOOLS')
+(3)$(textred 'SHELLS')
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
-        '1') alpine; ${FUNCNAME[0]};;
-        '2') debian; ${FUNCNAME[0]};;
-        '3') submenu_jenkins;;
-        '4') submenu_psql;;
-        '5') redis; ${FUNCNAME[0]};;
-        '6') submenu_jira;;
+        '1') submenu_devops_services;;
+        '2') submenu_devops_tools;;
+        '3') submenu_devops_shells;;
         [Q]) exit;;
         [q]) mainmenu;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
@@ -82,17 +76,18 @@ submenu_developer () {
     HEADING='DEV TOOLS'
     echo -ne """
 $(textcyan_bg ">> ${HEADING}")
-(1)RUN $(textyellow "Python")
+(1)RUN $(textblue "Python")
 (2)RUN $(textgreen 'NodeJS')
-(3)RUN $(textmagenta 'JDK')
-(4)RUN $(textblue 'MAVEN')
+(3)RUN $(textyellow 'Java')
+(4)RUN $(textmagenta 'MAVEN')
+
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
-        '1') python_menu; ${FUNCNAME[0]};;
-        '2') nodejs_menu; ${FUNCNAME[0]};;
-        '3') openjdk_menu; ${FUNCNAME[0]};;
+        '1') python_menu;;
+        '2') nodejs_menu;;
+        '3') openjdk_menu;;
         '4') maven; ${FUNCNAME[0]};;
         [Q]) exit;;
         [q]) mainmenu;;

@@ -13,33 +13,34 @@ Includes categorized services
 ║            ║             ╠═[CSP-PROCESSOR]
 ║            ║             ╚═[TRIVY]
 ║            ║
-║            ╠═[TOOLS]═════╦═[ZAP]
-║            ║             ╠═[SEMGREP]
-║            ║             ╠═[CATS]
-║            ║             ╠═[TRUFFLEHOG]
-║            ║             ╠═[TRIVY]
-║            ║             ╚═[DEPENDENCY-CHECK]
-║            ║
+║            ╠═[TOOLS]═════╦═[SAST]══════[SEMGREP]
+║            ║             ╠═[SCA]═══╦═══[CLAIR]
+║            ║             ║         ╠═══[SYFT]
+║            ║             ║         ╠═══[TRIVY]
+║            ║             ║         ╚═══[DEPENDENCY-CHECK]
+║            ║             ╠═[DAST]══════[ZAP]
+║            ║             ╠═[SECRETS]═╦═[DETECT-SECRETS]
+║            ║             ║           ╠═[GITLEAKS]
+║            ║             ║           ╚═[TRUFFLEHOG]
+║            ║             ╚═[FUZZ]══════[CATS]
 ║            ╚═[VULN-APPS]═╦═[JUICE-SHOP]
 ║                          ╠═[DVWA]
 ║                          ╚═[VAMPI]
-║
-╠═[DEVOPS]═══╦═[ALPINE]
-║            ╠═[DEBIAN]
-║            ╠═[JENKINS]
-║            ╠═[POSTGRES]
-║            ╠═[REDIS]
-║            ╚═[JIRA]
-║
-╚═[DEV]══════╦═[PYTHON]═══[3.7|3.9|3.10]
-             ╠═[NODEJS]═══[11|14|16|17|18]
-             ╠═[JDK]══════[11|17]
-             ╚═[MAVEN]
+╠═[DEVOPS]═══╦═[SERVICES]══╦═[JENKINS]
+║            ║             ╠═[POSTGRES]
+║            ║             ╠═[REDIS]
+║            ║             ╠═[SSH-SERVER]
+║            ║             ╚═[JIRA]
+║            ╠═[TOOLS]═══════[POSTGRES-CLIENT]
+║            ╚═[SHELLS]════╦═[DEBIAN]
+║                          ╚═[ALPINE]
+╚═[DEV]══════╦═[PYTHON]═══[3.12|3.11|3.10|3.9|3.8|3.7]
+             ╠═[NODEJS]═══[20|18|17|16|14|11]
+             ╠═[JDK]══════[21|20|17|11]
+             ╚═[MAVEN latest]
 
-══[TODO]═════╦═[GITLEAKS]
-             ╠═[VWAD]
-             ╠═[HASHICORP-VAULT]
-             ╠═[GITLAB-CI]
+══[TODO]═════╦═[HASHICORP-VAULT]
+             ╠═[GITLAB+RUNNER]
              ╚═[GITHAB-ACTIONS]
 ```
 ---
@@ -72,6 +73,8 @@ DOCKER_MY_HOME=
 [CATS (https://github.com/Endava/cats)](https://github.com/Endava/cats)  
 [TRUFFLEHOG (https://hub.docker.com/r/trufflesecurity/trufflehog)](https://hub.docker.com/r/trufflesecurity/trufflehog)  
 [TRIVY (https://hub.docker.com/r/aquasec/trivy)](https://hub.docker.com/r/aquasec/trivy)  
+[GITLEAKS (https://hub.docker.com/r/zricethezav/gitleaks)](https://hub.docker.com/r/zricethezav/gitleaks)  
+[DETECT-SECRETS (https://github.com/Yelp/detect-secrets)](https://github.com/Yelp/detect-secrets)  
 [DEPENDENCY-CHECK (https://hub.docker.com/r/owasp/dependency-check)](https://hub.docker.com/r/owasp/dependency-check)  
   
 **PENTEST:**  

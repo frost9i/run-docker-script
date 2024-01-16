@@ -1,5 +1,66 @@
 #!/bin/bash
 
+# DEVOPS SERVICES SUB-MENU
+submenu_devops_services () {
+    HEADING='DEVOPS Services'
+    echo -ne """
+$(textgreen_bg ">> ${HEADING}")
+(1)$(textblue 'JENKINS')
+(2)$(textcyan 'POSTGRES')
+(3)$(textred 'REDIS')
+(4)$(textyellow 'SSH SERVER')
+(5)$(textgreen 'JIRA')
+(Q)$(textgrey 'ESC')
+"""
+    read -p ">> ${HEADING}: " -rn 1; echo ''
+    case ${REPLY} in
+        '1') submenu_jenkins;;
+        '2') submenu_psql;;
+        '3') redis; ${FUNCNAME[0]};;
+        '4') alpine_sshd; ${FUNCNAME[0]};;
+        '5') submenu_jira;;
+        [Q]) exit;;
+        [q]) submenu_devops;;
+        *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
+    esac
+}
+
+# DEVOPS TOOLS SUB-MENU
+submenu_devops_tools () {
+    HEADING='DEVOPS Tools'
+    echo -ne """
+$(textgreen_bg ">> ${HEADING}")
+(1)$(textblue 'Postgres client')
+(Q)$(textgrey 'ESC')
+"""
+    read -p ">> ${HEADING}: " -rn 1; echo ''
+    case ${REPLY} in
+        '1') postgres_client; ${FUNCNAME[0]};;
+        [Q]) exit;;
+        [q]) submenu_devops;;
+        *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
+    esac
+}
+
+# DEVOPS SHELLS SUB-MENU
+submenu_devops_shells () {
+    HEADING='DEVOPS Shells'
+    echo -ne """
+$(textgreen_bg ">> ${HEADING}")
+(1)$(textblue 'Debian')
+(2)$(textcyan 'Alpine')
+(Q)$(textgrey 'ESC')
+"""
+    read -p ">> ${HEADING}: " -rn 1; echo ''
+    case ${REPLY} in
+        '1') debian; ${FUNCNAME[0]};;
+        '2') alpine; ${FUNCNAME[0]};;
+        [Q]) exit;;
+        [q]) submenu_devops;;
+        *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
+    esac
+}
+
 # JENKINS SUB-MENU
 submenu_jenkins () {
     HEADING='JENKINS Controls'

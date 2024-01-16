@@ -1,5 +1,8 @@
 #!/bin/bash
 
+shopt -s expand_aliases
+source ~/.bashrc # alias docker=podman
+
 docker_check () {
     if ! docker ps 2>&1 1>/dev/null
     then
@@ -23,6 +26,15 @@ docker_home_check () {
         fi
     else
         check1 "DOCKER_MY_HOME=${DOCKER_MY_HOME}"
+    fi
+}
+
+docker_mount_check () {
+    if [ -z $DOCKER_MY_HOME/git ]
+    then
+        check1 "$DOCKER_MY_HOME/git does not exist."
+    else
+        check1 "DOCKER_MY_HOME/git directory exists for mounting"
     fi
 }
 
@@ -60,7 +72,7 @@ docker_ask_port () {
 }
 
 docker_stop () {
-    if ! docker ps -q | xargs docker stop 2>/dev/null
+    if ! docker stop $(docker ps -q)
     then
         error1 'No containers were up.'
     fi
