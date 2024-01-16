@@ -157,7 +157,7 @@ $(textred_bg ">> ${HEADING}")
 (2)RUN $(textyellow 'SCA')
 (3)RUN $(textmagenta 'DAST')
 (4)RUN $(textcyan 'SECRETS')
-(6)RUN $(textbluelight 'OTHER')
+(5)RUN $(textbluelight 'FUZZ')
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
@@ -166,7 +166,7 @@ $(textred_bg ">> ${HEADING}")
         '2') submenu_security_tools_sca;;
         '3') submenu_security_tools_dast;;
         '4') submenu_security_tools_secrets;;
-        '6') submenu_security_tools_other;;
+        '5') submenu_security_tools_fuzz;;
         [Q]) exit;;
         [q]) submenu_security;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
@@ -193,7 +193,7 @@ submenu_security_tools_sca () {
     HEADING='SECURITY SCA Tools'
     echo -ne """
 $(textred_bg ">> ${HEADING}")
-(1)RUN $(textgreen 'Semgrep')
+(1)RUN $(textgreen 'Clair')
 (2)RUN $(textred 'Syft')
 (3)RUN $(textyellow 'Trivy')
 (4)RUN $(textblue 'Dependency Check')
@@ -232,7 +232,7 @@ submenu_security_tools_secrets () {
     echo -ne """
 $(textred_bg ">> ${HEADING}")
 (1)RUN $(textblue 'Detect-secrets')
-(2)RUN $(textgreen 'Git-leaks')
+(2)RUN $(textgreen 'Gitleaks')
 (3)RUN $(textyellow 'Trufflehog')
 (Q)$(textgrey 'ESC')
 """
@@ -247,7 +247,7 @@ $(textred_bg ">> ${HEADING}")
     esac
 }
 
-submenu_security_tools_other () {
+submenu_security_tools_fuzz () {
     HEADING='SECURITY etc'
     echo -ne """
 $(textred_bg ">> ${HEADING}")
