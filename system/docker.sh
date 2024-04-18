@@ -72,7 +72,7 @@ docker_ask_port () {
 }
 
 docker_stop () {
-    if ! docker stop $(docker ps -q)
+    if ! docker stop $(docker ps -q) && wsl --shutdown
     then
         error1 'No containers were up.'
     fi

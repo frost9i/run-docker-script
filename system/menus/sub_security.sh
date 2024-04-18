@@ -238,7 +238,7 @@ $(textred_bg ">> ${HEADING}")
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
-        '1') dsecrets; ${FUNCNAME[0]};;
+        '1') detect-secrets; ${FUNCNAME[0]};;
         '2') gitleaks; ${FUNCNAME[0]};;
         '3') trufflehog; ${FUNCNAME[0]};;
         [Q]) exit;;
