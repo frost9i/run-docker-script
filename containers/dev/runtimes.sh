@@ -1,9 +1,7 @@
 #!/bin/bash
 
-PYTHON_CONTAINER_NAME='python'
 NODEJS_CONTAINER_NAME='nodejs'
 OPENJDK_CONTAINER_NAME='jdk'
-GO_TAG='golang'
 MAVEN_CONTAINER_NAME='maven'
 
 DEV_LIST=(${PYTHON_CONTAINER_NAME}, ${NODEJS_CONTAINER_NAME}, ${MAVEN_CONTAINER_NAME})
@@ -20,13 +18,16 @@ nodejs () {
 }
 
 # PYTHON
+# https://hub.docker.com/_/python
+
+PYTHON_TAG='python'
 python () {
     docker run -it \
     --rm \
-    --name ${PYTHON_CONTAINER_NAME}-${1} \
+    --name ${PYTHON_TAG}-${1} \
     --network ${DOCKER_NETWORK_NAME} \
     -v "${DOCKER_MY_HOME}/git:/git" \
-    python:${1} \
+    ${PYTHON_TAG}:${1} \
     bash
 }
 
@@ -52,6 +53,9 @@ openjdk () {
 }
 
 # GOLANG
+# https://hub.docker.com/_/golang
+
+GO_TAG='golang'
 go () {
     docker run -it \
     --rm \
