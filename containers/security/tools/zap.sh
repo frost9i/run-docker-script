@@ -6,5 +6,9 @@ zap () {
     docker run -it --rm \
     --name ${ZAP_CONTAINER_NAME} \
     --network ${DOCKER_NETWORK_NAME} \
-    owasp/zap2docker-stable bash
+    --volume ${DOCKER_MY_HOME}/git:/git \
+    --publish 8080:8080 \
+    softwaresecurityproject/zap-stable bash
+    # ghcr.io/zaproxy/zaproxy bash
+    # --user root \
 }

@@ -79,7 +79,8 @@ $(textcyan_bg ">> ${HEADING}")
 (1)RUN $(textblue "Python")
 (2)RUN $(textgreen 'NodeJS')
 (3)RUN $(textyellow 'Java')
-(4)RUN $(textmagenta 'MAVEN')
+(4)RUN $(textcyan 'Go')
+(5)RUN $(textmagenta 'MAVEN')
 
 (Q)$(textgrey 'ESC')
 """
@@ -88,7 +89,8 @@ $(textcyan_bg ">> ${HEADING}")
         '1') python_menu;;
         '2') nodejs_menu;;
         '3') openjdk_menu;;
-        '4') maven; ${FUNCNAME[0]};;
+        '4') go_menu;;
+        '5') maven; ${FUNCNAME[0]};;
         [Q]) exit;;
         [q]) mainmenu;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;

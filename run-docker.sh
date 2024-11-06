@@ -27,9 +27,10 @@ source ./containers/security/services/trivy.sh
 
 ## Tools
 source ./containers/security/tools/cats.sh
+source ./containers/security/tools/cdxgen.sh
 source ./containers/security/tools/clair.sh
 source ./containers/security/tools/dcheck.sh
-source ./containers/security/tools/dsecrets.sh
+source ./containers/security/tools/detect-secrets.sh
 source ./containers/security/tools/gitleaks.sh
 source ./containers/security/tools/semgrep.sh
 source ./containers/security/tools/syft.sh

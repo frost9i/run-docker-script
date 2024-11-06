@@ -5,22 +5,24 @@ nodejs_menu () {
     HEADING='NODEJS'
     echo -ne """
 $(textcyan_bg ">> ${HEADING}")
-(1) NodeJS $(textgreen 'v.20')
-(2) NodeJS $(textgreen 'v.18')
-(3) NodeJS $(textgreen 'v.17')
-(4) NodeJS $(textgreen 'v.16')
-(5) NodeJS $(textgreen 'v.14')
-(6) NodeJS $(textgreen 'v.11')
+(1) NodeJS $(textgreen 'v.21')
+(2) NodeJS $(textgreen 'v.20')
+(3) NodeJS $(textgreen 'v.18')
+(4) NodeJS $(textgreen 'v.17')
+(5) NodeJS $(textgreen 'v.16')
+(6) NodeJS $(textgreen 'v.14')
+(7) NodeJS $(textgreen 'v.11')
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
-        '1') nodejs "20"; ${FUNCNAME[0]};;
-        '2') nodejs "18"; ${FUNCNAME[0]};;
-        '3') nodejs "17"; ${FUNCNAME[0]};;
-        '4') nodejs "16"; ${FUNCNAME[0]};;
-        '5') nodejs "14"; ${FUNCNAME[0]};;
-        '6') nodejs "11"; ${FUNCNAME[0]};;
+        '1') nodejs "21"; ${FUNCNAME[0]};;
+        '2') nodejs "20"; ${FUNCNAME[0]};;
+        '3') nodejs "18"; ${FUNCNAME[0]};;
+        '4') nodejs "17"; ${FUNCNAME[0]};;
+        '5') nodejs "16"; ${FUNCNAME[0]};;
+        '6') nodejs "14"; ${FUNCNAME[0]};;
+        '7') nodejs "11"; ${FUNCNAME[0]};;
         [Q]) exit;;
         [q]) submenu_developer;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
@@ -69,6 +71,25 @@ $(textcyan_bg ">> ${HEADING}")
         '2') openjdk "20"; ${FUNCNAME[0]};;
         '3') openjdk "17"; ${FUNCNAME[0]};;
         '4') openjdk "11"; ${FUNCNAME[0]};;
+        [Q]) exit;;
+        [q]) submenu_developer;;
+        *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
+    esac
+}
+
+# GOLANG SUB-MENU
+go_menu () {
+    HEADING='GoLang'
+    echo -ne """
+$(textcyan_bg ">> ${HEADING}")
+(1)RUN $(textyellow "Go") $(textgreen '1.23-alpine')
+(1)RUN $(textyellow "Go") $(textgreen '1.22-alpine')
+(Q)$(textgrey 'ESC')
+"""
+    read -p ">> ${HEADING}: " -rn 1; echo ''
+    case ${REPLY} in
+        '1') go "1.23-alpine"; ${FUNCNAME[0]};;
+        '2') go "1.22-alpine"; ${FUNCNAME[0]};;
         [Q]) exit;;
         [q]) submenu_developer;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;

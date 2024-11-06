@@ -153,19 +153,19 @@ submenu_security_tools () {
     HEADING='SECURITY Tools'
     echo -ne """
 $(textred_bg ">> ${HEADING}")
-(1)RUN $(textblue 'SAST')
-(2)RUN $(textyellow 'SCA')
-(3)RUN $(textmagenta 'DAST')
-(4)RUN $(textcyan 'SECRETS')
+(1)RUN $(textcyan 'SECRETS')
+(2)RUN $(textblue 'SAST')
+(3)RUN $(textyellow 'SCA')
+(4)RUN $(textmagenta 'DAST')
 (5)RUN $(textbluelight 'FUZZ')
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
-        '1') submenu_security_tools_sast;;
-        '2') submenu_security_tools_sca;;
-        '3') submenu_security_tools_dast;;
-        '4') submenu_security_tools_secrets;;
+        '1') submenu_security_tools_secrets;;
+        '2') submenu_security_tools_sast;;
+        '3') submenu_security_tools_sca;;
+        '4') submenu_security_tools_dast;;
         '5') submenu_security_tools_fuzz;;
         [Q]) exit;;
         [q]) submenu_security;;
@@ -193,18 +193,20 @@ submenu_security_tools_sca () {
     HEADING='SECURITY SCA Tools'
     echo -ne """
 $(textred_bg ">> ${HEADING}")
-(1)RUN $(textgreen 'Clair')
-(2)RUN $(textred 'Syft')
-(3)RUN $(textyellow 'Trivy')
-(4)RUN $(textblue 'Dependency Check')
+(1)RUN $(textgreen 'CDXgen')
+(2)RUN $(textblue 'Clair')
+(3)RUN $(textred 'Syft')
+(4)RUN $(textyellow 'Trivy')
+(5)RUN $(textblue 'Dependency Check')
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
-        '1') clair; ${FUNCNAME[0]};;
-        '2') syft; ${FUNCNAME[0]};;
-        '3') trivy; ${FUNCNAME[0]};;
-        '4') dcheck; ${FUNCNAME[0]};;
+        '1') cdxgen; ${FUNCNAME[0]};;
+        '2') clair; ${FUNCNAME[0]};;
+        '3') syft; ${FUNCNAME[0]};;
+        '4') trivy; ${FUNCNAME[0]};;
+        '5') dcheck; ${FUNCNAME[0]};;
         [Q]) exit;;
         [q]) submenu_security_tools;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
@@ -238,7 +240,7 @@ $(textred_bg ">> ${HEADING}")
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
-        '1') dsecrets; ${FUNCNAME[0]};;
+        '1') detect-secrets; ${FUNCNAME[0]};;
         '2') gitleaks; ${FUNCNAME[0]};;
         '3') trufflehog; ${FUNCNAME[0]};;
         [Q]) exit;;
