@@ -5,24 +5,28 @@ nodejs_menu () {
     HEADING='NODEJS'
     echo -ne """
 $(textcyan_bg ">> ${HEADING}")
-(1) NodeJS $(textgreen 'v.21')
-(2) NodeJS $(textgreen 'v.20')
-(3) NodeJS $(textgreen 'v.18')
-(4) NodeJS $(textgreen 'v.17')
-(5) NodeJS $(textgreen 'v.16')
-(6) NodeJS $(textgreen 'v.14')
-(7) NodeJS $(textgreen 'v.11')
+(1) NodeJS $(textgreen 'v.23')
+(2) NodeJS $(textgreen 'v.22')
+(3) NodeJS $(textgreen 'v.21')
+(4) NodeJS $(textgreen 'v.20')
+(5) NodeJS $(textgreen 'v.18')
+(6) NodeJS $(textgreen 'v.17')
+(7) NodeJS $(textgreen 'v.16')
+(8) NodeJS $(textgreen 'v.14')
+(9) NodeJS $(textgreen 'v.11')
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
-        '1') nodejs "21"; ${FUNCNAME[0]};;
-        '2') nodejs "20"; ${FUNCNAME[0]};;
-        '3') nodejs "18"; ${FUNCNAME[0]};;
-        '4') nodejs "17"; ${FUNCNAME[0]};;
-        '5') nodejs "16"; ${FUNCNAME[0]};;
-        '6') nodejs "14"; ${FUNCNAME[0]};;
-        '7') nodejs "11"; ${FUNCNAME[0]};;
+        '1') nodejs "23"; ${FUNCNAME[0]};;
+        '2') nodejs "22"; ${FUNCNAME[0]};;
+        '3') nodejs "21"; ${FUNCNAME[0]};;
+        '4') nodejs "20"; ${FUNCNAME[0]};;
+        '5') nodejs "18"; ${FUNCNAME[0]};;
+        '6') nodejs "17"; ${FUNCNAME[0]};;
+        '7') nodejs "16"; ${FUNCNAME[0]};;
+        '8') nodejs "14"; ${FUNCNAME[0]};;
+        '9') nodejs "11"; ${FUNCNAME[0]};;
         [Q]) exit;;
         [q]) submenu_developer;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
