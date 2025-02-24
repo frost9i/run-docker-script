@@ -7,18 +7,20 @@ submenu_devops_services () {
 $(textgreen_bg ">> ${HEADING}")
 (1)$(textblue 'JENKINS')
 (2)$(textcyan 'POSTGRES')
-(3)$(textred 'REDIS')
-(4)$(textyellow 'SSH SERVER')
-(5)$(textgreen 'JIRA')
+(3)$(textmagenta 'GITLAB-EE')
+(4)$(textred 'REDIS')
+(5)$(textyellow 'SSH SERVER')
+(6)$(textgreen 'JIRA')
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
         '1') submenu_jenkins;;
         '2') submenu_psql;;
-        '3') redis; ${FUNCNAME[0]};;
-        '4') alpine_sshd; ${FUNCNAME[0]};;
-        '5') submenu_jira;;
+        '3') gitlab_bundle;;
+        '4') redis; ${FUNCNAME[0]};;
+        '5') alpine_sshd; ${FUNCNAME[0]};;
+        '6') submenu_jira;;
         [Q]) exit;;
         [q]) submenu_devops;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;

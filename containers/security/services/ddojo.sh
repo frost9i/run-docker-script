@@ -8,7 +8,9 @@ DOCKER_IMAGE_DJANGO='defectdojo/defectdojo-django' # alpine by default
 DOCKER_IMAGE_NGINX='defectdojo/defectdojo-nginx' # alpine by default
 # DOCKER_IMAGE_DJANGO='ddojo:uwsgi' # local build
 # DOCKER_IMAGE_NGINX='dd:nginx' # local build
-DOCKER_IMAGE_RMQ='rabbitmq:alpine'
+# DOCKER_IMAGE_RMQ='rabbitmq:alpine'
+DOCKER_IMAGE_REDIS='redis:7-alpine'
+
 
 DD_SERVICE_NAME='ddojo'
 DD_PSQL_DATABASE="${DD_SERVICE_NAME}"
@@ -25,16 +27,18 @@ DD_CONTAINER_WORKER="${DD_SERVICE_NAME}-worker"
 
 DD_SECRET_KEY_SET='hhZCp@D28z!n@NED*yB!ROMt+WzsY*iq'
 
-DD_CONTAINER_RABBITMQ='rabbitmq'
-DD_RABBITMQ_USER="${DD_SERVICE_NAME}"
-DD_RABBITMQ_PASS="${DD_SERVICE_NAME}"
+DD_CONTAINER_REDIS='ddojo-redis'
+
+# DD_CONTAINER_RABBITMQ='rabbitmq'
+# DD_RABBITMQ_USER="${DD_SERVICE_NAME}"
+# DD_RABBITMQ_PASS="${DD_SERVICE_NAME}"
 
 DD_LIST=(
     "${DD_CONTAINER_UWSGI}"
     "${DD_CONTAINER_NGINX}"
     "${DD_CONTAINER_BEAT}"
     "${DD_CONTAINER_WORKER}"
-    "${DD_CONTAINER_RABBITMQ}"
+    "${DD_CONTAINER_REDIS}"
 )
 
 dd_init () {
@@ -62,9 +66,9 @@ dd_init () {
         fi
     fi
 
-    if docker_container_create "${DD_CONTAINER_RABBITMQ}" dd_rabbitmq
+    if docker_container_create "${DD_CONTAINER_REDIS}" dd_redis
     then
-        init1 "${DD_CONTAINER_RABBITMQ} SUCCESS."
+        init1 "${DD_CONTAINER_REDIS} SUCCESS."
     fi
 
     if docker_container_create "${DD_CONTAINER_BEAT}" dd_beat
@@ -87,13 +91,26 @@ dd_init () {
 # Enable RabbitMQ web management plugin
 # docker exec -it ${DD_CONTAINER_RABBITMQ} rabbitmq-plugins enable rabbitmq_management
 # -p 5672:5672 -p 15672:15672
-dd_rabbitmq () {
+# dd_rabbitmq () {
+#     docker run -d \
+#     --name ${DD_CONTAINER_RABBITMQ} \
+#     --network ${DOCKER_NETWORK_NAME} \
+#     -e RABBITMQ_DEFAULT_USER=${DD_RABBITMQ_USER} \
+#     -e RABBITMQ_DEFAULT_PASS=${DD_RABBITMQ_PASS} \
+#     ${DOCKER_IMAGE_RMQ}
+# }
+
+# Add this configuration to each container
+# -e DD_CELERY_BROKER_SCHEME='amqp' \
+# -e DD_CELERY_BROKER_PORT='5672' \
+# -e DD_CELERY_BROKER_USER="${DD_RABBITMQ_USER}" \
+# -e DD_CELERY_BROKER_PASSWORD="${DD_RABBITMQ_PASS}" \
+
+dd_redis () {
     docker run -d \
-    --name ${DD_CONTAINER_RABBITMQ} \
+    --name ${DD_CONTAINER_REDIS} \
     --network ${DOCKER_NETWORK_NAME} \
-    -e RABBITMQ_DEFAULT_USER=${DD_RABBITMQ_USER} \
-    -e RABBITMQ_DEFAULT_PASS=${DD_RABBITMQ_PASS} \
-    ${DOCKER_IMAGE_RMQ}
+    ${DOCKER_IMAGE_REDIS}
 }
 
 # -v ${DOCKER_MY_HOME}/ddojo-app:/app \
@@ -103,11 +120,8 @@ dd_uwsgi () {
     --network ${DOCKER_NETWORK_NAME} \
     --entrypoint='//entrypoint-uwsgi.sh' \
     -e DD_ALLOWED_HOSTS='*' \
-    -e DD_CELERY_BROKER_HOST=${DD_CONTAINER_RABBITMQ} \
-    -e DD_CELERY_BROKER_PORT='5672' \
-    -e DD_CELERY_BROKER_SCHEME='amqp' \
-    -e DD_CELERY_BROKER_USER="${DD_RABBITMQ_USER}" \
-    -e DD_CELERY_BROKER_PASSWORD="${DD_RABBITMQ_PASS}" \
+    -e DD_CELERY_BROKER_HOST=${DD_CONTAINER_REDIS} \
+    -e DD_CELERY_BROKER_SCHEME='redis' \
     -e DD_CELERY_BROKER_PATH='//' \
     -e DD_CELERY_BEAT_SCHEDULE_FILENAME='/run/celery-beat-schedule' \
     -e DD_DATABASE_ENGINE='django.db.backends.postgresql' \
@@ -150,11 +164,8 @@ dd_worker () {
     --network ${DOCKER_NETWORK_NAME} \
     --entrypoint='//entrypoint-celery-worker.sh' \
     -e DD_ALLOWED_HOSTS='*' \
-    -e DD_CELERY_BROKER_HOST="${DD_CONTAINER_RABBITMQ}" \
-    -e DD_CELERY_BROKER_PORT='5672' \
-    -e DD_CELERY_BROKER_SCHEME='amqp' \
-    -e DD_CELERY_BROKER_USER="${DD_RABBITMQ_USER}" \
-    -e DD_CELERY_BROKER_PASSWORD="${DD_RABBITMQ_PASS}" \
+    -e DD_CELERY_BROKER_HOST=${DD_CONTAINER_REDIS}\
+    -e DD_CELERY_BROKER_SCHEME='redis' \
     -e DD_CELERY_BROKER_PATH='//' \
     -e DD_CELERY_BEAT_SCHEDULE_FILENAME='/run/celery-beat-schedule' \
     -e DD_DATABASE_ENGINE='django.db.backends.postgresql' \
@@ -175,11 +186,8 @@ dd_beat () {
     --network ${DOCKER_NETWORK_NAME} \
     --entrypoint='//entrypoint-celery-beat.sh' \
     -e DD_ALLOWED_HOSTS='*' \
-    -e DD_CELERY_BROKER_HOST="${DD_CONTAINER_RABBITMQ}" \
-    -e DD_CELERY_BROKER_PORT='5672' \
-    -e DD_CELERY_BROKER_SCHEME='amqp' \
-    -e DD_CELERY_BROKER_USER="${DD_RABBITMQ_USER}" \
-    -e DD_CELERY_BROKER_PASSWORD="${DD_RABBITMQ_PASS}" \
+    -e DD_CELERY_BROKER_HOST=${DD_CONTAINER_REDIS} \
+    -e DD_CELERY_BROKER_SCHEME='redis' \
     -e DD_CELERY_BROKER_PATH='//' \
     -e DD_CELERY_BEAT_SCHEDULE_FILENAME='/run/celery-beat-schedule' \
     -e DD_DATABASE_ENGINE='django.db.backends.postgresql' \
