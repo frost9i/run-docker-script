@@ -54,15 +54,17 @@ submenu_devops () {
     echo -ne """
 $(textbluelight_bg ">> ${HEADING}")
 (1)$(textyellow 'SERVICES')
-(2)$(textblue 'TOOLS')
-(3)$(textred 'SHELLS')
+(2)$(textgreen 'TOOLS')
+(3)$(textblue 'DOCKER')
+(4)$(textred 'SHELLS')
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
         '1') submenu_devops_services;;
         '2') submenu_devops_tools;;
-        '3') submenu_devops_shells;;
+        '3') submenu_devops_docker;;
+        '4') submenu_devops_shells;;
         [Q]) exit;;
         [q]) mainmenu;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;

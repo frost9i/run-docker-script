@@ -45,6 +45,7 @@ source ./containers/security/vulnapps.sh
 source ./containers/devops/jenkins.sh
 source ./containers/devops/postgres.sh
 source ./containers/devops/gitlab.sh
+source ./containers/devops/kaniko.sh
 source ./containers/devops/redis.sh
 source ./containers/devops/jira.sh
 ## Tools

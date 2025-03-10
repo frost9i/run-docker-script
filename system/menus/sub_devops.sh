@@ -44,6 +44,23 @@ $(textgreen_bg ">> ${HEADING}")
     esac
 }
 
+# DEVOPS DOCKER SUB-MENU
+submenu_devops_docker () {
+    HEADING='DEVOPS Docker'
+    echo -ne """
+$(textgreen_bg ">> ${HEADING}")
+(1)$(textyellow 'Kaniko executor')
+(Q)$(textgrey 'ESC')
+"""
+    read -p ">> ${HEADING}: " -rn 1; echo ''
+    case ${REPLY} in
+        '1') kaniko; ${FUNCNAME[0]};;
+        [Q]) exit;;
+        [q]) submenu_devops;;
+        *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
+    esac
+}
+
 # DEVOPS SHELLS SUB-MENU
 submenu_devops_shells () {
     HEADING='DEVOPS Shells'
