@@ -84,18 +84,21 @@ $(textcyan_bg ">> ${HEADING}")
 }
 
 # GOLANG SUB-MENU
+# https://hub.docker.com/_/golang
 go_menu () {
     HEADING='GoLang'
     echo -ne """
 $(textcyan_bg ">> ${HEADING}")
-(1)RUN $(textyellow "Go") $(textgreen '1.23-alpine')
-(1)RUN $(textyellow "Go") $(textgreen '1.22-alpine')
+(1)RUN $(textyellow "Go") $(textgreen '1.24-alpine')
+(2)RUN $(textyellow "Go") $(textgreen '1.23-alpine')
+(3)RUN $(textyellow "Go") $(textgreen '1.22-alpine')
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
-        '1') go "1.23-alpine"; ${FUNCNAME[0]};;
-        '2') go "1.22-alpine"; ${FUNCNAME[0]};;
+        '1') go "1.24-alpine"; ${FUNCNAME[0]};;
+        '2') go "1.23-alpine"; ${FUNCNAME[0]};;
+        '3') go "1.22-alpine"; ${FUNCNAME[0]};;
         [Q]) exit;;
         [q]) submenu_developer;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;

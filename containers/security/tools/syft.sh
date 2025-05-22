@@ -5,6 +5,7 @@ SYFT_CONTAINER_NAME='syft'
 syft () {
     docker run -it \
     --rm \
+    --entrypoint sh \
     --name ${SYFT_CONTAINER_NAME} \
     --network ${DOCKER_NETWORK_NAME} \
     -v "${DOCKER_MY_HOME}/git:/git" \

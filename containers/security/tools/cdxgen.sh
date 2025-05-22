@@ -10,5 +10,6 @@ cdxgen () {
     --rm \
     --name ${CDXGEN_CONTAINER_NAME} \
     --network ${DOCKER_NETWORK_NAME} \
-    node:lts-alpine sh -c 'apk add git bash && npm install -g @cyclonedx/cdxgen && bash'
+    node:22-alpine sh -c 'apk add git bash && npm install -g @cyclonedx/cdxgen@11.0.10 && bash'
+    # node:lts-alpine sh -c 'apk add git bash && npm install -g @cyclonedx/cdxgen && bash'
 }
