@@ -48,7 +48,7 @@ openjdk () {
     --name ${OPENJDK_CONTAINER_NAME}-${1} \
     --network ${DOCKER_NETWORK_NAME} \
     -v "${DOCKER_MY_HOME}/git:/git" \
-    openjdk:${1}-jdk-slim \
+    openjdk:${1}-slim \
     bash
 }
 

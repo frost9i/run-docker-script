@@ -65,18 +65,20 @@ openjdk_menu () {
     HEADING='OpenJDK'
     echo -ne """
 $(textcyan_bg ">> ${HEADING}")
-(1)RUN $(textyellow "OpenJDK") $(textgreen '21')
-(2)RUN $(textyellow "OpenJDK") $(textgreen '20')
-(3)RUN $(textyellow "OpenJDK") $(textgreen '17')
-(4)RUN $(textyellow "OpenJDK") $(textgreen '11')
+(1)RUN $(textyellow "OpenJDK") $(textgreen '22')
+(2)RUN $(textyellow "OpenJDK") $(textgreen '21')
+(3)RUN $(textyellow "OpenJDK") $(textgreen '20')
+(4)RUN $(textyellow "OpenJDK") $(textgreen '17')
+(5)RUN $(textyellow "OpenJDK") $(textgreen '11')
 (Q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
-        '1') openjdk "21"; ${FUNCNAME[0]};;
-        '2') openjdk "20"; ${FUNCNAME[0]};;
-        '3') openjdk "17"; ${FUNCNAME[0]};;
-        '4') openjdk "11"; ${FUNCNAME[0]};;
+        '1') openjdk "22"; ${FUNCNAME[0]};;
+        '2') openjdk "21"; ${FUNCNAME[0]};;
+        '3') openjdk "20"; ${FUNCNAME[0]};;
+        '4') openjdk "17"; ${FUNCNAME[0]};;
+        '5') openjdk "11"; ${FUNCNAME[0]};;
         [Q]) exit;;
         [q]) submenu_developer;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
