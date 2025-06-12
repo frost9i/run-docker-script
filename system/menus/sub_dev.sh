@@ -106,3 +106,22 @@ $(textcyan_bg ">> ${HEADING}")
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
     esac
 }
+
+
+# RUBY SUB-MENU
+# https://hub.docker.com/_/ruby
+ruby_menu () {
+    HEADING='Ruby'
+    echo -ne """
+$(textcyan_bg ">> ${HEADING}")
+(1)RUN $(textred "Ruby") $(textyellow '3.3.8-alpine')
+(Q)$(textgrey 'ESC')
+"""
+    read -p ">> ${HEADING}: " -rn 1; echo ''
+    case ${REPLY} in
+        '1') ruby "3.3.8-alpine"; ${FUNCNAME[0]};;
+        [Q]) exit;;
+        [q]) submenu_developer;;
+        *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
+    esac
+}

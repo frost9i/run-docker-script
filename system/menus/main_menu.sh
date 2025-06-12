@@ -10,6 +10,7 @@ $(textblue_bg "> ${HEADING}")
 (2)$(textyellow 'DEVOPS')
 (3)$(textcyan 'DEVTOOLS')
 (F)$(textred 'FULLSTOP')
+
 (Q)$(textgrey 'QUIT')
 """
     read -p $"> ${HEADING}: " -rn 1; echo ''
@@ -33,7 +34,8 @@ $(textgreen_bg ">> ${HEADING}")
 (1)$(textcyan 'SERVICES >')
 (2)$(textgreen 'TOOLS >')
 (3)$(textred 'VULNERABLE APPS >')
-(Q)$(textgrey 'ESC')
+
+(q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
@@ -57,7 +59,8 @@ $(textbluelight_bg ">> ${HEADING}")
 (2)$(textgreen 'TOOLS')
 (3)$(textblue 'DOCKER')
 (4)$(textred 'SHELLS')
-(Q)$(textgrey 'ESC')
+
+(q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
@@ -82,9 +85,10 @@ $(textcyan_bg ">> ${HEADING}")
 (2)RUN $(textgreen 'NodeJS')
 (3)RUN $(textyellow 'Java')
 (4)RUN $(textcyan 'Go')
-(5)RUN $(textmagenta 'MAVEN')
+(5)RUN $(textred 'Ruby')
+(6)RUN $(textmagenta 'Maven')
 
-(Q)$(textgrey 'ESC')
+(q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
@@ -92,7 +96,8 @@ $(textcyan_bg ">> ${HEADING}")
         '2') nodejs_menu;;
         '3') openjdk_menu;;
         '4') go_menu;;
-        '5') maven; ${FUNCNAME[0]};;
+        '5') ruby_menu; ${FUNCNAME[0]};;
+        '6') maven; ${FUNCNAME[0]};;
         [Q]) exit;;
         [q]) mainmenu;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;

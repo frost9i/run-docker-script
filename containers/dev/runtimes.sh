@@ -65,3 +65,17 @@ go () {
     ${GO_TAG}:${1} \
     sh
 }
+
+# GOLANG
+# https://hub.docker.com/_/golang
+
+RUBY_TAG='ruby'
+ruby () {
+    docker run -it \
+    --rm \
+    --name ${RUBY_TAG}-${1} \
+    --network ${DOCKER_NETWORK_NAME} \
+    -v "${DOCKER_MY_HOME}/git:/git" \
+    ${RUBY_TAG}:${1} \
+    sh
+}

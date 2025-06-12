@@ -33,6 +33,7 @@ docker_mount_check () {
     if [ -z $DOCKER_MY_HOME/git ]
     then
         check1 "$DOCKER_MY_HOME/git does not exist."
+        mkdir "$DOCKER_MY_HOME/git"
     else
         check1 "DOCKER_MY_HOME/git directory exists for mounting"
     fi

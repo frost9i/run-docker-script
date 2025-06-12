@@ -11,7 +11,8 @@ $(textgreen_bg ">> ${HEADING}")
 (4)$(textred 'REDIS')
 (5)$(textyellow 'SSH SERVER')
 (6)$(textgreen 'JIRA')
-(Q)$(textgrey 'ESC')
+
+(q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
@@ -33,7 +34,9 @@ submenu_devops_tools () {
     echo -ne """
 $(textgreen_bg ">> ${HEADING}")
 (1)$(textblue 'Postgres client')
-(Q)$(textgrey 'ESC')
+(2)$(textblue 'MySQL client (WIP)')
+
+(q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
@@ -50,7 +53,8 @@ submenu_devops_docker () {
     echo -ne """
 $(textgreen_bg ">> ${HEADING}")
 (1)$(textyellow 'Kaniko executor')
-(Q)$(textgrey 'ESC')
+
+(q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
@@ -68,7 +72,8 @@ submenu_devops_shells () {
 $(textgreen_bg ">> ${HEADING}")
 (1)$(textblue 'Debian')
 (2)$(textcyan 'Alpine')
-(Q)$(textgrey 'ESC')
+
+(q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
