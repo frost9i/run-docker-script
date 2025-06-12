@@ -11,7 +11,8 @@ $(textgreen_bg ">> ${HEADING}")
 (4)$(textgreen 'Mozilla-Observatory')
 (5)$(textmagenta 'CSP-Processor')
 (6)$(textgreen 'Trivy')
-(Q)$(textgrey 'ESC')
+
+(q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
@@ -109,7 +110,8 @@ $(textcyan_bg ">> ${HEADING}")
 (1)$(textgreen "RUN")
 (2)$(textred "STOP")
 (L)$(textyellow "LOGS")
-(Q)$(textgrey 'ESC')
+
+(q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
@@ -132,7 +134,8 @@ $(textgreen_bg ">> ${HEADING}")
 (1)$(textgreen "TRIVY") SHELL
 (2)$(textyellow "TRIVY") SERVER
 (3)$(textred "TRIVY") DB
-(Q)$(textgrey 'ESC')
+
+(q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
@@ -158,7 +161,8 @@ $(textred_bg ">> ${HEADING}")
 (3)RUN $(textyellow 'SCA')
 (4)RUN $(textmagenta 'DAST')
 (5)RUN $(textbluelight 'FUZZ')
-(Q)$(textgrey 'ESC')
+
+(q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
@@ -178,7 +182,8 @@ submenu_security_tools_sast () {
     echo -ne """
 $(textred_bg ">> ${HEADING}")
 (1)RUN $(textgreen 'Semgrep')
-(Q)$(textgrey 'ESC')
+
+(q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
@@ -198,7 +203,8 @@ $(textred_bg ">> ${HEADING}")
 (3)RUN $(textred 'Syft')
 (4)RUN $(textyellow 'Trivy')
 (5)RUN $(textblue 'Dependency Check')
-(Q)$(textgrey 'ESC')
+
+(q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
@@ -218,7 +224,8 @@ submenu_security_tools_dast () {
     echo -ne """
 $(textred_bg ">> ${HEADING}")
 (1)RUN $(textblue 'ZAP Scan')
-(Q)$(textgrey 'ESC')
+
+(q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
@@ -236,7 +243,8 @@ $(textred_bg ">> ${HEADING}")
 (1)RUN $(textblue 'Detect-secrets')
 (2)RUN $(textgreen 'Gitleaks')
 (3)RUN $(textyellow 'Trufflehog')
-(Q)$(textgrey 'ESC')
+
+(q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
@@ -254,7 +262,8 @@ submenu_security_tools_fuzz () {
     echo -ne """
 $(textred_bg ">> ${HEADING}")
 (1)RUN $(textblue 'Cats')
-(Q)$(textgrey 'ESC')
+
+(q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
@@ -274,7 +283,8 @@ $(textred_bg ">> ${HEADING}")
 (2)RUN $(textcyan 'DVWA')
 (3)RUN $(textmagenta 'VAMPI')
 (S)$(textred 'STOP ALL')
-(Q)$(textgrey 'ESC')
+
+(q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in

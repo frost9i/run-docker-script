@@ -14,7 +14,8 @@ $(textcyan_bg ">> ${HEADING}")
 (7) NodeJS $(textgreen 'v.16')
 (8) NodeJS $(textgreen 'v.14')
 (9) NodeJS $(textgreen 'v.11')
-(Q)$(textgrey 'ESC')
+
+(q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
@@ -44,7 +45,8 @@ $(textcyan_bg ">> ${HEADING}")
 (4)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.10-slim')
 (5)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.9-slim')
 (6)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.7-slim')
-(Q)$(textgrey 'ESC')
+
+(q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
@@ -70,7 +72,8 @@ $(textcyan_bg ">> ${HEADING}")
 (3)RUN $(textyellow "OpenJDK") $(textgreen '20')
 (4)RUN $(textyellow "OpenJDK") $(textgreen '17')
 (5)RUN $(textyellow "OpenJDK") $(textgreen '11')
-(Q)$(textgrey 'ESC')
+
+(q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
@@ -94,7 +97,8 @@ $(textcyan_bg ">> ${HEADING}")
 (1)RUN $(textyellow "Go") $(textgreen '1.24-alpine')
 (2)RUN $(textyellow "Go") $(textgreen '1.23-alpine')
 (3)RUN $(textyellow "Go") $(textgreen '1.22-alpine')
-(Q)$(textgrey 'ESC')
+
+(q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
@@ -115,7 +119,8 @@ ruby_menu () {
     echo -ne """
 $(textcyan_bg ">> ${HEADING}")
 (1)RUN $(textred "Ruby") $(textyellow '3.3.8-alpine')
-(Q)$(textgrey 'ESC')
+
+(q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
