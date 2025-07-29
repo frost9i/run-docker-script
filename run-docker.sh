@@ -15,7 +15,6 @@ source ./system/menus/sub_security.sh
 source ./system/menus/sub_devops.sh
 source ./system/menus/sub_dev.sh
 
-
 # SECURITY
 ## Services
 source ./containers/security/services/ddojo.sh
@@ -40,7 +39,6 @@ source ./containers/security/tools/zap.sh
 source ./containers/security/vulnapps.sh
 
 # DEVOPS
-
 ## Services
 source ./containers/devops/jenkins.sh
 source ./containers/devops/postgres.sh
@@ -48,6 +46,7 @@ source ./containers/devops/gitlab.sh
 source ./containers/devops/kaniko.sh
 source ./containers/devops/redis.sh
 source ./containers/devops/jira.sh
+source ./containers/devops/sqlpad.sh
 ## Tools
 source ./containers/devops/postgres_client.sh
 ## Shells

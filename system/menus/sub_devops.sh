@@ -11,6 +11,7 @@ $(textgreen_bg ">> ${HEADING}")
 (4)$(textred 'REDIS')
 (5)$(textyellow 'SSH SERVER')
 (6)$(textgreen 'JIRA')
+(7)$(textblue 'SQLPad')
 
 (q)$(textgrey 'ESC')
 """
@@ -22,6 +23,7 @@ $(textgreen_bg ">> ${HEADING}")
         '4') redis; ${FUNCNAME[0]};;
         '5') alpine_sshd; ${FUNCNAME[0]};;
         '6') submenu_jira;;
+        '7') sqlpad; ${FUNCNAME[0]};;
         [Q]) exit;;
         [q]) submenu_devops;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
