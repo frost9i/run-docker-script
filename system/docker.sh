@@ -10,13 +10,13 @@ docker_check () {
         textbluelight '[!] Start Docker manually and restart this script.'
         exit 1
     fi
-    check1 'System check PASSED.'
+    check1 'SYSTEM ✅'
 }
 
 docker_home_check () {
     if [ -z $DOCKER_MY_HOME ]
     then
-        textred '[WARNING] $DOCKER_MY_HOME is not set.'
+        textred '[WARNING] DOCKER_MY_HOME is not set.'
         textred '[WARNING] This will break the script.'
         textred '[WARNING] Please define variable and restart script'
         if script_ask 'Exit?'
@@ -25,7 +25,7 @@ docker_home_check () {
             exit
         fi
     else
-        check1 "DOCKER_MY_HOME=${DOCKER_MY_HOME}"
+        check1 "DOCKER_MY_HOME ✅"
     fi
 }
 
@@ -35,7 +35,7 @@ docker_mount_check () {
         check1 "$DOCKER_MY_HOME/git does not exist."
         mkdir "$DOCKER_MY_HOME/git"
     else
-        check1 "DOCKER_MY_HOME/git directory exists for mounting"
+        check1 "DOCKER_MY_HOME/git to be mounted"
     fi
 }
 
@@ -44,7 +44,7 @@ docker_network () {
     then
         docker network create ${DOCKER_NETWORK_NAME} > /dev/null
     fi
-    info1 "DOCKER_NETWORK_NAME=${DOCKER_NETWORK_NAME}"
+    check1 "DOCKER_NETWORK_NAME=${DOCKER_NETWORK_NAME}"
 }
 
 docker_ask_port () {

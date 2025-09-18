@@ -199,20 +199,22 @@ submenu_security_tools_sca () {
     echo -ne """
 $(textred_bg ">> ${HEADING}")
 (1)RUN $(textgreen 'CDXgen')
-(2)RUN $(textblue 'Clair')
-(3)RUN $(textred 'Syft')
-(4)RUN $(textyellow 'Trivy')
-(5)RUN $(textblue 'Dependency Check')
+(2)RUN $(textcyan 'DepScan')
+(3)RUN $(textblue 'Clair')
+(4)RUN $(textred 'Syft')
+(5)RUN $(textyellow 'Trivy')
+(6)RUN $(textblue 'Dependency Check')
 
 (q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
         '1') cdxgen; ${FUNCNAME[0]};;
-        '2') clair; ${FUNCNAME[0]};;
-        '3') syft; ${FUNCNAME[0]};;
-        '4') trivy; ${FUNCNAME[0]};;
-        '5') dcheck; ${FUNCNAME[0]};;
+        '2') depscan; ${FUNCNAME[0]};;
+        '3') clair; ${FUNCNAME[0]};;
+        '4') syft; ${FUNCNAME[0]};;
+        '5') trivy; ${FUNCNAME[0]};;
+        '6') dcheck; ${FUNCNAME[0]};;
         [Q]) exit;;
         [q]) submenu_security_tools;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;

@@ -28,6 +28,7 @@ source ./containers/security/services/trivy.sh
 source ./containers/security/tools/cats.sh
 source ./containers/security/tools/cdxgen.sh
 source ./containers/security/tools/clair.sh
+source ./containers/security/tools/depscan.sh
 source ./containers/security/tools/dcheck.sh
 source ./containers/security/tools/detect-secrets.sh
 source ./containers/security/tools/gitleaks.sh

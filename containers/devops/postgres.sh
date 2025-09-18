@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PSQL_IMAGE='postgres:16-alpine'
+PSQL_IMAGE='postgres:17-alpine'
 
 PSQL_CONTAINER_NAME='postgres'
 PSQL_CONTAINER_PORT='5432'
@@ -85,7 +85,7 @@ psql_create () {
 }
 
 psql_cli_check () {
-    if ! command -v psql
+    if ! command -v psql >> /dev/null
     then
         fail1 '[FAIL] psql CLI not found.'
         return
