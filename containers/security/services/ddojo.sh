@@ -119,6 +119,7 @@ dd_uwsgi () {
     --name ${DD_CONTAINER_UWSGI} \
     --network ${DOCKER_NETWORK_NAME} \
     --entrypoint='//entrypoint-uwsgi.sh' \
+    -e DD_DEBUG='True' \
     -e DD_ALLOWED_HOSTS='*' \
     -e DD_CELERY_BROKER_HOST=${DD_CONTAINER_REDIS} \
     -e DD_CELERY_BROKER_SCHEME='redis' \
@@ -164,6 +165,8 @@ dd_worker () {
     --name ${DD_CONTAINER_WORKER} \
     --network ${DOCKER_NETWORK_NAME} \
     --entrypoint='//entrypoint-celery-worker.sh' \
+    -e DD_DEBUG='True' \
+    -e C_FORCE_ROOT='True' \
     -e DD_ALLOWED_HOSTS='*' \
     -e DD_CELERY_BROKER_HOST=${DD_CONTAINER_REDIS}\
     -e DD_CELERY_BROKER_SCHEME='redis' \
@@ -187,6 +190,7 @@ dd_beat () {
     --name ${DD_CONTAINER_BEAT} \
     --network ${DOCKER_NETWORK_NAME} \
     --entrypoint='//entrypoint-celery-beat.sh' \
+    -e DD_DEBUG='True' \
     -e DD_ALLOWED_HOSTS='*' \
     -e DD_CELERY_BROKER_HOST=${DD_CONTAINER_REDIS} \
     -e DD_CELERY_BROKER_SCHEME='redis' \
