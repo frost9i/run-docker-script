@@ -19,6 +19,8 @@ juice_shop () {
     --network ${DOCKER_NETWORK_NAME} \
     -p ${CONTAINER_EXPOSED_PORT}:3000 \
     bkimminich/juice-shop
+
+    textgreen "http://localhost:${CONTAINER_EXPOSED_PORT}"
 }
 
 dvwa () {

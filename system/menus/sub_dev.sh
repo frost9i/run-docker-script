@@ -39,23 +39,21 @@ python_menu () {
     HEADING='PYTHON'
     echo -ne """
 $(textcyan_bg ">> ${HEADING}")
-(1)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.13-slim')
-(2)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.12-slim')
-(3)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.11-slim')
-(4)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.10-slim')
-(5)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.9-slim')
-(6)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.7-slim')
+(1)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.14-slim')
+(2)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.13-slim')
+(3)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.12-slim')
+(4)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.9-slim')
+(5)RUN $(textblue "Py")$(textyellow "thon") $(textgreen '3.7-slim')
 
 (q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
-        '1') python "3.13-slim"; ${FUNCNAME[0]};;
-        '2') python "3.12-slim"; ${FUNCNAME[0]};;
-        '3') python "3.11-slim"; ${FUNCNAME[0]};;
-        '4') python "3.10-slim"; ${FUNCNAME[0]};;
-        '5') python "3.9-slim"; ${FUNCNAME[0]};;
-        '6') python "3.7-slim"; ${FUNCNAME[0]};;
+        '1') python "3.14-slim"; ${FUNCNAME[0]};;
+        '2') python "3.13-slim"; ${FUNCNAME[0]};;
+        '3') python "3.12-slim"; ${FUNCNAME[0]};;
+        '4') python "3.9-slim"; ${FUNCNAME[0]};;
+        '5') python "3.7-slim"; ${FUNCNAME[0]};;
         [Q]) exit;;
         [q]) submenu_developer;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
@@ -64,24 +62,22 @@ $(textcyan_bg ">> ${HEADING}")
 
 # PYTHON SUB-MENU
 openjdk_menu () {
-    HEADING='OpenJDK'
+    HEADING='Java'
     echo -ne """
 $(textcyan_bg ">> ${HEADING}")
-(1)RUN $(textyellow "OpenJDK") $(textgreen '22')
-(2)RUN $(textyellow "OpenJDK") $(textgreen '21')
-(3)RUN $(textyellow "OpenJDK") $(textgreen '20')
-(4)RUN $(textyellow "OpenJDK") $(textgreen '17')
-(5)RUN $(textyellow "OpenJDK") $(textgreen '11')
+(1)RUN $(textyellow "Java") $(textgreen '22')
+(2)RUN $(textyellow "Java") $(textgreen '21')
+(3)RUN $(textyellow "Java") $(textgreen '17')
+(4)RUN $(textyellow "Java") $(textgreen '11')
 
 (q)$(textgrey 'ESC')
 """
     read -p ">> ${HEADING}: " -rn 1; echo ''
     case ${REPLY} in
-        '1') openjdk "22"; ${FUNCNAME[0]};;
-        '2') openjdk "21"; ${FUNCNAME[0]};;
-        '3') openjdk "20"; ${FUNCNAME[0]};;
-        '4') openjdk "17"; ${FUNCNAME[0]};;
-        '5') openjdk "11"; ${FUNCNAME[0]};;
+        '1') java "22"; ${FUNCNAME[0]};;
+        '2') java "21"; ${FUNCNAME[0]};;
+        '3') java "17"; ${FUNCNAME[0]};;
+        '4') java "11"; ${FUNCNAME[0]};;
         [Q]) exit;;
         [q]) submenu_developer;;
         *) textred "invalid option $REPLY"; ${FUNCNAME[0]};;
