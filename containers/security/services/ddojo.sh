@@ -10,7 +10,7 @@ DOCKER_IMAGE_NGINX='defectdojo/defectdojo-nginx' # alpine by default
 # DOCKER_IMAGE_NGINX='ddojo-nginx:local' # local build
 # DOCKER_IMAGE_RMQ='rabbitmq:alpine'
 DOCKER_IMAGE_REDIS='redis:7-alpine'
-
+DOCKER_IMAGE_VALKEY='valkey/valkey:7-alpine'
 
 DD_SERVICE_NAME='ddojo'
 DD_PSQL_DATABASE="${DD_SERVICE_NAME}"
@@ -28,6 +28,7 @@ DD_CONTAINER_WORKER="${DD_SERVICE_NAME}-worker"
 DD_SECRET_KEY_SET='hhZCp@D28z!n@NED*yB!ROMt+WzsY*iq'
 
 DD_CONTAINER_REDIS='ddojo-redis'
+DD_CONTAINER_VALKEY='ddojo-valkey'
 
 # DD_CONTAINER_RABBITMQ='rabbitmq'
 # DD_RABBITMQ_USER="${DD_SERVICE_NAME}"
@@ -55,7 +56,7 @@ dd_init () {
     #     DOCKER_MOUNT_DIR=''
     # fi
 
-    docker_ask_port "${DD_CONTAINER_NGINX}" "${DD_NGINX_PORT}"
+    # docker_ask_port "${DD_CONTAINER_NGINX}" "${DD_NGINX_PORT}"
 
     if docker_container_create "${DD_CONTAINER_UWSGI}" dd_uwsgi
     then
@@ -66,9 +67,14 @@ dd_init () {
         fi
     fi
 
-    if docker_container_create "${DD_CONTAINER_REDIS}" dd_redis
+    # if docker_container_create "${DD_CONTAINER_REDIS}" dd_redis
+    # then
+    #     init1 "${DD_CONTAINER_REDIS} SUCCESS."
+    # fi
+
+    if docker_container_create "${DD_CONTAINER_VALKEY}" dd_valkey
     then
-        init1 "${DD_CONTAINER_REDIS} SUCCESS."
+        init1 "${DD_CONTAINER_VALKEY} SUCCESS."
     fi
 
     if docker_container_create "${DD_CONTAINER_BEAT}" dd_beat
@@ -85,6 +91,7 @@ dd_init () {
     then
         init1 "${DD_CONTAINER_NGINX} SUCCESS."
         echo_port
+        info1 "$(textmagenta http://localhost:${DD_NGINX_PORT})"
     fi
 }
 
@@ -111,6 +118,14 @@ dd_redis () {
     --name ${DD_CONTAINER_REDIS} \
     --network ${DOCKER_NETWORK_NAME} \
     ${DOCKER_IMAGE_REDIS}
+}
+
+# DD_CONTAINER_REDIS for compatibility and fast-switch
+dd_valkey () {
+    docker run -d \
+    --name ${DD_CONTAINER_REDIS} \
+    --network ${DOCKER_NETWORK_NAME} \
+    ${DOCKER_IMAGE_VALKEY}
 }
 
 # -v ${DOCKER_MY_HOME}/ddojo-app:/app \
@@ -151,7 +166,7 @@ dd_uwsgi () {
 
 dd_nginx () {
     docker run -d \
-    -p ${CONTAINER_EXPOSED_PORT}:8080 \
+    -p ${DD_NGINX_PORT}:8080 \
     --name ${DD_CONTAINER_NGINX} \
     --network ${DOCKER_NETWORK_NAME} \
     -e DD_UWSGI_HOST="${DD_CONTAINER_UWSGI}" \

@@ -46,6 +46,7 @@ source ./containers/devops/postgres.sh
 source ./containers/devops/gitlab.sh
 source ./containers/devops/kaniko.sh
 source ./containers/devops/redis.sh
+source ./containers/devops/valkey.sh
 source ./containers/devops/jira.sh
 source ./containers/devops/sqlpad.sh
 ## Tools
